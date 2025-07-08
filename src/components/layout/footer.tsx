@@ -47,7 +47,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
-              O portal oficial de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
+              O portal oficial do canal FLA10, de  notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
             </p>
             <div className="flex gap-4">
               <a href="#" className="font-bold text-sm text-muted-foreground hover:text-primary-foreground">FB</a>
