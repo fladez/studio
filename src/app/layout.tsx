@@ -15,7 +15,7 @@ function SocialBar() {
   return (
     <div className="bg-primary text-primary-foreground">
       <div className="container mx-auto flex h-10 items-center justify-between">
-        <p className="font-sans text-sm font-medium">Siga o FLA10 News</p>
+        <p className="font-sans text-sm font-bold">Siga o FLA10</p>
         <div className="flex items-center gap-4">
           <Link href="#" aria-label="Facebook" className="transition-opacity hover:opacity-80">
             <Facebook className="h-5 w-5" />
