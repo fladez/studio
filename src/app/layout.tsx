@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import { NextGameBanner } from '@/components/next-game-banner';
+import { TiktokIcon } from '@/components/tiktok-icon';
 
 export const metadata: Metadata = {
   title: 'FLA10 News',
@@ -29,6 +30,9 @@ function SocialBar() {
           </Link>
           <Link href="#" aria-label="Youtube" className="transition-opacity hover:opacity-80">
             <Youtube className="h-5 w-5" />
+          </Link>
+          <Link href="#" aria-label="Tiktok" className="transition-opacity hover:opacity-80">
+            <TiktokIcon className="h-5 w-5" />
           </Link>
         </div>
       </div>

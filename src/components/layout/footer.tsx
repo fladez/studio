@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
+import { TiktokIcon } from "../tiktok-icon"
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link href={href} className="text-sm text-muted-foreground hover:text-primary-foreground transition-colors">
@@ -62,6 +63,9 @@ export function Footer() {
               </Link>
               <Link href="#" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground">
                 <Youtube className="h-5 w-5" />
+              </Link>
+              <Link href="#" aria-label="Tiktok" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+                <TiktokIcon className="h-5 w-5" />
               </Link>
             </div>
           </div>
