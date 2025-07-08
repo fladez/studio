@@ -8,7 +8,7 @@ export function LeagueTable() {
       <div
         id="wg-api-football-standings"
         data-host="v3.football.api-sports.io"
-        data-key=""
+        data-key="783e0bb49a8acefbd0c17a90fedf76b2"
         data-league="71"
         data-team="127"
         data-season="2025"
