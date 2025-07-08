@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, User, Video, Newspaper, Users, TrendingUp, Clock } from 'lucide-react'
+import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
 const now = new Date();
@@ -141,51 +141,55 @@ export default function Home() {
       </section>
 
       <div className="container mx-auto px-4 space-y-16">
-        <section className="mt-12">
-          <div className="bg-card shadow-lg rounded-t-lg p-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
-                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <TrendingUp className="h-6 w-6" />
-                      </div>
-                      <div>
-                          <p className="text-2xl font-bold">{newsTodayCount}</p>
-                          <p className="text-sm text-muted-foreground">Notícias hoje</p>
-                      </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <Users className="h-6 w-6" />
-                      </div>
-                      <div>
-                          <p className="text-2xl font-bold">{activeReaders}</p>
-                          <p className="text-sm text-muted-foreground">Leitores ativos</p>
-                      </div>
-                  </div>
-                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <Clock className="h-6 w-6" />
-                      </div>
-                      <div>
-                          <p className="text-2xl font-bold">{lastUpdateText}</p>
-                          <p className="text-sm text-muted-foreground">Última atualização</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg">
-              <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-4 overflow-hidden">
-                      <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
-                      <p className="font-semibold text-sm md:text-base truncate hidden sm:block">Flamengo oficializa contratação de novo técnico para 2024</p>
-                  </div>
-                  <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
-                      <Link href="#">Leia mais</Link>
-                  </Button>
-              </div>
-              <p className="font-semibold text-sm text-center mt-3 sm:hidden">Flamengo oficializa contratação de novo técnico para 2024</p>
-          </div>
-        </section>
+        <div className="mt-12 space-y-4">
+          <section>
+            <div className="bg-card shadow-lg rounded-lg p-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
+                    <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                        <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                            <TrendingUp className="h-6 w-6" />
+                        </div>
+                        <div>
+                            <p className="text-2xl font-bold">{newsTodayCount}</p>
+                            <p className="text-sm text-muted-foreground">Notícias hoje</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                        <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                            <Users className="h-6 w-6" />
+                        </div>
+                        <div>
+                            <p className="text-2xl font-bold">{activeReaders}</p>
+                            <p className="text-sm text-muted-foreground">Leitores ativos</p>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                        <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                            <Clock className="h-6 w-6" />
+                        </div>
+                        <div>
+                            <p className="text-2xl font-bold">{lastUpdateText}</p>
+                            <p className="text-sm text-muted-foreground">Última atualização</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </section>
+          <section>
+            <div className="bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 overflow-hidden">
+                        <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
+                        <p className="font-semibold text-sm md:text-base truncate hidden sm:block">Flamengo oficializa contratação de novo técnico para 2024</p>
+                    </div>
+                    <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
+                        <Link href="#">Leia mais</Link>
+                    </Button>
+                </div>
+                <p className="font-semibold text-sm text-center mt-3 sm:hidden">Flamengo oficializa contratação de novo técnico para 2024</p>
+            </div>
+          </section>
+        </div>
       
         <section>
           <SectionHeader title="Notícias Diárias" href="/noticias" icon={Newspaper} />
@@ -216,7 +220,7 @@ export default function Home() {
               <Card key={column.slug} className="flex flex-col">
                 <CardHeader>
                   <div className="flex items-center gap-4">
-                    <User className="h-10 w-10 text-muted-foreground" />
+                    <Users className="h-10 w-10 text-muted-foreground" />
                     <div>
                       <CardTitle className="text-xl font-bold font-body">{column.title}</CardTitle>
                       <p className="text-sm text-muted-foreground">Por {column.author}</p>
