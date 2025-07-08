@@ -19,7 +19,7 @@ const allNews = [
 export default function NoticiasPage() {
     return (
         <div className="container mx-auto py-12">
-            <div className="mb-8">
+            <div className="mb-8 border-b-4 border-primary pb-4">
                 <h1 className="text-4xl font-headline font-bold">Todas as Notícias</h1>
                 <p className="text-lg text-muted-foreground mt-2">Fique por dentro de tudo que acontece no Mengão.</p>
             </div>

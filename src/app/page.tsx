@@ -67,19 +67,21 @@ const videos = [
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
-    <div className="flex items-center justify-between mb-6">
-      <div className="flex items-center gap-3">
-        <Icon className="h-8 w-8 text-primary flex-shrink-0" />
-        <div>
-          <h2 className="text-3xl font-headline font-bold">{title}</h2>
-          {subtitle && <p className="text-lg text-muted-foreground mt-1">{subtitle}</p>}
+    <div className="mb-8 border-b-4 border-primary pb-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Icon className="h-8 w-8 text-primary flex-shrink-0" />
+          <div>
+            <h2 className="text-3xl font-headline font-bold">{title}</h2>
+            {subtitle && <p className="text-lg text-muted-foreground mt-1">{subtitle}</p>}
+          </div>
         </div>
+        {href && (
+          <Button variant="ghost" asChild>
+            <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </Button>
+        )}
       </div>
-      {href && (
-        <Button variant="ghost" asChild>
-          <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
-        </Button>
-      )}
     </div>
   )
 }

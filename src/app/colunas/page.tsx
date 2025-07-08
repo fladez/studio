@@ -15,7 +15,7 @@ const opinionColumns = [
 export default function ColunasPage() {
     return (
         <div className="container mx-auto py-12">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 border-b-4 border-primary pb-4">
                 <div>
                     <h1 className="text-4xl font-headline font-bold">Colunas da Nação</h1>
                     <p className="text-lg text-muted-foreground mt-2">O espaço para a opinião de craques e torcedores.</p>
