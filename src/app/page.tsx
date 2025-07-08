@@ -12,35 +12,40 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, User, Video, Newspaper, Users, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 
+const now = new Date();
+
 const mainHeadlines = [
   {
     title: "Flamengo vence de virada e assume a liderança do campeonato",
     image: "https://placehold.co/1200x600.png",
     dataAiHint: "soccer match",
     category: "Futebol Profissional",
-    slug: "flamengo-vence-lideranca"
+    slug: "flamengo-vence-lideranca",
+    publishedAt: new Date(now.getTime() - 2 * 60 * 1000) // 2 minutes ago
   },
   {
     title: "Novo reforço é apresentado no Ninho do Urubu",
     image: "https://placehold.co/1200x600.png",
     dataAiHint: "player presentation",
     category: "Mercado da Bola",
-    slug: "novo-reforco-apresentado"
+    slug: "novo-reforco-apresentado",
+    publishedAt: new Date(now.getTime() - 5 * 60 * 60 * 1000) // 5 hours ago
   },
   {
     title: "Basquete: Mengão conquista o título da NBB",
     image: "https://placehold.co/1200x600.png",
     dataAiHint: "basketball game",
     category: "Esportes Olímpicos",
-    slug: "basquete-campeao-nbb"
+    slug: "basquete-campeao-nbb",
+    publishedAt: new Date(now.getTime() - 26 * 60 * 60 * 1000) // 26 hours ago (yesterday)
   },
 ];
 
 const dailyNews = [
-    { title: "Diretoria negocia renovação com craque do time", category: "Mercado da Bola", image: "https://placehold.co/600x400.png", dataAiHint: "contract signing", slug: "diretoria-negocia-renovacao" },
-    { title: "Confira a agenda de jogos do Flamengo para o próximo mês", category: "Calendário", image: "https://placehold.co/600x400.png", dataAiHint: "stadium overview", slug: "agenda-jogos-proximo-mes" },
-    { title: "Nação Rubro-Negra esgota ingressos para a final", category: "Torcida", image: "https://placehold.co/600x400.png", dataAiHint: "soccer fans", slug: "nacao-esgota-ingressos" },
-    { title: "Sub-20 do Flamengo avança para a final do Brasileirão", category: "Base", image: "https://placehold.co/600x400.png", dataAiHint: "youth soccer", slug: "sub20-avanca-final" },
+    { title: "Diretoria negocia renovação com craque do time", category: "Mercado da Bola", image: "https://placehold.co/600x400.png", dataAiHint: "contract signing", slug: "diretoria-negocia-renovacao", publishedAt: new Date(now.getTime() - 10 * 60 * 60 * 1000) },
+    { title: "Confira a agenda de jogos do Flamengo para o próximo mês", category: "Calendário", image: "https://placehold.co/600x400.png", dataAiHint: "stadium overview", slug: "agenda-jogos-proximo-mes", publishedAt: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
+    { title: "Nação Rubro-Negra esgota ingressos para a final", category: "Torcida", image: "https://placehold.co/600x400.png", dataAiHint: "soccer fans", slug: "nacao-esgota-ingressos", publishedAt: new Date(now.getTime() - 3 * 60 * 60 * 1000) },
+    { title: "Sub-20 do Flamengo avança para a final do Brasileirão", category: "Base", image: "https://placehold.co/600x400.png", dataAiHint: "youth soccer", slug: "sub20-avanca-final", publishedAt: new Date(now.getTime() - 8 * 60 * 60 * 1000) },
 ];
 
 const opinionColumns = [
@@ -70,10 +75,40 @@ function SectionHeader({ title, href, icon: Icon }: { title: string, href: strin
 }
 
 export default function Home() {
+  const allNewsForHomepage = [...mainHeadlines, ...dailyNews];
+
+  const today = new Date();
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  const newsTodayCount = allNewsForHomepage.filter(news => {
+      const newsDate = new Date(news.publishedAt);
+      return newsDate >= startOfToday;
+  }).length;
+
+  const mostRecentNewsDate = allNewsForHomepage.reduce((latest, news) => {
+      const latestDate = new Date(latest);
+      const newsDate = new Date(news.publishedAt);
+      return newsDate > latestDate ? news.publishedAt : latest;
+  }, allNewsForHomepage[0].publishedAt);
+  
+  const diffInMinutes = Math.round((new Date().getTime() - new Date(mostRecentNewsDate).getTime()) / (1000 * 60));
+  
+  let lastUpdateText: string;
+  if (diffInMinutes < 1) {
+    lastUpdateText = "Agora";
+  } else if (diffInMinutes < 60) {
+    lastUpdateText = `${diffInMinutes} min`;
+  } else {
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    lastUpdateText = `${diffInHours}h`;
+  }
+
+  const activeReaders = `${(Math.random() * (18.5 - 12.3) + 12.3).toFixed(1)}K`;
+
   return (
     <div>
       <section>
-        <Carousel className="w-full" opts={{ loop: true }} autoPlay="5000">
+        <Carousel className="w-full" opts={{ loop: true }}>
           <CarouselContent>
             {mainHeadlines.map((item, index) => (
               <CarouselItem key={index}>
@@ -102,34 +137,28 @@ export default function Home() {
         </Carousel>
       </section>
 
-      <div className="container mx-auto px-4 space-y-16 py-12">
+      <div className="container mx-auto px-4 space-y-16 pt-12">
         <section>
           <div className="bg-card shadow-lg rounded-t-lg p-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <TrendingUp className="h-6 w-6" />
-                      </div>
+                      <TrendingUp className="h-8 w-8 text-primary" />
                       <div>
-                          <p className="text-2xl font-bold">24</p>
+                          <p className="text-2xl font-bold">{newsTodayCount}</p>
                           <p className="text-sm text-muted-foreground">Notícias hoje</p>
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                          <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <Users className="h-6 w-6" />
-                      </div>
+                      <Users className="h-8 w-8 text-primary" />
                       <div>
-                          <p className="text-2xl font-bold">15K</p>
+                          <p className="text-2xl font-bold">{activeReaders}</p>
                           <p className="text-sm text-muted-foreground">Leitores ativos</p>
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                          <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                          <Clock className="h-6 w-6" />
-                      </div>
+                      <Clock className="h-8 w-8 text-primary" />
                       <div>
-                          <p className="text-2xl font-bold">2 min</p>
+                          <p className="text-2xl font-bold">{lastUpdateText}</p>
                           <p className="text-sm text-muted-foreground">Última atualização</p>
                       </div>
                   </div>
