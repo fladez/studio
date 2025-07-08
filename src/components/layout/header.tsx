@@ -34,20 +34,29 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-      <div className="container flex h-16 items-center">
-        <div className="mr-auto hidden items-center gap-6 md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center space-x-2">
             <Fla10Logo />
-            <span className="hidden font-bold sm:inline-block text-primary-foreground">
+            <span className="font-bold text-primary-foreground">
               <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
             </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map(link => <NavLink key={link.href} {...link} />)}
           </nav>
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2 md:flex-none">
+        <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
+            <Button variant="ghost" asChild className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10">
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/register">Registrar-se</Link>
+            </Button>
+          </div>
+
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -56,39 +65,42 @@ export function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="pr-0">
-                <Link href="/" className="mr-6 flex items-center space-x-2 mb-6">
-                  <Fla10Logo />
-                  <span className="font-bold">
-                    <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
-                  </span>
-                </Link>
-                <nav className="flex flex-col space-y-4">
-                  {navLinks.map(link => (
-                     <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                        pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
-                      )}
-                    >
-                      <link.icon className="h-4 w-4" />
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
+              <SheetContent side="left" className="flex flex-col p-0">
+                <div className="p-6">
+                  <Link href="/" className="mb-6 flex items-center space-x-2">
+                    <Fla10Logo />
+                    <span className="font-bold">
+                      <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
+                    </span>
+                  </Link>
+                  <nav className="flex flex-col space-y-2">
+                    {navLinks.map(link => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                          pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
+                        )}
+                      >
+                        <link.icon className="h-4 w-4" />
+                        {link.label}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+                <div className="mt-auto border-t p-6">
+                  <div className="flex flex-col gap-2">
+                    <Button asChild variant="outline">
+                      <Link href="/login">Login</Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href="/register">Registrar-se</Link>
+                    </Button>
+                  </div>
+                </div>
               </SheetContent>
             </Sheet>
-          </div>
-          
-          <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" asChild className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/register">Registrar-se</Link>
-            </Button>
           </div>
         </div>
       </div>
