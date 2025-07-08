@@ -63,12 +63,15 @@ const videos = [
     { title: "Golaços do Mengão no mês", duration: "03:45", image: "https://placehold.co/600x400.png", dataAiHint: "soccer goal", slug: "golacos-mes" },
 ];
 
-function SectionHeader({ title, href, icon: Icon }: { title: string, href: string, icon: React.ElementType }) {
+function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href: string, icon: React.ElementType }) {
   return (
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
-        <Icon className="h-8 w-8 text-primary" />
-        <h2 className="text-3xl font-headline font-bold">{title}</h2>
+        <Icon className="h-8 w-8 text-primary flex-shrink-0" />
+        <div>
+          <h2 className="text-3xl font-headline font-bold">{title}</h2>
+          {subtitle && <p className="text-lg text-muted-foreground mt-1">{subtitle}</p>}
+        </div>
       </div>
       <Button variant="ghost" asChild>
         <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -192,7 +195,7 @@ export default function Home() {
         </div>
       
         <section>
-          <SectionHeader title="Notícias Diárias" href="/noticias" icon={Newspaper} />
+          <SectionHeader title="Últimas Notícias" subtitle="Fique por dentro de tudo que acontece com o Mengão." href="/noticias" icon={Newspaper} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {dailyNews.map((news) => (
               <Card key={news.slug} className="flex flex-col">
@@ -214,7 +217,7 @@ export default function Home() {
         </section>
 
         <section>
-          <SectionHeader title="Colunas de Opinião" href="/colunas" icon={Users} />
+          <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {opinionColumns.map((column) => (
               <Card key={column.slug} className="flex flex-col">
@@ -241,7 +244,7 @@ export default function Home() {
         </section>
         
         <section className="pb-8">
-          <SectionHeader title="Vídeos e Bastidores" href="/videos" icon={Video} />
+          <SectionHeader title="Vídeos e Bastidores" subtitle="Conteúdo de jogos e bastidores do dia a dia do clube." href="/videos" icon={Video} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
               <Card key={video.slug} className="group">
