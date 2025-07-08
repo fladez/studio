@@ -142,21 +142,27 @@ export default function Home() {
           <div className="bg-card shadow-lg rounded-t-lg p-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <TrendingUp className="h-8 w-8 text-primary" />
+                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                          <TrendingUp className="h-6 w-6" />
+                      </div>
                       <div>
                           <p className="text-2xl font-bold">{newsTodayCount}</p>
                           <p className="text-sm text-muted-foreground">Notícias hoje</p>
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <Users className="h-8 w-8 text-primary" />
+                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                          <Users className="h-6 w-6" />
+                      </div>
                       <div>
                           <p className="text-2xl font-bold">{activeReaders}</p>
                           <p className="text-sm text-muted-foreground">Leitores ativos</p>
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <Clock className="h-8 w-8 text-primary" />
+                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                          <Clock className="h-6 w-6" />
+                      </div>
                       <div>
                           <p className="text-2xl font-bold">{lastUpdateText}</p>
                           <p className="text-sm text-muted-foreground">Última atualização</p>
