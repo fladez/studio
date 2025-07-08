@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -137,12 +138,12 @@ export default function Home() {
         </Carousel>
       </section>
 
-      <div className="container mx-auto px-4 space-y-16 pt-12">
+      <div className="container mx-auto px-4 space-y-16">
         <section>
-          <div className="bg-card shadow-lg rounded-t-lg p-4">
+          <div className="bg-card shadow-lg rounded-lg p-4 -mt-16 mx-4 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
                           <TrendingUp className="h-6 w-6" />
                       </div>
                       <div>
@@ -151,7 +152,7 @@ export default function Home() {
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
                           <Users className="h-6 w-6" />
                       </div>
                       <div>
@@ -160,7 +161,7 @@ export default function Home() {
                       </div>
                   </div>
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                      <div className="bg-primary/10 text-primary p-3 rounded-full">
+                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
                           <Clock className="h-6 w-6" />
                       </div>
                       <div>
@@ -170,7 +171,7 @@ export default function Home() {
                   </div>
               </div>
           </div>
-          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg">
+          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg mx-4">
               <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 overflow-hidden">
                       <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
