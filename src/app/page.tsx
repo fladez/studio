@@ -217,7 +217,7 @@ export default function Home() {
           </div>
         </section>
 
-        <AdBanner />
+        <AdBanner width={468} height={60} />
 
         <section>
           <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
@@ -246,7 +246,7 @@ export default function Home() {
           </div>
         </section>
         
-        <AdBanner />
+        <AdBanner width={728} height={90} />
 
         <section>
           <SectionHeader title="Vídeos e Bastidores" subtitle="Conteúdo de jogos e bastidores do dia a dia do clube." href="/videos" icon={Video} />
@@ -269,7 +269,7 @@ export default function Home() {
         </section>
         
         <section className="pb-8">
-          <AdBanner />
+          <AdBanner width={300} height={250} />
         </section>
       </div>
     </div>
