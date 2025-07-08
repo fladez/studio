@@ -30,7 +30,7 @@ export default function ColunasPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {opinionColumns.map((column) => (
-                    <Card key={column.slug} className="flex flex-col">
+                    <Card key={column.slug} className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                         <CardHeader>
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-muted rounded-full">

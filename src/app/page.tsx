@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
+import { LeagueTable } from '@/components/league-table'
 
 const now = new Date();
 
@@ -199,9 +200,9 @@ export default function Home() {
           <SectionHeader title="Últimas Notícias" subtitle="Fique por dentro de tudo que acontece com o Mengão." href="/noticias" icon={Newspaper} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {dailyNews.map((news) => (
-              <Card key={news.slug} className="flex flex-col">
+              <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <CardHeader className="p-0">
-                  <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover" data-ai-hint={news.dataAiHint} />
+                  <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
                 </CardHeader>
                 <CardContent className="flex-grow p-4">
                   <Badge variant="secondary" className="mb-2">{news.category}</Badge>
@@ -223,7 +224,7 @@ export default function Home() {
           <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {opinionColumns.map((column) => (
-              <Card key={column.slug} className="flex flex-col">
+              <Card key={column.slug} className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <CardHeader>
                   <div className="flex items-center gap-4">
                     <Users className="h-10 w-10 text-muted-foreground" />
@@ -252,10 +253,10 @@ export default function Home() {
           <SectionHeader title="Vídeos e Bastidores" subtitle="Conteúdo de jogos e bastidores do dia a dia do clube." href="/videos" icon={Video} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <Card key={video.slug} className="group">
+              <Card key={video.slug} className="group overflow-hidden">
                 <Link href={`/videos/${video.slug}`}>
                   <CardContent className="p-0 relative">
-                    <Image src={video.image} alt={video.title} width={600} height={400} className="rounded-lg object-cover" data-ai-hint={video.dataAiHint} />
+                    <Image src={video.image} alt={video.title} width={600} height={400} className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={video.dataAiHint} />
                     <div className="absolute inset-0 bg-black/40 rounded-lg group-hover:bg-black/20 transition-colors"></div>
                     <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">{video.duration}</div>
                     <div className="absolute bottom-4 left-4 text-white">
@@ -268,9 +269,13 @@ export default function Home() {
           </div>
         </section>
         
+        <AdBanner width={300} height={250} />
+
         <section className="pb-8">
-          <AdBanner width={300} height={250} />
+          <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." href="/tabela-completa" icon={TrendingUp} />
+          <LeagueTable />
         </section>
+
       </div>
     </div>
   )

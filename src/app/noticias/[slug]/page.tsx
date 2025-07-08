@@ -33,15 +33,17 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </div>
         </header>
 
-        <Image
-          src={article.image}
-          alt={article.title}
-          width={1200}
-          height={500}
-          className="w-full h-auto object-cover rounded-lg mb-8"
-          data-ai-hint={article.dataAiHint}
-          priority
-        />
+        <div className="overflow-hidden rounded-lg mb-8">
+          <Image
+            src={article.image}
+            alt={article.title}
+            width={1200}
+            height={500}
+            className="w-full h-auto object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
+            data-ai-hint={article.dataAiHint}
+            priority
+          />
+        </div>
 
         <div 
           className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"

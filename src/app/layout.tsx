@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster"
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
+import { NextGameBanner } from '@/components/next-game-banner';
 
 export const metadata: Metadata = {
   title: 'FLA10 News',
@@ -51,6 +52,7 @@ export default function RootLayout({
         <div className="relative flex min-h-screen flex-col">
           <SocialBar />
           <Header />
+          <NextGameBanner />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
