@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Nação Rubro-Negra News',
+  title: 'Fla10 News',
   description: 'Seu portal diário de notícias sobre o Clube de Regatas do Flamengo.',
 };
 

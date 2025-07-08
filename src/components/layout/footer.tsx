@@ -1,4 +1,4 @@
-import { CrfLogo } from "@/components/crf-logo"
+import { Fla10Logo } from "@/components/fla10-logo"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -41,8 +41,8 @@ export function Footer() {
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <CrfLogo />
-              <span className="font-bold text-xl text-primary-foreground font-headline">Flamengo News</span>
+              <Fla10Logo />
+              <span className="font-bold text-xl text-primary-foreground font-headline">Fla10 News</span>
             </div>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               O portal oficial de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.

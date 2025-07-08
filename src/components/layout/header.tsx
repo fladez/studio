@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Menu, Newspaper, Users, Video } from 'lucide-react'
-import { FlamengoLogo } from '@/components/flamengo-logo'
+import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
@@ -37,9 +37,9 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <div className="mr-auto hidden items-center gap-6 md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <FlamengoLogo />
+            <Fla10Logo />
             <span className="hidden font-bold sm:inline-block font-headline text-primary-foreground">
-              Nação Rubro-Negra News
+              Fla10 News
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -58,8 +58,8 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="pr-0">
                 <Link href="/" className="mr-6 flex items-center space-x-2 mb-6">
-                  <FlamengoLogo />
-                  <span className="font-bold font-headline">Nação Rubro-Negra News</span>
+                  <Fla10Logo />
+                  <span className="font-bold font-headline">Fla10 News</span>
                 </Link>
                 <nav className="flex flex-col space-y-4">
                   {navLinks.map(link => (
