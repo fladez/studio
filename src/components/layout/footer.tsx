@@ -36,10 +36,10 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-6 gap-8">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-6 gap-8">
           
           {/* Logo and Description */}
-          <div className="md:col-span-2">
+          <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
               <span className="font-bold text-xl text-primary-foreground">
