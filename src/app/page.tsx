@@ -14,6 +14,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { AdBanner } from '@/components/ad-banner'
 
 const now = new Date();
 
@@ -216,6 +217,8 @@ export default function Home() {
           </div>
         </section>
 
+        <AdBanner />
+
         <section>
           <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -243,7 +246,9 @@ export default function Home() {
           </div>
         </section>
         
-        <section className="pb-8">
+        <AdBanner />
+
+        <section>
           <SectionHeader title="Vídeos e Bastidores" subtitle="Conteúdo de jogos e bastidores do dia a dia do clube." href="/videos" icon={Video} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
@@ -261,6 +266,10 @@ export default function Home() {
               </Card>
             ))}
           </div>
+        </section>
+        
+        <section className="pb-8">
+          <AdBanner />
         </section>
       </div>
     </div>
