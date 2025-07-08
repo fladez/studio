@@ -46,7 +46,7 @@ export function Footer() {
                 <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
               </span>
             </div>
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
+            <p className="text-sm text-muted-foreground mb-6 max-w-sm text-justify">
               O portal oficial do canal FLA10, de  notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
             </p>
             <div className="flex gap-4">
