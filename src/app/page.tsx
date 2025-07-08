@@ -80,6 +80,10 @@ function SectionHeader({ title, href, icon: Icon }: { title: string, href: strin
 export default function Home() {
   const allNewsForHomepage = [...mainHeadlines, ...dailyNews];
 
+  // Sort all news to find the latest one easily
+  const sortedNews = [...allNewsForHomepage].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+  const latestNews = sortedNews[0];
+
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -88,11 +92,7 @@ export default function Home() {
       return newsDate >= startOfToday;
   }).length;
 
-  const mostRecentNewsDate = allNewsForHomepage.reduce((latest, news) => {
-      const latestDate = new Date(latest);
-      const newsDate = new Date(news.publishedAt);
-      return newsDate > latestDate ? news.publishedAt : latest;
-  }, allNewsForHomepage[0].publishedAt);
+  const mostRecentNewsDate = latestNews.publishedAt;
   
   const diffInMinutes = Math.round((new Date().getTime() - new Date(mostRecentNewsDate).getTime()) / (1000 * 60));
   
@@ -180,13 +180,13 @@ export default function Home() {
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-4 overflow-hidden">
                         <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
-                        <p className="font-semibold text-sm md:text-base truncate hidden sm:block">Flamengo oficializa contratação de novo técnico para 2024</p>
+                        <p className="font-semibold text-sm md:text-base truncate hidden sm:block">{latestNews.title}</p>
                     </div>
                     <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
-                        <Link href="#">Leia mais</Link>
+                        <Link href={`/noticias/${latestNews.slug}`}>Leia mais</Link>
                     </Button>
                 </div>
-                <p className="font-semibold text-sm text-center mt-3 sm:hidden">Flamengo oficializa contratação de novo técnico para 2024</p>
+                <p className="font-semibold text-sm text-center mt-3 sm:hidden">{latestNews.title}</p>
             </div>
           </section>
         </div>
