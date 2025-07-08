@@ -143,7 +143,7 @@ export default function Home() {
       <div className="container mx-auto px-4 space-y-16">
         <div className="mt-12 space-y-4">
           <section>
-            <div className="bg-card shadow-lg rounded-lg p-4">
+            <div className="bg-transparent shadow-none rounded-lg p-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
                     <div className="flex items-center justify-center gap-4 py-4 md:py-0">
                         <div className="bg-primary text-primary-foreground p-3 rounded-full">
