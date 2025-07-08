@@ -9,6 +9,12 @@ const teamCrests: Record<string, string> = {
   "São Paulo": "https://i.imgur.com/2Zm5eJ5.png",
   "Internacional": "https://i.imgur.com/uYqtPy8.png",
   "Atlético-MG": "https://i.imgur.com/41gxNOo.png",
+  "Cruzeiro": "https://i.imgur.com/3YScqkG.png",
+  "Grêmio": "https://i.imgur.com/qaA2aCQ.png",
+  "Vasco": "https://i.imgur.com/TzTUxXE.png",
+  "Corinthians": "https://i.imgur.com/UMAX3vE.png",
+  "Fluminense": "https://i.imgur.com/CITw7D3.png",
+  "Bahia": "https://i.imgur.com/PWZacaP.png",
 };
 
 
