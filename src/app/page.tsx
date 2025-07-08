@@ -102,53 +102,53 @@ export default function Home() {
         </Carousel>
       </section>
 
-      <section className="container mx-auto px-4 -mt-16 relative z-10">
-        <div className="bg-card shadow-lg rounded-t-lg p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
-                <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                    <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                        <TrendingUp className="h-6 w-6" />
-                    </div>
-                    <div>
-                        <p className="text-2xl font-bold">24</p>
-                        <p className="text-sm text-muted-foreground">Notícias hoje</p>
-                    </div>
-                </div>
-                <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                        <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                        <Users className="h-6 w-6" />
-                    </div>
-                    <div>
-                        <p className="text-2xl font-bold">15K</p>
-                        <p className="text-sm text-muted-foreground">Leitores ativos</p>
-                    </div>
-                </div>
-                <div className="flex items-center justify-center gap-4 py-4 md:py-0">
-                        <div className="bg-primary text-primary-foreground p-3 rounded-full">
-                        <Clock className="h-6 w-6" />
-                    </div>
-                    <div>
-                        <p className="text-2xl font-bold">2 min</p>
-                        <p className="text-sm text-muted-foreground">Última atualização</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg">
-            <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4 overflow-hidden">
-                    <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
-                    <p className="font-semibold text-sm md:text-base truncate hidden sm:block">Flamengo oficializa contratação de novo técnico para 2024</p>
-                </div>
-                <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
-                    <Link href="#">Leia mais</Link>
-                </Button>
-            </div>
-            <p className="font-semibold text-sm text-center mt-3 sm:hidden">Flamengo oficializa contratação de novo técnico para 2024</p>
-        </div>
-      </section>
-
-      <div className="container mx-auto px-4 space-y-16 mt-16">
+      <div className="container mx-auto px-4 space-y-16 py-12">
+        <section>
+          <div className="bg-card shadow-lg rounded-t-lg p-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
+                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                      <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                          <TrendingUp className="h-6 w-6" />
+                      </div>
+                      <div>
+                          <p className="text-2xl font-bold">24</p>
+                          <p className="text-sm text-muted-foreground">Notícias hoje</p>
+                      </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                          <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                          <Users className="h-6 w-6" />
+                      </div>
+                      <div>
+                          <p className="text-2xl font-bold">15K</p>
+                          <p className="text-sm text-muted-foreground">Leitores ativos</p>
+                      </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-4 py-4 md:py-0">
+                          <div className="bg-primary text-primary-foreground p-3 rounded-full">
+                          <Clock className="h-6 w-6" />
+                      </div>
+                      <div>
+                          <p className="text-2xl font-bold">2 min</p>
+                          <p className="text-sm text-muted-foreground">Última atualização</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg">
+              <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-4 overflow-hidden">
+                      <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
+                      <p className="font-semibold text-sm md:text-base truncate hidden sm:block">Flamengo oficializa contratação de novo técnico para 2024</p>
+                  </div>
+                  <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
+                      <Link href="#">Leia mais</Link>
+                  </Button>
+              </div>
+              <p className="font-semibold text-sm text-center mt-3 sm:hidden">Flamengo oficializa contratação de novo técnico para 2024</p>
+          </div>
+        </section>
+      
         <section>
           <SectionHeader title="Notícias Diárias" href="/noticias" icon={Newspaper} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
