@@ -11,7 +11,7 @@ export function LeagueTable() {
         data-key="783e0bb49a8acefbd0c17a90fedf76b2"
         data-league="71"
         data-team="127"
-        data-season="2025"
+        data-season="2024"
         data-theme=""
         data-show-errors="false"
         data-show-logos="true"
@@ -20,7 +20,7 @@ export function LeagueTable() {
       <Script
         type="module"
         src="https://widgets.api-sports.io/2.0.3/widgets.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
     </>
   )
