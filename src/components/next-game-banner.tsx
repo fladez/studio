@@ -20,7 +20,7 @@ export function NextGameBanner() {
     };
 
     return (
-        <div className="sticky top-16 z-40 w-full bg-accent text-accent-foreground border-b border-white/10 shadow-md">
+        <div className="sticky top-16 z-40 w-full bg-accent/40 backdrop-blur text-accent-foreground border-b border-white/10 shadow-md">
             <div className="container mx-auto flex items-center justify-center h-24 px-4">
                 <div className="flex flex-col md:flex-row items-center justify-between w-full gap-4">
 
