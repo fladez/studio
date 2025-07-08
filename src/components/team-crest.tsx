@@ -15,6 +15,12 @@ const teamCrests: Record<string, string> = {
   "Corinthians": "https://i.imgur.com/UMAX3vE.png",
   "Fluminense": "https://i.imgur.com/CITw7D3.png",
   "Bahia": "https://i.imgur.com/PWZacaP.png",
+  "Fortaleza": "https://i.imgur.com/aQ3Qp9n.png",
+  "Criciúma": "https://i.imgur.com/RMBOoC7.png",
+  "Vitória": "https://i.imgur.com/NtoSUhj.png",
+  "Juventude": "https://i.imgur.com/dieI3rH.png",
+  "Cuiabá": "https://i.imgur.com/BwtmjHh.png",
+  "Red Bull Bragantino": "https://i.imgur.com/v7ZxAlE.png",
 };
 
 
