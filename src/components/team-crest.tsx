@@ -1,6 +1,15 @@
 import { Shield } from "lucide-react";
-import { Fla10Logo } from "./fla10-logo";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+
+// Note: Palmeiras and Flamengo links provided were invalid. Using placeholders.
+const teamCrests: Record<string, string> = {
+  "Botafogo": "https://i.imgur.com/7T3si02.png",
+  "São Paulo": "https://i.imgur.com/2Zm5eJ5.png",
+  "Internacional": "https://i.imgur.com/uYqtPy8.png",
+  "Atlético-MG": "https://i.imgur.com/41gxNOo.png",
+};
+
 
 export function TeamCrest({ teamName, size = 'md' }: { teamName: string, size?: 'sm' | 'md' | 'lg' }) {
     const sizeClasses = {
@@ -9,10 +18,17 @@ export function TeamCrest({ teamName, size = 'md' }: { teamName: string, size?: 
         lg: 'h-10 w-10'
     }
 
-    if (teamName === 'Flamengo') {
+    const crestUrl = teamCrests[teamName];
+
+    if (crestUrl) {
         return (
-            <div className={cn(sizeClasses[size])}>
-                <Fla10Logo />
+            <div className={cn("relative", sizeClasses[size])}>
+                <Image
+                    src={crestUrl}
+                    alt={`${teamName} crest`}
+                    fill
+                    className="object-contain"
+                />
             </div>
         )
     }
