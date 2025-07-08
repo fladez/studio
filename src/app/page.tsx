@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
-import { SofascoreWidget } from '@/components/sofascore-widget'
+import { LeagueTable } from '@/components/league-table'
 
 const now = new Date();
 
@@ -273,7 +273,7 @@ export default function Home() {
 
         <section className="pb-8">
           <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." href="/tabela-completa" icon={TrendingUp} />
-          <SofascoreWidget />
+          <LeagueTable />
         </section>
 
       </div>
