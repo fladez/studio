@@ -65,7 +65,7 @@ const videos = [
     { title: "Golaços do Mengão no mês", duration: "03:45", image: "https://placehold.co/600x400.png", dataAiHint: "soccer goal", slug: "golacos-mes" },
 ];
 
-function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href: string, icon: React.ElementType }) {
+function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
     <div className="flex items-center justify-between mb-6">
       <div className="flex items-center gap-3">
@@ -75,9 +75,11 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
           {subtitle && <p className="text-lg text-muted-foreground mt-1">{subtitle}</p>}
         </div>
       </div>
-      <Button variant="ghost" asChild>
-        <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
-      </Button>
+      {href && (
+        <Button variant="ghost" asChild>
+          <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
+        </Button>
+      )}
     </div>
   )
 }
@@ -272,7 +274,7 @@ export default function Home() {
         <AdBanner width={300} height={250} />
 
         <section className="pb-8">
-          <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." href="/tabela-completa" icon={TrendingUp} />
+          <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." icon={TrendingUp} />
           <SofascoreWidget />
         </section>
 
