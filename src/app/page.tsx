@@ -1,4 +1,6 @@
 
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -139,8 +141,8 @@ export default function Home() {
       </section>
 
       <div className="container mx-auto px-4 space-y-16">
-        <section>
-          <div className="bg-card shadow-lg rounded-lg p-4 -mt-16 mx-4 relative z-10">
+        <section className="mt-12">
+          <div className="bg-card shadow-lg rounded-t-lg p-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center divide-y md:divide-y-0 md:divide-x divide-border">
                   <div className="flex items-center justify-center gap-4 py-4 md:py-0">
                       <div className="bg-primary text-primary-foreground p-3 rounded-full">
@@ -171,7 +173,7 @@ export default function Home() {
                   </div>
               </div>
           </div>
-          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg mx-4">
+          <div className="bg-primary text-primary-foreground p-4 rounded-b-lg shadow-lg">
               <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 overflow-hidden">
                       <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
