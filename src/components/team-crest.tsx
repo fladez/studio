@@ -2,8 +2,9 @@ import { Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-// Note: Palmeiras and Flamengo links provided were invalid. Using placeholders.
 const teamCrests: Record<string, string> = {
+  "Flamengo": "https://i.imgur.com/JV5waDa.png",
+  "Palmeiras": "https://i.imgur.com/uhKqeNQ.png",
   "Botafogo": "https://i.imgur.com/7T3si02.png",
   "São Paulo": "https://i.imgur.com/2Zm5eJ5.png",
   "Internacional": "https://i.imgur.com/uYqtPy8.png",
