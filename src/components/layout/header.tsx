@@ -38,8 +38,8 @@ export function Header() {
         <div className="mr-auto hidden items-center gap-6 md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Fla10Logo />
-            <span className="hidden font-bold sm:inline-block font-headline text-primary-foreground">
-              Fla10 News
+            <span className="hidden font-bold sm:inline-block text-primary-foreground">
+              <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -59,7 +59,9 @@ export function Header() {
               <SheetContent side="left" className="pr-0">
                 <Link href="/" className="mr-6 flex items-center space-x-2 mb-6">
                   <Fla10Logo />
-                  <span className="font-bold font-headline">Fla10 News</span>
+                  <span className="font-bold">
+                    <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
+                  </span>
                 </Link>
                 <nav className="flex flex-col space-y-4">
                   {navLinks.map(link => (

@@ -7,7 +7,7 @@ import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Fla10 News',
+  title: 'FLA10 News',
   description: 'Seu portal diário de notícias sobre o Clube de Regatas do Flamengo.',
 };
 
@@ -45,7 +45,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Playfair+Display:wght@700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-screen bg-background font-body antialiased">
         <div className="relative flex min-h-screen flex-col">

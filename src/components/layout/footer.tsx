@@ -42,7 +42,9 @@ export function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
-              <span className="font-bold text-xl text-primary-foreground font-headline">Fla10 News</span>
+              <span className="font-bold text-xl text-primary-foreground">
+                <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
+              </span>
             </div>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               O portal oficial de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
