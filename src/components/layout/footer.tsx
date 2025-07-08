@@ -2,6 +2,7 @@ import { Fla10Logo } from "@/components/fla10-logo"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link href={href} className="text-sm text-muted-foreground hover:text-primary-foreground transition-colors">
@@ -49,16 +50,24 @@ export function Footer() {
             <p className="text-sm text-muted-foreground mb-6 max-w-sm text-justify">
               O portal oficial do canal FLA10, de  notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="font-bold text-sm text-muted-foreground hover:text-primary-foreground">FB</a>
-              <a href="#" className="font-bold text-sm text-muted-foreground hover:text-primary-foreground">IG</a>
-              <a href="#" className="font-bold text-sm text-muted-foreground hover:text-primary-foreground">TW</a>
-              <a href="#" className="font-bold text-sm text-muted-foreground hover:text-primary-foreground">YT</a>
+            <div className="flex items-center gap-4">
+              <Link href="#" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+                <Facebook className="h-5 w-5" />
+              </Link>
+              <Link href="#" aria-label="Instagram" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+                <Instagram className="h-5 w-5" />
+              </Link>
+              <Link href="#" aria-label="Twitter" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+                <Twitter className="h-5 w-5" />
+              </Link>
+              <Link href="#" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+                <Youtube className="h-5 w-5" />
+              </Link>
             </div>
           </div>
 
           {/* Link Columns */}
-          <div>
+          <div className="col-span-1">
             <FooterSectionTitle>Portal</FooterSectionTitle>
             <ul className="space-y-2">
               <li><FooterLink href="/">Início</FooterLink></li>
@@ -69,7 +78,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-1">
             <FooterSectionTitle>Modalidades</FooterSectionTitle>
             <ul className="space-y-2">
               <li><FooterLink href="#">Futebol</FooterLink></li>
@@ -80,7 +89,7 @@ export function Footer() {
             </ul>
           </div>
           
-          <div>
+          <div className="col-span-1">
             <FooterSectionTitle>Clube</FooterSectionTitle>
             <ul className="space-y-2">
               <li><FooterLink href="#">História</FooterLink></li>
@@ -91,7 +100,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-1">
             <FooterSectionTitle>Contato</FooterSectionTitle>
             <ul className="space-y-2">
               <li><FooterLink href="#">Fale Conosco</FooterLink></li>
