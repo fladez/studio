@@ -9,6 +9,7 @@ export type NewsArticle = {
     publishedAt: Date; // Should always be a Date object now
     content?: string;
     author?: string;
+    views: number;
 };
 
 // Helper to create dates in the past for realistic data
@@ -30,6 +31,7 @@ export const news: NewsArticle[] = [
         publishedAt: daysAgo(1),
         author: 'Redação NRN',
         content: '<p>Em uma noite eletrizante no Maracanã, o Flamengo mostrou sua força e venceu o rival por 2 a 1, de virada. Os gols foram marcados por Gabigol e Arrascaeta, garantindo a festa da Nação Rubro-Negra e a ponta da tabela.</p><h3>Análise do Jogo</h3><p>O time começou a partida em ritmo lento, sofrendo um gol no início, mas demonstrou grande poder de reação no segundo tempo, com substituições que mudaram a cara do jogo.</p>',
+        views: 25800,
     },
     {
         id: '2',
@@ -42,6 +44,7 @@ export const news: NewsArticle[] = [
         publishedAt: daysAgo(1),
         author: 'Redação NRN',
         content: '<p>O técnico Tite concedeu entrevista coletiva após a partida e destacou a mentalidade vencedora do elenco. "Sabíamos da dificuldade, mas este grupo tem uma força mental incrível. A virada foi fruto de muito trabalho e união", declarou o treinador.</p>',
+        views: 15300,
     },
     {
         id: '3',
@@ -54,6 +57,7 @@ export const news: NewsArticle[] = [
         publishedAt: daysAgo(2),
         author: 'Redação NRN',
         content: '<p>O FlaBasquete está ainda mais forte. A diretoria anunciou a contratação do pivô americano John Doe, de 2,10m, que estava atuando na liga europeia. Ele chega para reforçar o garrafão do Orgulho da Nação na próxima temporada.</p>',
+        views: 9800,
     },
     {
         id: '4',
@@ -66,6 +70,7 @@ export const news: NewsArticle[] = [
         publishedAt: daysAgo(3),
         author: 'Redação NRN',
         content: '<p>Como já era esperado, a torcida do Flamengo deu mais uma demonstração de sua força. Em poucas horas, todos os ingressos para a grande final da Copa do Brasil foram vendidos. O Maracanã promete ser um verdadeiro caldeirão.</p>',
+        views: 31200,
     },
      {
         id: '5',
@@ -78,6 +83,7 @@ export const news: NewsArticle[] = [
         publishedAt: daysAgo(4),
         author: 'Redação NRN',
         content: '<p>Os Garotos do Ninho fizeram bonito e levantaram o troféu do Campeonato Brasileiro Sub-20. Com uma campanha impecável, a nova geração mostra que o futuro do Mengão está em boas mãos.</p>',
+        views: 18500,
     },
 ];
 

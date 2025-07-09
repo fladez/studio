@@ -15,6 +15,7 @@ export type OpinionColumn = {
     publishedAt: Date;
     category: string;
     content: string;
+    views: number;
 };
 
 export const opinionColumns: OpinionColumn[] = [
@@ -27,7 +28,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Uma análise profunda sobre o esquema tático que levou o time à vitória, destacando os pontos fortes e as jogadas ensaiadas.",
         publishedAt: daysAgo(2),
         category: "Análise Tática",
-        content: "<p>Uma análise profunda sobre o esquema tático que levou o time à vitória, destacando os pontos fortes e as jogadas ensaiadas. O posicionamento dos jogadores foi crucial para o resultado.</p><h3>Pontos Chave</h3><p>A disciplina tática e a execução perfeita das jogadas foram determinantes para o sucesso da equipe.</p>"
+        content: "<p>Uma análise profunda sobre o esquema tático que levou o time à vitória, destacando os pontos fortes e as jogadas ensaiadas. O posicionamento dos jogadores foi crucial para o resultado.</p><h3>Pontos Chave</h3><p>A disciplina tática e a execução perfeita das jogadas foram determinantes para o sucesso da equipe.</p>",
+        views: 12500,
     },
     { 
         title: "O coração da Nação na arquibancada", 
@@ -38,7 +40,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Um relato emocionante sobre a paixão que move milhões de torcedores e como a arquibancada joga junto com o time.",
         publishedAt: daysAgo(3),
         category: "Opinião",
-        content: "<p>Um relato emocionante sobre a paixão que move milhões de torcedores e como a arquibancada joga junto com o time. A energia vinda das arquibancadas contagiou os jogadores em campo.</p>"
+        content: "<p>Um relato emocionante sobre a paixão que move milhões de torcedores e como a arquibancada joga junto com o time. A energia vinda das arquibancadas contagiou os jogadores em campo.</p>",
+        views: 8900,
     },
     { 
         title: "Análise: O que esperar do novo reforço?", 
@@ -49,7 +52,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Avaliando as características, o histórico e o potencial impacto do novo contratado no elenco rubro-negro.",
         publishedAt: daysAgo(5),
         category: "Mercado da Bola",
-        content: "<p>Avaliando as características, o histórico e o potencial impacto do novo contratado no elenco rubro-negro. Sua velocidade e drible podem ser um diferencial para a equipe.</p>"
+        content: "<p>Avaliando as características, o histórico e o potencial impacto do novo contratado no elenco rubro-negro. Sua velocidade e drible podem ser um diferencial para a equipe.</p>",
+        views: 11200,
     },
     { 
         title: "Memórias de 81: O dia em que o mundo foi nosso", 
@@ -60,7 +64,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Relembrando os momentos mágicos da conquista do Mundial de Clubes de 1981, uma data eterna para todo flamenguista.",
         publishedAt: daysAgo(7),
         category: "História",
-        content: "<p>Relembrando os momentos mágicos da conquista do Mundial de Clubes de 1981, uma data eterna para todo flamenguista. O time jogou com raça, amor e paixão.</p>"
+        content: "<p>Relembrando os momentos mágicos da conquista do Mundial de Clubes de 1981, uma data eterna para todo flamenguista. O time jogou com raça, amor e paixão.</p>",
+        views: 18100,
     },
     { 
         title: "A base vem forte: Futuras promessas do Mengão", 
@@ -71,7 +76,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Quem são os jovens talentos que estão se destacando nas categorias de base e que podem brilhar no profissional em breve.",
         publishedAt: daysAgo(10),
         category: "Categorias de Base",
-        content: "<p>Quem são os jovens talentos que estão se destacando nas categorias de base e que podem brilhar no profissional em breve. O futuro do clube parece promissor.</p>"
+        content: "<p>Quem são os jovens talentos que estão se destacando nas categorias de base e que podem brilhar no profissional em breve. O futuro do clube parece promissor.</p>",
+        views: 13400,
     },
     { 
         title: "A importância da gestão financeira no futebol moderno", 
@@ -82,7 +88,8 @@ export const opinionColumns: OpinionColumn[] = [
         excerpt: "Um olhar sobre como a responsabilidade fiscal e os investimentos estratégicos são cruciais para o sucesso dentro e fora de campo.",
         publishedAt: daysAgo(12),
         category: "Gestão",
-        content: "<p>Um olhar sobre como a responsabilidade fiscal e os investimentos estratégicos são cruciais para o sucesso dentro e fora de campo. Uma gestão sólida é a base para conquistas duradouras.</p>"
+        content: "<p>Um olhar sobre como a responsabilidade fiscal e os investimentos estratégicos são cruciais para o sucesso dentro e fora de campo. Uma gestão sólida é a base para conquistas duradouras.</p>",
+        views: 7500,
     },
 ];
 

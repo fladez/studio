@@ -3,12 +3,12 @@ import { getColumns } from "@/data/columns";
 import { videos } from "@/data/videos";
 import { getUserCount } from "@/data/users";
 import { StatCard } from "@/components/admin/stat-card";
-import { ContentViewsChart } from "@/components/admin/charts";
+import { ContentViewsChart, ShareDestinationsChart, MostViewedContentChart } from "@/components/admin/charts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-import { Newspaper, PenSquare, Video, Eye, Share2, Users, UserPlus, TrendingUp, BarChart } from "lucide-react";
+import { Newspaper, PenSquare, Video, Eye, Share2, Users, UserPlus, TrendingUp, BarChart, PieChart as PieChartIcon } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 
@@ -17,8 +17,10 @@ export default async function AdminDashboard() {
     const columns = getColumns();
     const userCount = await getUserCount();
 
-    const totalViews = videos.reduce((acc, video) => acc + video.views, 0);
-    const totalShares = 1345; // Placeholder
+    const totalVideoViews = videos.reduce((acc, video) => acc + video.views, 0);
+    const totalNewsViews = news.reduce((acc, article) => acc + article.views, 0);
+    const totalColumnsViews = columns.reduce((acc, column) => acc + column.views, 0);
+    const totalContentShares = 1345; // Placeholder
     
     const recentContent = [...news, ...columns, ...videos]
         .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
@@ -40,6 +42,12 @@ export default async function AdminDashboard() {
                 }
             }
         });
+    
+    const mostViewedData = [
+        { type: "Notícias", views: totalNewsViews, fill: "hsl(var(--chart-1))" },
+        { type: "Colunas", views: totalColumnsViews, fill: "hsl(var(--chart-2))" },
+        { type: "Vídeos", views: totalVideoViews, fill: "hsl(var(--chart-3))" },
+    ];
 
     return (
         <div className="flex flex-col gap-8">
@@ -53,8 +61,39 @@ export default async function AdminDashboard() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
-                 <StatCard title="Visualizações de Vídeos" value={totalViews.toLocaleString('pt-BR')} icon={Eye} description="Total de visualizações em vídeos" />
-                 <StatCard title="Compartilhamentos" value={totalShares.toLocaleString('pt-BR')} icon={Share2} description="Total em todas as plataformas" />
+                 <StatCard title="Visualizações Totais" value={(totalVideoViews + totalNewsViews + totalColumnsViews).toLocaleString('pt-BR')} icon={Eye} description="Notícias, Colunas e Vídeos" />
+                 <StatCard title="Compartilhamentos" value={totalContentShares.toLocaleString('pt-BR')} icon={Share2} description="Total em todas as plataformas" />
+            </div>
+
+             <div className="grid gap-4 md:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Share2 className="h-5 w-5" />
+                            Destinos de Compartilhamento
+                        </CardTitle>
+                        <CardDescription>
+                            Plataformas onde o conteúdo foi mais compartilhado.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="pl-2">
+                       <ShareDestinationsChart />
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                           <PieChartIcon className="h-5 w-5" />
+                            Conteúdo Mais Visto
+                        </CardTitle>
+                        <CardDescription>
+                            Distribuição de visualizações por tipo de conteúdo.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                       <MostViewedContentChart data={mostViewedData} />
+                    </CardContent>
+                </Card>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
@@ -62,7 +101,7 @@ export default async function AdminDashboard() {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <BarChart className="h-5 w-5" />
-                            Visualizações por Categoria
+                            Visualizações de Vídeos por Categoria
                         </CardTitle>
                         <CardDescription>
                             Visualizações de vídeo agrupadas por categoria nos últimos 30 dias.
@@ -107,7 +146,7 @@ export default async function AdminDashboard() {
                                             'outline'
                                         }>{item.type}</Badge>
                                     </TableCell>
-                                    <TableCell className="text-right text-muted-foreground text-xs">{format(item.date, 'dd/MM/yyyy')}</TableCell>
+                                    <TableCell className="text-right text-muted-foreground text-xs">{format(new Date(item.date), 'dd/MM/yyyy')}</TableCell>
                                 </TableRow>
                                 ))}
                             </TableBody>
