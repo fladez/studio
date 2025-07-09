@@ -335,7 +335,7 @@ export default function Home() {
               alt="Logo do Campeonato Brasileiro"
               width={44}
               height={23}
-              className="block md:hidden object-contain absolute -top-4 left-4 z-10"
+              className="block md:hidden object-contain absolute -top-4 left-[13px] z-10"
             />
             <SofascoreWidget />
           </div>
