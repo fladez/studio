@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
+import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock, User } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
@@ -13,6 +13,31 @@ import { opinionColumns } from '@/data/columns'
 import { videos } from '@/data/videos'
 import { MainCarousel } from '@/components/home/main-carousel'
 import { ActiveReaders } from '@/components/home/active-readers'
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
+
+function formatPublishedTime(publishedAt: Date): string {
+  const now = new Date();
+
+  const diffDays = differenceInDays(now, publishedAt);
+  if (diffDays > 3) {
+    return format(publishedAt, 'dd/MM/yyyy');
+  }
+  if (diffDays >= 1) {
+    return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+  }
+
+  const diffHours = differenceInHours(now, publishedAt);
+  if (diffHours >= 1) {
+    return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
+  }
+
+  const diffMinutes = differenceInMinutes(now, publishedAt);
+  if (diffMinutes >= 1) {
+    return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
+  }
+
+  return "Agora mesmo";
+}
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
@@ -134,16 +159,28 @@ export default function Home() {
               {dailyNews.map((news) => (
                 <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <CardHeader className="p-0">
-                    <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                    <Link href={`/noticias/${news.slug}`}>
+                      <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                    </Link>
                   </CardHeader>
                   <CardContent className="flex-grow p-4">
                     <Badge variant="secondary" className="mb-2">{news.category}</Badge>
-                    <CardTitle className="text-lg font-bold font-body leading-tight">{news.title}</CardTitle>
+                    <CardTitle className="text-lg font-bold font-body leading-tight">
+                        <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                           {news.title}
+                        </Link>
+                    </CardTitle>
                   </CardContent>
-                  <CardFooter className="p-4 pt-0">
-                    <Button asChild className="w-full">
-                      <Link href={`/noticias/${news.slug}`}>Ler Notícia</Link>
-                    </Button>
+                  <CardFooter className="p-4 pt-2 text-xs text-muted-foreground">
+                     <div className="flex justify-between items-center w-full">
+                        <div className="flex items-center gap-1.5">
+                            <Clock className="h-3 w-3" />
+                            <span>{formatPublishedTime(news.publishedAt)}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span>Por {news.author || 'Redação NRN'}</span>
+                        </div>
+                    </div>
                   </CardFooter>
                 </Card>
               ))}
