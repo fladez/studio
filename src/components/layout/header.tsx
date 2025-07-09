@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'
-import { ArrowLeft, Menu, Newspaper, Users, Video } from 'lucide-react'
+import { ArrowLeft, LogIn, Menu, Newspaper, UserPlus, Users, Video } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -12,6 +12,11 @@ const navLinks = [
   { href: '/noticias', label: 'Notícias', icon: Newspaper },
   { href: '/colunas', label: 'Colunas', icon: Users },
   { href: '/videos', label: 'Vídeos', icon: Video },
+]
+
+const authLinks = [
+  { href: '/login', label: 'Entrar', icon: LogIn },
+  { href: '/register', label: 'Registrar-se', icon: UserPlus },
 ]
 
 export function Header() {
@@ -101,21 +106,21 @@ export function Header() {
                             </Link>
                           </SheetClose>
                         ))}
+                        {authLinks.map(link => (
+                          <SheetClose asChild key={link.href}>
+                            <Link
+                                href={link.href}
+                                className={cn(
+                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
+                                )}
+                            >
+                                <link.icon className="h-4 w-4" />
+                                {link.label}
+                            </Link>
+                          </SheetClose>
+                        ))}
                     </nav>
-                </div>
-                <div className="mt-auto border-t p-6">
-                  <div className="flex flex-col gap-2">
-                    <SheetClose asChild>
-                      <Button asChild className="w-full">
-                        <Link href="/login">Entrar</Link>
-                      </Button>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Button asChild variant="outline" className="w-full">
-                        <Link href="/register">Registrar-se</Link>
-                      </Button>
-                    </SheetClose>
-                  </div>
                 </div>
               </SheetContent>
             </Sheet>
