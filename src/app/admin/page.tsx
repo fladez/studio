@@ -44,9 +44,9 @@ export default async function AdminDashboard() {
         });
     
     const mostViewedData = [
-        { type: "Notícias", views: totalNewsViews, fill: "hsl(var(--chart-1))" },
-        { type: "Colunas", views: totalColumnsViews, fill: "hsl(var(--chart-2))" },
-        { type: "Vídeos", views: totalVideoViews, fill: "hsl(var(--chart-3))" },
+        { type: "noticias", views: totalNewsViews, fill: "hsl(var(--chart-1))" },
+        { type: "colunas", views: totalColumnsViews, fill: "hsl(var(--chart-2))" },
+        { type: "videos", views: totalVideoViews, fill: "hsl(var(--chart-3))" },
     ];
 
     return (
