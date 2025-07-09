@@ -27,7 +27,7 @@ export default function NoticiasPage() {
                       <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2]" data-ai-hint={news.dataAiHint} />
                     </CardHeader>
                     <CardContent className="flex-grow p-4">
-                      <Badge variant="secondary" className="mb-2">{news.category}</Badge>
+                      <Badge className="mb-2">{news.category}</Badge>
                       <CardTitle className="text-lg font-bold font-body leading-tight">{news.title}</CardTitle>
                     </CardContent>
                     <CardFooter className="p-4 pt-0">

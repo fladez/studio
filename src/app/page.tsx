@@ -164,7 +164,7 @@ export default function Home() {
                     </Link>
                   </CardHeader>
                   <CardContent className="flex-grow p-4">
-                    <Badge variant="secondary" className="mb-2">{news.category}</Badge>
+                    <Badge className="mb-2">{news.category}</Badge>
                     <CardTitle className="text-lg font-bold font-body leading-tight">
                         <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
                            {news.title}
