@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SidebarProvider, Sidebar, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { LayoutDashboard, Newspaper, CalendarClock, Users, Video, Loader2 } from "lucide-react";
-import { Fla10Logo } from "@/components/fla10-logo";
 import Link from "next/link";
 
 export default function AdminLayout({
@@ -34,13 +33,6 @@ export default function AdminLayout({
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-           <div className="flex items-center gap-2">
-            <Fla10Logo />
-            <div className="flex flex-col">
-              <h3 className="font-bold text-base">Admin Panel</h3>
-              <p className="text-xs text-muted-foreground">FLA10 News</p>
-            </div>
-           </div>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
@@ -90,7 +82,6 @@ export default function AdminLayout({
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6">
             <SidebarTrigger className="md:hidden" />
-            <h1 className="flex-1 text-lg font-semibold">Painel Administrativo</h1>
         </header>
         <main className="flex-1 p-6">{children}</main>
       </SidebarInset>
