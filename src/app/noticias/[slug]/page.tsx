@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2 } from 'lucide-react'
@@ -90,6 +91,17 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
+        )}
+
+        {article.fullArticleLink && (
+            <div className="mt-12 pt-8 border-t text-center">
+                 <Button asChild size="lg">
+                    <Link href={article.fullArticleLink} target="_blank" rel="noopener noreferrer">
+                        Ler Matéria Completa
+                        <LinkIcon className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </div>
         )}
       </article>
     </div>

@@ -12,6 +12,7 @@ const NewsSchema = z.object({
   category: z.string().min(3, { message: "A categoria deve ter pelo menos 3 caracteres." }),
   content: z.string().min(50, { message: "O conteúdo da matéria deve ter pelo menos 50 caracteres." }),
   image: z.string().url({ message: "Por favor, insira um link de imagem válido." }),
+  fullArticleLink: z.string().url({ message: "Por favor, insira um link válido para a matéria completa." }).optional().or(z.literal('')),
   dataAiHint: z.string().optional(),
   author: z.string().optional(),
 });
@@ -32,6 +33,7 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
     category: formData.get("category"),
     content: formData.get("content"),
     image: formData.get("image"),
+    fullArticleLink: formData.get("fullArticleLink"),
     dataAiHint: formData.get("dataAiHint"),
     author: formData.get("author"),
   });
@@ -81,6 +83,7 @@ export async function updateNewsArticle(id: string, slug: string, prevState: any
     category: formData.get("category"),
     content: formData.get("content"),
     image: formData.get("image"),
+    fullArticleLink: formData.get("fullArticleLink"),
     dataAiHint: formData.get("dataAiHint"),
     author: formData.get("author"),
   });

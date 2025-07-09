@@ -13,6 +13,7 @@ export type NewsArticle = {
     content?: string;
     author?: string;
     views: number;
+    fullArticleLink?: string;
 };
 
 const fromFirestore = (doc: any): NewsArticle => {
@@ -29,6 +30,7 @@ const fromFirestore = (doc: any): NewsArticle => {
         content: data.content || '',
         author: data.author || 'Redação NRN',
         views: data.views || 0,
+        fullArticleLink: data.fullArticleLink || '',
     };
 };
 

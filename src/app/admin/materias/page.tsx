@@ -142,6 +142,11 @@ export default function MateriasPage() {
                 <Input id="image" name="image" type="url" placeholder="https://exemplo.com/imagem.png" required />
                 <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
             </div>
+            <div className="grid gap-2">
+              <Label htmlFor="fullArticleLink">Link para a Matéria Completa (Opcional)</Label>
+              <Input id="fullArticleLink" name="fullArticleLink" type="url" placeholder="https://ge.globo.com/..." />
+              <p className="text-xs text-muted-foreground">Se preenchido, um botão "Ler matéria completa" aparecerá no final do artigo.</p>
+            </div>
              <div className="grid gap-2">
                 <Label htmlFor="content">Conteúdo da Matéria</Label>
                 <Textarea id="content" name="content" placeholder="Escreva a matéria completa aqui. Você pode usar tags HTML como <p>, <h3> e <strong> para formatar o texto." className="min-h-[300px]" required />
