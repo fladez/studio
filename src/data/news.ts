@@ -1,6 +1,7 @@
 export type NewsArticle = {
     id: string; // Firestore document ID
     title: string;
+    excerpt: string;
     category: string;
     image: string; // URL to the image
     dataAiHint: string;
@@ -21,6 +22,7 @@ export const news: NewsArticle[] = [
     {
         id: '1',
         title: 'Flamengo vence de virada e assume a liderança',
+        excerpt: 'Com gols de Gabigol e Arrascaeta, o Mengão vira o jogo no Maracanã e assume a ponta da tabela do campeonato.',
         category: 'Futebol Profissional',
         image: 'https://placehold.co/1200x600.png',
         dataAiHint: 'soccer celebration',
@@ -32,6 +34,7 @@ export const news: NewsArticle[] = [
     {
         id: '2',
         title: 'Tite elogia poder de reação da equipe',
+        excerpt: 'Treinador rubro-negro exalta a força mental do elenco após a vitória de virada e elogia a união do grupo.',
         category: 'Entrevistas',
         image: 'https://placehold.co/1200x600.png',
         dataAiHint: 'coach interview',
@@ -43,6 +46,7 @@ export const news: NewsArticle[] = [
     {
         id: '3',
         title: 'Reforço para o basquete: Flamengo anuncia novo pivô',
+        excerpt: 'O Orgulho da Nação se reforça com o experiente pivô americano John Doe, que chega para dominar o garrafão.',
         category: 'Basquete',
         image: 'https://placehold.co/1200x600.png',
         dataAiHint: 'basketball player',
@@ -54,6 +58,7 @@ export const news: NewsArticle[] = [
     {
         id: '4',
         title: 'Nação esgota ingressos para a final',
+        excerpt: 'A torcida mais uma vez faz a diferença e compra todas as entradas disponíveis para a grande decisão da Copa do Brasil.',
         category: 'Torcida',
         image: 'https://placehold.co/1200x600.png',
         dataAiHint: 'stadium crowd',
@@ -65,6 +70,7 @@ export const news: NewsArticle[] = [
      {
         id: '5',
         title: 'Base rubro-negra brilha e conquista título sub-20',
+        excerpt: 'A nova geração de talentos da Gávea mostra seu valor ao conquistar o título nacional da categoria com campanha impecável.',
         category: 'Categorias de Base',
         image: 'https://placehold.co/1200x600.png',
         dataAiHint: 'youth soccer trophy',

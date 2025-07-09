@@ -158,20 +158,21 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {dailyNews.map((news) => (
                 <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                  <CardHeader className="p-0">
+                  <CardHeader className="p-0 relative">
                     <Link href={`/noticias/${news.slug}`}>
                       <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
                     </Link>
+                    <Badge className="absolute top-2 right-2">{news.category}</Badge>
                   </CardHeader>
-                  <CardContent className="flex-grow p-4">
-                    <Badge className="mb-2">{news.category}</Badge>
+                  <CardContent className="flex-grow p-4 space-y-2">
                     <CardTitle className="text-lg font-bold font-body leading-tight">
                         <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
                            {news.title}
                         </Link>
                     </CardTitle>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
                   </CardContent>
-                  <CardFooter className="p-4 pt-2 text-xs text-muted-foreground">
+                  <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
                      <div className="flex justify-between items-center w-full">
                         <div className="flex items-center gap-1.5">
                             <Clock className="h-3 w-3" />

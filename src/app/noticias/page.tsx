@@ -1,10 +1,34 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { getNews } from '@/data/news'
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
+import { Clock } from 'lucide-react'
 
+function formatPublishedTime(publishedAt: Date): string {
+    const now = new Date();
+  
+    const diffDays = differenceInDays(now, publishedAt);
+    if (diffDays > 3) {
+      return format(publishedAt, 'dd/MM/yyyy');
+    }
+    if (diffDays >= 1) {
+      return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+    }
+  
+    const diffHours = differenceInHours(now, publishedAt);
+    if (diffHours >= 1) {
+      return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
+    }
+  
+    const diffMinutes = differenceInMinutes(now, publishedAt);
+    if (diffMinutes >= 1) {
+      return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
+    }
+  
+    return "Agora mesmo";
+}
 
 export default function NoticiasPage() {
     const allNews = getNews();
@@ -22,18 +46,31 @@ export default function NoticiasPage() {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {allNews.map((news) => (
-                  <Card key={news.slug} className="flex flex-col">
-                    <CardHeader className="p-0">
-                      <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2]" data-ai-hint={news.dataAiHint} />
+                  <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <CardHeader className="p-0 relative">
+                        <Link href={`/noticias/${news.slug}`}>
+                            <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                        </Link>
+                      <Badge className="absolute top-2 right-2">{news.category}</Badge>
                     </CardHeader>
-                    <CardContent className="flex-grow p-4">
-                      <Badge className="mb-2">{news.category}</Badge>
-                      <CardTitle className="text-lg font-bold font-body leading-tight">{news.title}</CardTitle>
+                    <CardContent className="flex-grow p-4 space-y-2">
+                      <CardTitle className="text-lg font-bold font-body leading-tight">
+                        <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                           {news.title}
+                        </Link>
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
                     </CardContent>
-                    <CardFooter className="p-4 pt-0">
-                      <Button asChild className="w-full">
-                        <Link href={`/noticias/${news.slug}`}>Ler Notícia</Link>
-                      </Button>
+                    <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
+                        <div className="flex justify-between items-center w-full">
+                            <div className="flex items-center gap-1.5">
+                                <Clock className="h-3 w-3" />
+                                <span>{formatPublishedTime(news.publishedAt)}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <span>Por {news.author || 'Redação NRN'}</span>
+                            </div>
+                        </div>
                     </CardFooter>
                   </Card>
                 ))}
