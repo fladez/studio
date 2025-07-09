@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -8,7 +7,7 @@ export function SofascoreWidget() {
     <div className="mx-auto w-full max-w-[768px]">
       <iframe
         id="sofa-standings-embed-83-72034"
-        src="https://widgets.sofascore.com/embed/tournament/83/season/72034/standings/overall?widgetTitle=Brasileir%C3%A3o%20S%C3%A9rie%20A%202025&showCompetitionLogo=true&lang=pt"
+        src="https://widgets.sofascore.com/embed/tournament/83/season/72034/standings/overall?widgetTitle=Brasileir%C3%A3o%20S%C3%A9rie%20A%202025&showCompetitionLogo=true"
         style={{ height: '1123px' }}
         className="w-full border-0"
         scrolling="no"
