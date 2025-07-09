@@ -77,8 +77,8 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
           </div>
         </div>
         {href && (
-          <Button variant="ghost" asChild>
-            <Link href={href}>Ver todos <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          <Button variant="ghost" asChild className="text-primary hover:bg-primary hover:text-primary-foreground">
+            <Link href={href}>Ver Todas <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         )}
       </div>
