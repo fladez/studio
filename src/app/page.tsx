@@ -262,7 +262,7 @@ export default function Home() {
                    <Badge className="absolute top-2 left-2">{video.category}</Badge>
                 </CardHeader>
                 <CardContent className="p-4 flex-grow">
-                   <CardTitle className="text-base font-bold font-body leading-tight">
+                   <CardTitle className="text-lg font-bold font-body leading-tight">
                     <Link href={`/videos/${video.slug}`} className="group-hover:text-[#FF073A] transition-colors duration-200">
                       {video.title}
                     </Link>
