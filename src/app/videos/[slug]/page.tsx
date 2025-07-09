@@ -162,6 +162,10 @@ export default async function VideoPage({ params }: { params: { slug: string } }
           </div>
         </section>
       )}
+
+      <div className="mt-12 pt-8 border-t">
+        <AdBanner width={728} height={90} />
+      </div>
     </div>
   )
 }
