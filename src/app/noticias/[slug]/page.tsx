@@ -1,11 +1,17 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
-import { Facebook, Twitter, Linkedin, Link as LinkIcon } from 'lucide-react'
+import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getNewsBySlug, getNews } from '@/data/news'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 // This generates the routes at build time
 export function generateStaticParams() {
@@ -28,7 +34,36 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     <div className="container mx-auto max-w-4xl py-12">
       <article>
         <header className="mb-8">
-          <Badge className="mb-2">{article.category}</Badge>
+          <div className="flex justify-between items-center mb-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  <Share2 className="mr-2 h-4 w-4" />
+                  Compartilhar
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem>
+                  <Twitter className="mr-2 h-4 w-4" />
+                  <span>Twitter / X</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Facebook className="mr-2 h-4 w-4" />
+                  <span>Facebook</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Linkedin className="mr-2 h-4 w-4" />
+                  <span>LinkedIn</span>
+                </DropdownMenuItem>
+                 <DropdownMenuItem>
+                  <LinkIcon className="mr-2 h-4 w-4" />
+                  <span>Copiar Link</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Badge variant="default">{article.category}</Badge>
+          </div>
+
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight mb-4">{article.title}</h1>
           <div className="text-sm text-muted-foreground">
             <span>Por Redação NRN</span> &bull; <span>{articleDate}</span>
@@ -53,24 +88,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         )}
-
-        <div className="mt-12 pt-8 border-t">
-          <h3 className="text-lg font-bold mb-4">Compartilhe esta notícia</h3>
-          <div className="flex gap-2">
-            <Button variant="outline" size="icon" aria-label="Compartilhar no Twitter">
-              <Twitter className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" aria-label="Compartilhar no Facebook">
-              <Facebook className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" aria-label="Compartilhar no LinkedIn">
-              <Linkedin className="h-4 w-4" />
-            </Button>
-            <Button variant="outline"size="icon" aria-label="Copiar link">
-              <LinkIcon className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
       </article>
     </div>
   )
