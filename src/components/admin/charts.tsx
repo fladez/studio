@@ -158,7 +158,7 @@ export function MostViewedContentChart({ data }: { data: any[] }) {
           data={data}
           dataKey="views"
           nameKey="type"
-          innerRadius={60}
+          innerRadius={30}
           strokeWidth={5}
         >
           {data.map((entry, index) => (
@@ -167,7 +167,7 @@ export function MostViewedContentChart({ data }: { data: any[] }) {
         </Pie>
         <ChartLegend
           content={<ChartLegendContent nameKey="type" />}
-          className="-translate-y-[2rem] flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+          className="flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
         />
       </PieChart>
     </ChartContainer>
