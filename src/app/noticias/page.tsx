@@ -6,6 +6,7 @@ import { getNews } from '@/data/news'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
 import { Clock } from 'lucide-react'
 import { ShareButton } from '@/components/share-button'
+import { AdBanner } from '@/components/ad-banner'
 
 function formatPublishedTime(publishedAt: Date): string {
     const now = new Date();
@@ -33,6 +34,9 @@ function formatPublishedTime(publishedAt: Date): string {
 
 export default async function NoticiasPage() {
     const allNews = await getNews();
+    const newsBlock1 = allNews.slice(0, 8);
+    const newsBlock2 = allNews.slice(8);
+
 
     return (
         <div className="container mx-auto py-12">
@@ -45,38 +49,78 @@ export default async function NoticiasPage() {
                     <p className="text-muted-foreground">Nenhuma notícia publicada ainda. Volte em breve!</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {allNews.map((news) => (
-                  <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
-                    <CardHeader className="p-0 relative">
-                        <Link href={`/noticias/${news.slug}`}>
-                            <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
-                        </Link>
-                      <Badge className="absolute top-2 left-2">{news.category}</Badge>
-                      <ShareButton title={news.title} slug={news.slug} />
-                    </CardHeader>
-                    <CardContent className="flex-grow p-4 space-y-2">
-                      <CardTitle className="text-lg font-bold font-body leading-tight">
-                        <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                           {news.title}
-                        </Link>
-                      </CardTitle>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
-                        <div className="flex justify-between items-center w-full">
-                            <div className="flex items-center gap-1.5">
-                                <Clock className="h-3 w-3" />
-                                <span>{formatPublishedTime(news.publishedAt)}</span>
+                <div className="space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {newsBlock1.map((news) => (
+                      <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                        <CardHeader className="p-0 relative">
+                            <Link href={`/noticias/${news.slug}`}>
+                                <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                            </Link>
+                          <Badge className="absolute top-2 left-2">{news.category}</Badge>
+                          <ShareButton title={news.title} slug={news.slug} />
+                        </CardHeader>
+                        <CardContent className="flex-grow p-4 space-y-2">
+                          <CardTitle className="text-lg font-bold font-body leading-tight">
+                            <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                               {news.title}
+                            </Link>
+                          </CardTitle>
+                          <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
+                        </CardContent>
+                        <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
+                            <div className="flex justify-between items-center w-full">
+                                <div className="flex items-center gap-1.5">
+                                    <Clock className="h-3 w-3" />
+                                    <span>{formatPublishedTime(news.publishedAt)}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <span>Por {news.author || 'Redação NRN'}</span>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-1.5">
-                                <span>Por {news.author || 'Redação NRN'}</span>
-                            </div>
-                        </div>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {newsBlock2.length > 0 && (
+                    <>
+                      <AdBanner width={728} height={90} />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {newsBlock2.map((news) => (
+                          <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                            <CardHeader className="p-0 relative">
+                                <Link href={`/noticias/${news.slug}`}>
+                                    <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                                </Link>
+                              <Badge className="absolute top-2 left-2">{news.category}</Badge>
+                              <ShareButton title={news.title} slug={news.slug} />
+                            </CardHeader>
+                            <CardContent className="flex-grow p-4 space-y-2">
+                              <CardTitle className="text-lg font-bold font-body leading-tight">
+                                <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                                   {news.title}
+                                </Link>
+                              </CardTitle>
+                              <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
+                            </CardContent>
+                            <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
+                                <div className="flex justify-between items-center w-full">
+                                    <div className="flex items-center gap-1.5">
+                                        <Clock className="h-3 w-3" />
+                                        <span>{formatPublishedTime(news.publishedAt)}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <span>Por {news.author || 'Redação NRN'}</span>
+                                    </div>
+                                </div>
+                            </CardFooter>
+                          </Card>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
             )}
         </div>
     )
