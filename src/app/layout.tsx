@@ -59,7 +59,7 @@ export default function RootLayout({
             <SocialBar />
             <Header />
             <NextGameBanner />
-            <main className="flex-1">{children}</main>
+            <main className="flex flex-1">{children}</main>
             <Footer />
           </div>
           <Toaster />
