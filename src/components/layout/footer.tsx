@@ -1,5 +1,4 @@
 import { Fla10Logo } from "@/components/fla10-logo"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
@@ -23,16 +22,13 @@ export function Footer() {
         <div className="container mx-auto text-center max-w-2xl px-4">
           <h2 className="text-3xl md:text-4xl font-bold font-headline mb-2">Receba as últimas notícias do Flamengo</h2>
           <p className="mb-6 text-base text-primary-foreground/90">Cadastre-se e seja o primeiro a saber de tudo sobre o Mengão</p>
-          <form className="flex flex-col sm:flex-row gap-2 max-w-lg mx-auto">
-            <Input 
-              type="email" 
-              placeholder="Seu e-mail" 
-              className="bg-primary-foreground/10 border-primary-foreground/30 placeholder:text-primary-foreground/70 text-primary-foreground flex-grow focus:bg-primary-foreground/20 focus-visible:ring-primary-foreground"
-            />
-            <Button type="submit" variant="secondary" className="bg-card hover:bg-card/90 text-accent font-bold">
-              Cadastrar
+          <div className="flex justify-center">
+            <Button asChild variant="secondary" className="bg-card text-accent font-bold hover:bg-black hover:text-white transition-colors">
+              <Link href="/register">
+                Cadastrar
+              </Link>
             </Button>
-          </form>
+          </div>
         </div>
       </div>
 
