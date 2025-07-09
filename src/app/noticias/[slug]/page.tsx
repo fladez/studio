@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { AdBanner } from '@/components/ad-banner'
 
 export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate at most every hour
@@ -94,15 +95,21 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         )}
 
         {article.fullArticleLink && (
-            <div className="mt-12 pt-8 border-t text-center">
-                 <Button asChild size="lg">
-                    <Link href={article.fullArticleLink} target="_blank" rel="noopener noreferrer">
-                        Ler Matéria Completa
-                        <LinkIcon className="ml-2 h-4 w-4" />
-                    </Link>
-                </Button>
+            <div className="mt-8">
+              <Link 
+                href={article.fullArticleLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="font-bold text-primary hover:text-yellow-400 transition-colors"
+              >
+                Leia mais.
+              </Link>
             </div>
         )}
+        
+        <div className="mt-12 pt-8 border-t">
+            <AdBanner width={728} height={90} />
+        </div>
       </article>
     </div>
   )
