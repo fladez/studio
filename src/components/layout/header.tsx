@@ -49,11 +49,8 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" asChild className="text-primary-foreground/70 hover:text-primary-foreground hover:bg-white/10">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/register">Registrar-se</Link>
+            <Button asChild className="hover:bg-black">
+              <Link href="/login">Entrar</Link>
             </Button>
           </div>
 
@@ -109,13 +106,8 @@ export function Header() {
                 <div className="mt-auto border-t p-6">
                   <div className="flex flex-col gap-2">
                     <SheetClose asChild>
-                      <Button asChild variant="outline">
-                        <Link href="/login">Login</Link>
-                      </Button>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Button asChild>
-                        <Link href="/register">Registrar-se</Link>
+                      <Button asChild className="hover:bg-black">
+                        <Link href="/login">Entrar</Link>
                       </Button>
                     </SheetClose>
                   </div>
