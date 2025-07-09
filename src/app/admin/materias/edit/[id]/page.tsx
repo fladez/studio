@@ -17,12 +17,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const initialState = {
   success: false,
   message: "",
   errors: null,
 };
+
+const mainCategories = [
+  "Futebol",
+  "Basquete",
+  "Volei",
+  "Futsal",
+  "E-Sports",
+  "Esportes Olímpicos",
+];
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -114,6 +124,27 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
         </CardHeader>
         <form action={formAction}>
           <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="mainCategory">Categoria Principal</Label>
+                    <Select name="mainCategory" required defaultValue={article.mainCategory}>
+                        <SelectTrigger id="mainCategory">
+                            <SelectValue placeholder="Selecione a categoria principal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {mainCategories.map((cat) => (
+                            <SelectItem key={cat} value={cat}>
+                                {cat}
+                            </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="grid gap-2">
+                    <Label htmlFor="category">Subcategoria (Tag)</Label>
+                    <Input id="category" name="category" defaultValue={article.category} required />
+                </div>
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="title">Título</Label>
               <Input id="title" name="title" defaultValue={article.title} required />
@@ -124,28 +155,24 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="category">Categoria (Tag)</Label>
-                    <Input id="category" name="category" defaultValue={article.category} required />
-                </div>
-                <div className="grid gap-2">
                     <Label htmlFor="author">Autor</Label>
                     <Input id="author" name="author" defaultValue={article.author} />
                 </div>
-            </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="grid gap-2">
                     <Label htmlFor="dataAiHint">Dica para IA da Imagem</Label>
                     <Input id="dataAiHint" name="dataAiHint" defaultValue={article.dataAiHint} />
+                </div>
+            </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="grid gap-2">
+                    <Label htmlFor="image">Link da Foto da Matéria</Label>
+                    <Input id="image" name="image" type="url" defaultValue={article.image} required />
+                    <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="imageCredit">Crédito da Imagem (Opcional)</Label>
                     <Input id="imageCredit" name="imageCredit" defaultValue={article.imageCredit || ''} placeholder="Ex: Foto: Reuters" />
                 </div>
-            </div>
-            <div className="grid gap-2">
-                <Label htmlFor="image">Link da Foto da Matéria</Label>
-                <Input id="image" name="image" type="url" defaultValue={article.image} required />
-                 <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
             </div>
             <div className="grid gap-2">
               <Label htmlFor="fullArticleLink">Link para a Matéria Completa (Opcional)</Label>

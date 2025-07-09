@@ -3,6 +3,7 @@ import { collection, getDocs, query, where, orderBy, limit, Timestamp, doc, getD
 
 export type NewsArticle = {
     id: string; // Firestore document ID
+    mainCategory: string;
     title: string;
     excerpt: string;
     category: string;
@@ -21,6 +22,7 @@ const fromFirestore = (doc: any): NewsArticle => {
     const data = doc.data();
     return {
         id: doc.id,
+        mainCategory: data.mainCategory || 'Futebol',
         title: data.title || '',
         excerpt: data.excerpt || '',
         category: data.category || 'Geral',

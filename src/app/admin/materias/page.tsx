@@ -17,6 +17,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Icons
 import { Loader2, FilePen, Trash2 } from "lucide-react";
@@ -28,6 +29,15 @@ const initialState = {
   message: "",
   errors: null,
 };
+
+const mainCategories = [
+  "Futebol",
+  "Basquete",
+  "Volei",
+  "Futsal",
+  "E-Sports",
+  "Esportes Olímpicos",
+];
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -115,6 +125,27 @@ export default function MateriasPage() {
         </CardHeader>
         <form ref={formRef} action={formAction}>
           <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="mainCategory">Categoria Principal</Label>
+                    <Select name="mainCategory" required defaultValue="Futebol">
+                        <SelectTrigger id="mainCategory">
+                            <SelectValue placeholder="Selecione a categoria principal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                        {mainCategories.map((cat) => (
+                            <SelectItem key={cat} value={cat}>
+                                {cat}
+                            </SelectItem>
+                        ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="grid gap-2">
+                    <Label htmlFor="category">Subcategoria (Tag)</Label>
+                    <Input id="category" name="category" placeholder="Ex: Profissional, Base, Feminino" required />
+                </div>
+            </div>
             <div className="grid gap-2">
               <Label htmlFor="title">Título</Label>
               <Input id="title" name="title" placeholder="Título que chama a atenção para a matéria" required />
@@ -125,28 +156,24 @@ export default function MateriasPage() {
             </div>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="category">Categoria (Tag)</Label>
-                    <Input id="category" name="category" placeholder="Ex: Futebol Profissional" required />
-                </div>
-                <div className="grid gap-2">
                     <Label htmlFor="author">Autor (Opcional)</Label>
                     <Input id="author" name="author" placeholder="Padrão: Redação NRN" />
                 </div>
-            </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <div className="grid gap-2">
+                <div className="grid gap-2">
                     <Label htmlFor="dataAiHint">Dica para IA da Imagem</Label>
                     <Input id="dataAiHint" name="dataAiHint" placeholder="Ex: soccer celebration" />
+                </div>
+            </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="image">Link da Foto da Matéria</Label>
+                    <Input id="image" name="image" type="url" placeholder="https://exemplo.com/imagem.png" required />
+                    <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
                 </div>
                  <div className="grid gap-2">
                     <Label htmlFor="imageCredit">Crédito da Imagem (Opcional)</Label>
                     <Input id="imageCredit" name="imageCredit" placeholder="Ex: Foto: Reuters" />
                 </div>
-            </div>
-            <div className="grid gap-2">
-                <Label htmlFor="image">Link da Foto da Matéria</Label>
-                <Input id="image" name="image" type="url" placeholder="https://exemplo.com/imagem.png" required />
-                <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
             </div>
             <div className="grid gap-2">
               <Label htmlFor="fullArticleLink">Link para a Matéria Completa (Opcional)</Label>
@@ -182,6 +209,7 @@ export default function MateriasPage() {
                 <TableRow>
                   <TableHead>Título</TableHead>
                   <TableHead>Categoria</TableHead>
+                  <TableHead>Tag</TableHead>
                   <TableHead>Data de Publicação</TableHead>
                   <TableHead className="text-right">Ações</TableHead>
                 </TableRow>
@@ -190,6 +218,7 @@ export default function MateriasPage() {
                 {newsList.map((news) => (
                   <TableRow key={news.id}>
                     <TableCell className="font-medium max-w-xs truncate">{news.title}</TableCell>
+                    <TableCell>{news.mainCategory}</TableCell>
                     <TableCell>{news.category}</TableCell>
                     <TableCell>{format(news.publishedAt, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</TableCell>
                     <TableCell className="text-right space-x-2">

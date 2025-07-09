@@ -7,9 +7,10 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewsSchema = z.object({
+  mainCategory: z.string().min(1, { message: "A categoria principal é obrigatória." }),
   title: z.string().min(5, { message: "O título deve ter pelo menos 5 caracteres." }),
   excerpt: z.string().min(10, { message: "O subtítulo deve ter pelo menos 10 caracteres." }),
-  category: z.string().min(3, { message: "A categoria deve ter pelo menos 3 caracteres." }),
+  category: z.string().min(3, { message: "A subcategoria (tag) deve ter pelo menos 3 caracteres." }),
   content: z.string().min(50, { message: "O conteúdo da matéria deve ter pelo menos 50 caracteres." }),
   image: z.string().url({ message: "Por favor, insira um link de imagem válido." }),
   imageCredit: z.string().optional(),
@@ -29,6 +30,7 @@ function generateSlug(title: string): string {
 
 export async function createNewsArticle(prevState: any, formData: FormData) {
   const validatedFields = NewsSchema.safeParse({
+    mainCategory: formData.get("mainCategory"),
     title: formData.get("title"),
     excerpt: formData.get("excerpt"),
     category: formData.get("category"),
@@ -80,6 +82,7 @@ export async function updateNewsArticle(id: string, slug: string, prevState: any
   }
 
   const validatedFields = NewsSchema.safeParse({
+    mainCategory: formData.get("mainCategory"),
     title: formData.get("title"),
     excerpt: formData.get("excerpt"),
     category: formData.get("category"),
