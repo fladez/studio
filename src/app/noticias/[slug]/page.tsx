@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getNewsBySlug, getNews } from '@/data/news'
+import { getNewsBySlug, getAllNewsSlugs } from '@/data/news'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import {
@@ -13,16 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate at most every hour
+
 // This generates the routes at build time
-export function generateStaticParams() {
-  const news = getNews();
-  return news.map((article) => ({
-    slug: article.slug,
+export async function generateStaticParams() {
+  const slugs = await getAllNewsSlugs();
+  return slugs.map((item) => ({
+    slug: item.slug,
   }));
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = getNewsBySlug(params.slug)
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = await getNewsBySlug(params.slug)
 
   if (!article) {
     notFound()
@@ -66,7 +69,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight mb-4">{article.title}</h1>
           <div className="text-sm text-muted-foreground">
-            <span>Por Redação NRN</span> &bull; <span>{articleDate}</span>
+            <span>Por {article.author}</span> &bull; <span>{articleDate}</span>
           </div>
         </header>
 
@@ -75,7 +78,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             src={article.image}
             alt={article.title}
             width={1200}
-            height={500}
+            height={675}
             className="w-full h-auto object-cover rounded-lg transition-transform duration-300 ease-in-out hover:scale-105"
             data-ai-hint={article.dataAiHint}
             priority

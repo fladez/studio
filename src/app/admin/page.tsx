@@ -13,7 +13,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 
 export default async function AdminDashboard() {
-    const news = getNews();
+    const news = await getNews();
     const columns = getColumns();
     const userCount = await getUserCount();
 

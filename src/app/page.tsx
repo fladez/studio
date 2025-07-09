@@ -72,12 +72,12 @@ function formatViews(views: number): string {
     return views.toString();
 }
 
-export default function Home() {
-  const allNews = getNews();
+export default async function Home() {
+  const allNews = await getNews(10);
   const allColumns = getColumns();
 
   const mainHeadlines = allNews.slice(0, 3);
-  const dailyNews = allNews.slice(3, 7);
+  const dailyNews = allNews.slice(3, 9); // Now shows 6 articles
   const homePageOpinionColumns = allColumns.slice(0, 3);
   const homePageVideos = videos.slice(0, 3);
   const latestNews = allNews.length > 0 ? allNews[0] : null;
@@ -168,7 +168,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Últimas Notícias" subtitle="Fique por dentro de tudo que acontece com o Mengão." href="/noticias" icon={Newspaper} />
           {dailyNews.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {dailyNews.map((news) => (
                 <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                   <CardHeader className="p-0 relative">

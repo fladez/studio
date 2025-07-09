@@ -31,8 +31,8 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default function NoticiasPage() {
-    const allNews = getNews();
+export default async function NoticiasPage() {
+    const allNews = await getNews();
 
     return (
         <div className="container mx-auto py-12">
