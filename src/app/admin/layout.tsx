@@ -23,7 +23,7 @@ export default function AdminLayout({
 
   if (loading || !user) {
     return (
-      <div className="flex items-center justify-center h-screen bg-background">
+      <div className="flex flex-1 items-center justify-center p-8">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
       </div>
     );
@@ -79,7 +79,7 @@ export default function AdminLayout({
           </SidebarMenu>
         </SidebarContent>
       </Sidebar>
-      <SidebarInset>
+      <SidebarInset className="min-h-0">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-6">
             <SidebarTrigger className="md:hidden" />
         </header>
