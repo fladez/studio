@@ -11,9 +11,9 @@ import { LayoutDashboard, CalendarClock, Newspaper, PenSquare, Video, Menu, Home
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/proximo-jogo", label: "Atualizar Próximo Jogo", icon: CalendarClock },
-  { href: "/admin/materias", label: "Gerenciar Notícias", icon: Newspaper },
-  { href: "/admin/colunas", label: "Gerenciar Colunas", icon: PenSquare },
-  { href: "/admin/videos", label: "Gerenciar Vídeos", icon: Video },
+  { href: "/admin/materias", label: "Inserir Matérias", icon: Newspaper },
+  { href: "/admin/colunas", label: "Inserir Colunas", icon: PenSquare },
+  { href: "/admin/videos", label: "Inserir Vídeos", icon: Video },
 ];
 
 function NavLink({ href, label, icon: Icon }: { href: string; label: string; icon: React.ElementType }) {
