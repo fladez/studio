@@ -67,9 +67,9 @@ export function AuthButton() {
     }
 
     return (
-        <Button asChild>
+        <Button asChild className="hover:bg-black">
             <Link href="/login">
-                Login
+                Entrar
             </Link>
         </Button>
     )

@@ -14,7 +14,7 @@ import { Loader2 } from 'lucide-react';
 function SubmitButton() {
     const { pending } = useFormStatus();
     return (
-        <Button className="w-full" type="submit" disabled={pending}>
+        <Button className="w-full hover:bg-black" type="submit" disabled={pending}>
             {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Criando conta...</> : 'Criar Conta'}
         </Button>
     );
