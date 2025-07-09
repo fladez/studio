@@ -1,4 +1,5 @@
-import type {Metadata} from 'next';
+'use client';
+
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -8,11 +9,7 @@ import Link from 'next/link';
 import { NextGameBanner } from '@/components/next-game-banner';
 import { TiktokIcon } from '@/components/tiktok-icon';
 import { AuthProvider } from '@/context/auth-context';
-
-export const metadata: Metadata = {
-  title: 'FLA10 News',
-  description: 'Seu portal diário de notícias sobre o Clube de Regatas do Flamengo.',
-};
+import { usePathname } from 'next/navigation';
 
 function SocialBar() {
   return (
@@ -46,6 +43,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isAdminPage = pathname.startsWith('/admin');
+
   return (
     <html lang="pt-BR">
       <head>
@@ -55,13 +55,17 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-body antialiased">
         <AuthProvider>
-          <div className="relative flex min-h-screen flex-col">
-            <SocialBar />
-            <Header />
-            <NextGameBanner />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          {isAdminPage ? (
+            <>{children}</>
+          ) : (
+            <div className="relative flex min-h-screen flex-col">
+              <SocialBar />
+              <Header />
+              <NextGameBanner />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          )}
           <Toaster />
         </AuthProvider>
       </body>
