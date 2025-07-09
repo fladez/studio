@@ -7,6 +7,8 @@ import { ArrowLeft, LogIn, Menu, Newspaper, UserPlus, Users, Video } from 'lucid
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/context/auth-context'
+import { UserNav } from '@/components/user-nav'
 
 const navLinks = [
   { href: '/noticias', label: 'Notícias', icon: Newspaper },
@@ -21,6 +23,7 @@ const authLinks = [
 
 export function Header() {
   const pathname = usePathname()
+  const { user } = useAuth()
 
   const NavLink = ({ href, label, icon: Icon }: { href: string, label: string, icon: React.ElementType }) => (
     <Link
@@ -53,11 +56,15 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-2 md:flex">
-            <Button asChild className="hover:bg-black">
-              <Link href="/login">Entrar</Link>
-            </Button>
-          </div>
+          {user ? (
+            <UserNav />
+          ) : (
+            <div className="hidden items-center gap-2 md:flex">
+              <Button asChild className="hover:bg-black">
+                <Link href="/login">Entrar</Link>
+              </Button>
+            </div>
+          )}
 
           <div className="md:hidden">
             <Sheet>
@@ -106,7 +113,7 @@ export function Header() {
                             </Link>
                           </SheetClose>
                         ))}
-                        {authLinks.map(link => (
+                        {!user && authLinks.map(link => (
                           <SheetClose asChild key={link.href}>
                             <Link
                                 href={link.href}
