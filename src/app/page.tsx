@@ -11,6 +11,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,6 +19,7 @@ import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-r
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
+import { cn } from '@/lib/utils'
 
 const now = new Date();
 
@@ -93,6 +95,23 @@ export default function Home() {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap() + 1)
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1)
+    })
+  }, [api])
+
   const allNewsForHomepage = [...mainHeadlines, ...dailyNews];
 
   // Sort all news to find the latest one easily
@@ -127,6 +146,7 @@ export default function Home() {
     <div>
       <section>
         <Carousel 
+          setApi={setApi}
           className="w-full" 
           opts={{ loop: true }}
           plugins={[plugin.current]}
@@ -158,6 +178,19 @@ export default function Home() {
           </CarouselContent>
           <CarouselPrevious className="left-4 hidden md:flex" />
           <CarouselNext className="right-4 hidden md:flex" />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+            {Array.from({ length: count }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => api?.scrollTo(i)}
+                className={cn(
+                  "h-2 rounded-full transition-all duration-300 ease-in-out",
+                  current === i + 1 ? "w-4 bg-white" : "w-2 bg-white/50"
+                )}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </Carousel>
       </section>
 
