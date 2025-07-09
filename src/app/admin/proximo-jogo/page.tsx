@@ -1,18 +1,46 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { nextGame as currentGameData } from '@/data/next-game';
+import { nextGame as defaultGameData } from '@/data/next-game';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { updateNextGame } from './actions';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 export default function ProximoJogoPage() {
     const { toast } = useToast();
-    const [loading, setLoading] = useState(false);
-    const [gameData, setGameData] = useState(currentGameData);
+    const [isSaving, setIsSaving] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [gameData, setGameData] = useState(defaultGameData);
+
+    useEffect(() => {
+        async function fetchGameData() {
+            setIsLoading(true);
+            try {
+                const docRef = doc(db, "siteConfig", "nextGame");
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    setGameData(docSnap.data() as typeof defaultGameData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch game data:", error);
+                toast({
+                    title: "Erro ao carregar",
+                    description: "Não foi possível carregar os dados do próximo jogo. Usando dados padrão.",
+                    variant: "destructive"
+                });
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchGameData();
+    }, [toast]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -21,22 +49,33 @@ export default function ProximoJogoPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-
-        // Em uma aplicação real, aqui você chamaria uma server action
-        // para atualizar os dados no banco de dados (ex: Firestore).
-        // Por enquanto, vamos simular uma chamada de API.
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        setIsSaving(true);
         
-        console.log("Dados para salvar:", gameData);
+        const result = await updateNextGame(gameData);
 
-        setLoading(false);
-        toast({
-            title: "Sucesso!",
-            description: "Informações do próximo jogo foram atualizadas (simulação).",
-        });
+        if (result.success) {
+            toast({
+                title: "Sucesso!",
+                description: result.message,
+            });
+        } else {
+             toast({
+                title: "Erro ao salvar",
+                description: result.message,
+                variant: "destructive",
+            });
+        }
+
+        setIsSaving(false);
     };
 
+    if (isLoading) {
+        return (
+             <div className="flex h-full items-center justify-center">
+                <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+        )
+    }
 
     return (
         <div className="max-w-2xl mx-auto">
@@ -76,8 +115,8 @@ export default function ProximoJogoPage() {
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit" disabled={loading}>
-                             {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Salvando...</> : 'Salvar Alterações'}
+                        <Button type="submit" disabled={isSaving}>
+                             {isSaving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Salvando...</> : 'Salvar Alterações'}
                         </Button>
                     </CardFooter>
                 </Card>
