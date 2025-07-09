@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import { handleLogin } from './actions';
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -23,6 +23,7 @@ function SubmitButton() {
 export default function LoginPage() {
     const [state, formAction] = useActionState(handleLogin, { error: null });
     const { toast } = useToast();
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
         if (state?.error) {
@@ -51,7 +52,19 @@ export default function LoginPage() {
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="password">Senha</Label>
-                            <Input id="password" type="password" name="password" required />
+                            <div className="relative">
+                                <Input id="password" type={showPassword ? "text" : "password"} name="password" required />
+                                <Button 
+                                    type="button" 
+                                    variant="ghost" 
+                                    size="icon" 
+                                    className="absolute inset-y-0 right-0 h-full px-3 text-muted-foreground hover:bg-transparent"
+                                    onClick={() => setShowPassword(prev => !prev)}
+                                >
+                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                    <span className="sr-only">{showPassword ? "Ocultar senha" : "Mostrar senha"}</span>
+                                </Button>
+                            </div>
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col gap-4">
