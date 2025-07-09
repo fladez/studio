@@ -118,7 +118,7 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Canal Fla Dez. Todos os direitos reservados.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="/politica-de-privacidade" className="hover:text-primary-foreground transition-colors">Política de Privacidade</Link>
-            <Link href="#" className="hover:text-primary-foreground transition-colors">Termos de Uso</Link>
+            <Link href="/termos-de-uso" className="hover:text-primary-foreground transition-colors">Termos de Uso</Link>
             <Link href="#" className="hover:text-primary-foreground transition-colors">Cookies</Link>
           </div>
         </div>
