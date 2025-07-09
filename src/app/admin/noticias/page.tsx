@@ -3,10 +3,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { PlusCircle, FileEdit, Trash2 } from "lucide-react";
+import { PlusCircle, FileEdit } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { DeleteNewsButton } from "./delete-button";
 
 export default async function NewsManagementPage() {
     const news = await getNews();
@@ -53,10 +54,7 @@ export default async function NewsManagementPage() {
                                             <span className="sr-only">Editar</span>
                                         </Link>
                                     </Button>
-                                    <Button variant="ghost" size="icon" className="text-destructive" disabled>
-                                        <Trash2 className="h-4 w-4" />
-                                        <span className="sr-only">Excluir</span>
-                                    </Button>
+                                    <DeleteNewsButton articleId={article.id} articleTitle={article.title} />
                                 </TableCell>
                             </TableRow>
                         ))}

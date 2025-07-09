@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { slugify } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 
@@ -118,5 +118,29 @@ export async function updateNewsArticle(id: string, prevState: State, formData: 
   } catch (error) {
     console.error("Erro ao atualizar notícia:", error);
     return { error: "Ocorreu um erro ao atualizar a notícia no banco de dados." };
+  }
+}
+
+export async function deleteNewsArticle(id: string): Promise<{ message?: string; error?: string }> {
+  if (!db) {
+    return { error: "O banco de dados não está configurado." };
+  }
+
+  if (!id) {
+    return { error: "ID da notícia não fornecido." };
+  }
+
+  try {
+    const newsRef = doc(db, "news", id);
+    await deleteDoc(newsRef);
+
+    revalidatePath('/');
+    revalidatePath('/noticias');
+    revalidatePath('/admin/noticias');
+    
+    return { message: "Notícia excluída com sucesso!" };
+  } catch (error) {
+    console.error("Erro ao excluir notícia:", error);
+    return { error: "Ocorreu um erro ao excluir a notícia do banco de dados." };
   }
 }
