@@ -8,17 +8,20 @@ import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { LayoutDashboard, CalendarClock, Newspaper, PenSquare, Video, Menu, Home } from "lucide-react";
 
+// Updated labels to match page titles for consistency
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/proximo-jogo", label: "Atualizar Próximo Jogo", icon: CalendarClock },
-  { href: "/admin/materias", label: "Inserir Matérias", icon: Newspaper },
-  { href: "/admin/colunas", label: "Inserir Colunas", icon: PenSquare },
-  { href: "/admin/videos", label: "Inserir Vídeos", icon: Video },
+  { href: "/admin/materias", label: "Gerenciar Notícias", icon: Newspaper },
+  { href: "/admin/colunas", label: "Gerenciar Colunas", icon: PenSquare },
+  { href: "/admin/videos", label: "Gerenciar Vídeos", icon: Video },
 ];
 
 function NavLink({ href, label, icon: Icon }: { href: string; label: string; icon: React.ElementType }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  // Match parent routes as well, e.g. /admin/materias/nova should highlight /admin/materias
+  const isActive = (href === '/admin' && pathname === href) || (href !== '/admin' && pathname.startsWith(href));
+
 
   return (
     <Link
@@ -37,25 +40,26 @@ function NavLink({ href, label, icon: Icon }: { href: string; label: string; ico
 function SidebarNav() {
     return (
         <div className="flex h-full max-h-screen flex-col gap-2">
-        <div className="flex h-14 items-center border-b border-gray-700 px-4 lg:h-[60px] lg:px-6">
-            <Link href="/" className="flex items-center gap-2 font-semibold text-white">
-                <Fla10Logo />
-                <span className="">FLA10 Admin</span>
-            </Link>
-        </div>
-        <div className="flex-1">
-            <nav className="grid items-start gap-1 px-2 text-sm font-medium lg:px-4">
-                {navItems.map((item) => (
-                    <NavLink key={item.href} {...item} />
-                ))}
-            </nav>
-        </div>
-        <div className="mt-auto p-4 border-t border-gray-700">
-             <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-400 transition-all hover:text-white hover:bg-gray-700">
-                <Home className="h-4 w-4" />
-                Voltar ao Site
-            </Link>
-        </div>
+            <div className="flex h-14 items-center border-b border-gray-700 px-4 lg:h-[60px] lg:px-6">
+                <Link href="/" className="flex items-center gap-2 font-semibold text-white">
+                    <Fla10Logo />
+                    <span className="">FLA10 Admin</span>
+                </Link>
+            </div>
+            {/* Added overflow-y-auto to ensure all items are visible on smaller screens */}
+            <div className="flex-1 overflow-y-auto">
+                <nav className="grid items-start gap-1 px-2 text-sm font-medium lg:px-4">
+                    {navItems.map((item) => (
+                        <NavLink key={item.href} {...item} />
+                    ))}
+                </nav>
+            </div>
+            <div className="mt-auto p-4 border-t border-gray-700">
+                <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-400 transition-all hover:text-white hover:bg-gray-700">
+                    <Home className="h-4 w-4" />
+                    Voltar ao Site
+                </Link>
+            </div>
         </div>
     )
 }
