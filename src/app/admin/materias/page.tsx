@@ -36,7 +36,6 @@ export default function MateriasPage() {
   const [state, formAction] = useActionState(createNewsArticle, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (state.message) {
@@ -46,10 +45,6 @@ export default function MateriasPage() {
           description: state.message,
         });
         formRef.current?.reset();
-        // Reset the file input visually
-        if(fileInputRef.current) {
-            fileInputRef.current.value = "";
-        }
       } else {
         // Concatenate all error messages for the toast
         let description = state.message;
@@ -96,8 +91,8 @@ export default function MateriasPage() {
                 </div>
             </div>
             <div className="grid gap-2">
-                <Label htmlFor="image">Foto da Matéria</Label>
-                <Input ref={fileInputRef} id="image" name="image" type="file" accept="image/png, image/jpeg, image/webp" required className="file:text-foreground" />
+                <Label htmlFor="image">Link da Foto da Matéria</Label>
+                <Input id="image" name="image" type="url" placeholder="https://exemplo.com/imagem.png" required />
                 <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
             </div>
              <div className="grid gap-2">
