@@ -16,6 +16,9 @@ export default {
       },
     },
     extend: {
+      boxShadow: {
+        'primary-lg': '0 10px 15px -3px hsla(var(--primary) / 0.25), 0 4px 6px -4px hsla(var(--primary) / 0.25)',
+      },
       fontFamily: {
         body: ['PT Sans', 'sans-serif'],
         headline: ['Playfair Display', 'serif'],
