@@ -1,5 +1,6 @@
-'use client';
+"use client"
 
+import { usePathname } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
@@ -42,16 +43,23 @@ export function ClientLayout({
   children: React.ReactNode;
   nextGameBanner: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isAdminPage = pathname.startsWith('/admin');
+
   return (
     <AuthProvider>
-      <div className="relative flex min-h-screen flex-col">
-        <SocialBar />
-        <Header />
-        {nextGameBanner}
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Toaster />
-      </div>
+      {isAdminPage ? (
+        <div className="bg-muted/40">{children}</div>
+      ) : (
+        <div className="relative flex min-h-screen flex-col">
+          <SocialBar />
+          <Header />
+          {nextGameBanner}
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
+      )}
+      <Toaster />
     </AuthProvider>
   );
 }

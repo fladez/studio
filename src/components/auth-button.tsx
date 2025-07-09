@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Loader2 } from "lucide-react";
+import { User, LogOut, Loader2, ShieldCheck } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -58,6 +58,13 @@ export function AuthButton() {
                         <User className="mr-2 h-4 w-4" />
                         <span>Perfil</span>
                     </DropdownMenuItem>
+                    {userProfile?.role === 'admin' && (
+                        <DropdownMenuItem onClick={() => router.push('/admin')}>
+                            <ShieldCheck className="mr-2 h-4 w-4" />
+                            <span>Painel Admin</span>
+                        </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout}>
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Sair</span>
