@@ -86,41 +86,58 @@ export default function ProfilePage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!user) return;
+        
         setSaving(true);
+        console.log("Saving profile... Button disabled.");
+
         try {
             const userDocRef = doc(db, 'users', user.uid);
-            let updatedPhotoURL = photoURL;
+            let finalPhotoURL = userProfile?.photoURL || null;
 
+            // Step 1: Upload avatar if a new one is present
             if (avatarFile) {
+                console.log("1. A new avatar file was selected. Starting upload to Firebase Storage...");
                 const storageRef = ref(storage, `avatars/${user.uid}`);
+                
                 await uploadBytes(storageRef, avatarFile);
-                updatedPhotoURL = await getDownloadURL(storageRef);
+                console.log("2. Upload successful.");
+
+                finalPhotoURL = await getDownloadURL(storageRef);
+                console.log("3. Successfully retrieved new avatar URL:", finalPhotoURL);
+            } else {
+                 console.log("1. No new avatar file selected. Skipping upload.");
             }
-            
+
+            // Step 2: Prepare data for Firestore
             const dataToUpdate = {
                 firstName,
                 lastName,
                 username,
-                photoURL: updatedPhotoURL,
+                photoURL: finalPhotoURL,
                 dob: dob ? Timestamp.fromDate(dob) : null,
             };
+            console.log("4. Preparing to save the following data to Firestore:", dataToUpdate);
 
+            // Step 3: Save data to Firestore
             await setDoc(userDocRef, dataToUpdate, { merge: true });
-            
+            console.log("5. Profile data successfully saved to Firestore.");
+
             toast({
                 title: 'Sucesso!',
                 description: 'Seu perfil foi atualizado.',
             });
+
         } catch (error) {
-            console.error("Error updating profile:", error);
-            const errorMessage = (error instanceof Error) ? error.message : "Ocorreu um erro desconhecido.";
+            console.error(">>> PROFILE UPDATE FAILED <<<", error);
+            const errorMessage = (error instanceof Error) ? error.message : "Ocorreu um erro desconhecido. Verifique o console para mais detalhes.";
             toast({
-                title: 'Erro ao salvar',
-                description: `Não foi possível atualizar seu perfil. Detalhe: ${errorMessage}`,
+                title: 'Erro ao Salvar',
+                description: errorMessage,
                 variant: 'destructive',
             });
         } finally {
             setSaving(false);
+            console.log("Finished saving process. Button re-enabled.");
         }
     };
     
