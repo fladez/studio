@@ -3,11 +3,11 @@ import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { getNews } from '@/data/get-news'
+import { getNews } from '@/data/news'
 
 
-export default async function NoticiasPage() {
-    const allNews = await getNews();
+export default function NoticiasPage() {
+    const allNews = getNews();
 
     return (
         <div className="container mx-auto py-12">

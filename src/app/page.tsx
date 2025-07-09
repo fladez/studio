@@ -8,7 +8,7 @@ import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-r
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
-import { getNews } from '@/data/get-news'
+import { getNews } from '@/data/news'
 import { opinionColumns } from '@/data/columns'
 import { videos } from '@/data/videos'
 import { MainCarousel } from '@/components/home/main-carousel'
@@ -35,8 +35,8 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
   )
 }
 
-export default async function Home() {
-  const allNews = await getNews();
+export default function Home() {
+  const allNews = getNews();
 
   const mainHeadlines = allNews.slice(0, 3);
   const dailyNews = allNews.slice(3, 7);

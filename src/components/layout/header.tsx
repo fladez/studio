@@ -3,12 +3,10 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'
-import { ArrowLeft, LogIn, Menu, Newspaper, UserPlus, Users, Video } from 'lucide-react'
+import { ArrowLeft, Menu, Newspaper, Users, Video } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { useAuth } from '@/context/auth-context'
-import { UserNav } from '@/components/user-nav'
 
 const navLinks = [
   { href: '/noticias', label: 'Notícias', icon: Newspaper },
@@ -16,14 +14,8 @@ const navLinks = [
   { href: '/videos', label: 'Vídeos', icon: Video },
 ]
 
-const authLinks = [
-  { href: '/login', label: 'Entrar', icon: LogIn },
-  { href: '/register', label: 'Registrar-se', icon: UserPlus },
-]
-
 export function Header() {
   const pathname = usePathname()
-  const { user } = useAuth()
 
   const NavLink = ({ href, label, icon: Icon }: { href: string, label: string, icon: React.ElementType }) => (
     <Link
@@ -56,15 +48,11 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          {user ? (
-            <UserNav />
-          ) : (
             <div className="hidden items-center gap-2 md:flex">
               <Button asChild className="hover:bg-black">
-                <Link href="/login">Entrar</Link>
+                <Link href="#">Entrar</Link>
               </Button>
             </div>
-          )}
 
           <div className="md:hidden">
             <Sheet>
@@ -100,20 +88,6 @@ export function Header() {
                           </Link>
                         </SheetClose>
                         {navLinks.map(link => (
-                          <SheetClose asChild key={link.href}>
-                            <Link
-                                href={link.href}
-                                className={cn(
-                                "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
-                                )}
-                            >
-                                <link.icon className="h-4 w-4" />
-                                {link.label}
-                            </Link>
-                          </SheetClose>
-                        ))}
-                        {!user && authLinks.map(link => (
                           <SheetClose asChild key={link.href}>
                             <Link
                                 href={link.href}

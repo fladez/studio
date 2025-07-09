@@ -2,12 +2,9 @@
 
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Toaster } from "@/components/ui/toaster"
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import { TiktokIcon } from '@/components/tiktok-icon';
-import { AuthProvider } from '@/context/auth-context';
-import { usePathname } from 'next/navigation';
 
 function SocialBar() {
   return (
@@ -43,23 +40,13 @@ export function ClientLayout({
   children: React.ReactNode;
   nextGameBanner: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isAdminPage = pathname.startsWith('/admin');
-
   return (
-    <AuthProvider>
-      {isAdminPage ? (
-        <>{children}</>
-      ) : (
-        <div className="relative flex min-h-screen flex-col">
-          <SocialBar />
-          <Header />
-          {nextGameBanner}
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-      )}
-      <Toaster />
-    </AuthProvider>
+      <div className="relative flex min-h-screen flex-col">
+        <SocialBar />
+        <Header />
+        {nextGameBanner}
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
   );
 }

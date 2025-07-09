@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlusCircle, User } from "lucide-react";
+import { User } from "lucide-react";
 import { opinionColumns } from "@/data/columns";
 
 export default function ColunasPage() {
@@ -12,12 +12,6 @@ export default function ColunasPage() {
                     <h1 className="text-4xl font-headline font-bold">Colunas da Nação</h1>
                     <p className="text-lg text-muted-foreground mt-2">O espaço para a opinião de craques e torcedores.</p>
                 </div>
-                <Button asChild className="mt-4 md:mt-0">
-                    <Link href="/colunas/escrever">
-                        <PlusCircle className="mr-2 h-4 w-4" />
-                        Escrever uma Coluna
-                    </Link>
-                </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
