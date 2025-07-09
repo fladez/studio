@@ -9,12 +9,13 @@ import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
 import { getNews } from '@/data/news'
-import { opinionColumns } from '@/data/columns'
+import { getColumns } from '@/data/columns'
 import { videos } from '@/data/videos'
 import { MainCarousel } from '@/components/home/main-carousel'
 import { ActiveReaders } from '@/components/home/active-readers'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
 import { ShareButton } from '@/components/share-button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 function formatPublishedTime(publishedAt: Date): string {
   const now = new Date();
@@ -63,10 +64,11 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
 
 export default function Home() {
   const allNews = getNews();
+  const allColumns = getColumns();
 
   const mainHeadlines = allNews.slice(0, 3);
   const dailyNews = allNews.slice(3, 7);
-  const homePageOpinionColumns = opinionColumns.slice(0, 3);
+  const homePageOpinionColumns = allColumns.slice(0, 3);
   const homePageVideos = videos.slice(0, 3);
   const latestNews = allNews.length > 0 ? allNews[0] : null;
 
@@ -201,24 +203,31 @@ export default function Home() {
           <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {homePageOpinionColumns.map((column) => (
-              <Card key={column.slug} className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                 <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <Users className="h-10 w-10 text-muted-foreground" />
-                    <div>
-                      <CardTitle className="text-xl font-bold font-body">{column.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground">Por {column.author}</p>
-                    </div>
+                  <div className="flex justify-between items-center mb-4">
+                      <Badge>{column.category}</Badge>
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3" />
+                          <span>{formatPublishedTime(column.publishedAt)}</span>
+                      </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={column.authorImage} alt={column.author} />
+                      <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <p className="font-bold text-lg">{column.author}</p>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-muted-foreground line-clamp-3">"{column.excerpt}"</p>
+                <CardContent className="flex-grow space-y-2 pt-0">
+                  <CardTitle className="text-xl font-bold font-body leading-tight">
+                      <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                          {column.title}
+                      </Link>
+                  </CardTitle>
+                  <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
                 </CardContent>
-                <CardFooter>
-                   <Button asChild className="w-full" variant="outline">
-                    <Link href={`/colunas/${column.slug}`}>Ler Coluna</Link>
-                  </Button>
-                </CardFooter>
               </Card>
             ))}
           </div>
