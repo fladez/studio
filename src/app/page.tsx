@@ -148,7 +148,7 @@ export default function Home() {
         <Carousel 
           setApi={setApi}
           className="w-full" 
-          opts={{ loop: true }}
+          opts={{ loop: true, speed: 5 }}
           plugins={[plugin.current]}
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
