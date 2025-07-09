@@ -51,9 +51,13 @@ export default function ProfilePage() {
                         const data = userDoc.data() as UserProfile;
                         setProfile(data);
                         if (data.dob) {
-                            // Ensure date parsing is robust
-                            const [year, month, day] = data.dob.split('-').map(Number);
-                            setDob(new Date(year, month - 1, day));
+                            const dateParts = data.dob.split('-');
+                            if (dateParts.length === 3) {
+                                const [year, month, day] = dateParts.map(Number);
+                                if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                                    setDob(new Date(year, month - 1, day));
+                                }
+                            }
                         }
                     }
                 } catch (error) {
@@ -82,6 +86,8 @@ export default function ProfilePage() {
         setDob(date);
         if (date) {
             setProfile(prev => ({...prev, dob: format(date, "yyyy-MM-dd")}))
+        } else {
+            setProfile(prev => ({...prev, dob: ""}))
         }
     }
 
@@ -91,7 +97,16 @@ export default function ProfilePage() {
         setSaving(true);
         try {
             const userDocRef = doc(db, 'users', user.uid);
-            await updateDoc(userDocRef, profile);
+            
+            // Only update the fields that are meant to be changed by the user.
+            const dataToUpdate = {
+                firstName: profile.firstName || '',
+                lastName: profile.lastName || '',
+                username: profile.username || '',
+                dob: profile.dob || '',
+            };
+
+            await updateDoc(userDocRef, dataToUpdate);
             toast({
                 title: 'Sucesso!',
                 description: 'Seu perfil foi atualizado.',
