@@ -281,8 +281,8 @@ export default function Home() {
             <Image
               src="https://i.imgur.com/ldrhVdT.png"
               alt="Logo do Campeonato Brasileiro"
-              width={125}
-              height={66}
+              width={88}
+              height={46}
               className="object-contain absolute -top-4 left-4 z-10"
             />
             <SofascoreWidget />
