@@ -67,7 +67,7 @@ export function AuthButton() {
     }
 
     return (
-        <Button asChild className="hover:bg-black">
+        <Button asChild className="hover:bg-black font-bold">
             <Link href="/login">
                 Entrar
             </Link>
