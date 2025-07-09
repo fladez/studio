@@ -44,15 +44,16 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
   const { toast } = useToast();
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
+  const { id } = params; // Extract id during render phase
 
   // Bind the action with the article ID and slug
-  const updateActionWithId = article ? updateNewsArticle.bind(null, params.id, article.slug) : null;
+  const updateActionWithId = article ? updateNewsArticle.bind(null, id, article.slug) : null;
   const [state, formAction] = useActionState(updateActionWithId || (async () => initialState), initialState);
   
   useEffect(() => {
     const fetchArticle = async () => {
       setLoading(true);
-      const newsArticle = await getNewsById(params.id);
+      const newsArticle = await getNewsById(id);
       if (newsArticle) {
         setArticle(newsArticle);
       } else {
@@ -66,8 +67,10 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
       setLoading(false);
     };
 
-    fetchArticle();
-  }, [params.id, router, toast]);
+    if (id) {
+        fetchArticle();
+    }
+  }, [id, router, toast]);
   
   useEffect(() => {
     if (state.message) {
