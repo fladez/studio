@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
 import { slugify } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 
@@ -64,10 +64,59 @@ export async function createNewsArticle(prevState: State, formData: FormData): P
     // Revalidate paths to show the new article
     revalidatePath('/');
     revalidatePath('/noticias');
+    revalidatePath('/admin/noticias');
     
     return { message: "Notícia criada com sucesso!", error: null, errors: null };
   } catch (error) {
     console.error("Erro ao criar notícia:", error);
     return { error: "Ocorreu um erro ao salvar a notícia no banco de dados." };
+  }
+}
+
+export async function updateNewsArticle(id: string, prevState: State, formData: FormData): Promise<State> {
+  if (!db) {
+    return { error: "O banco de dados não está configurado." };
+  }
+
+  const validatedFields = newsSchema.safeParse({
+    title: formData.get("title"),
+    category: formData.get("category"),
+    content: formData.get("content"),
+    image: formData.get("image"),
+    dataAiHint: formData.get("dataAiHint")
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      error: "Erro de validação. Verifique os campos.",
+    };
+  }
+  
+  const { title, category, content, image, dataAiHint } = validatedFields.data;
+  
+  try {
+    const slug = slugify(title);
+    const newsRef = doc(db, "news", id);
+    
+    await updateDoc(newsRef, {
+      title,
+      category,
+      content,
+      image,
+      dataAiHint,
+      slug,
+    });
+
+    // Revalidate paths to show the updated article
+    revalidatePath('/');
+    revalidatePath('/noticias');
+    revalidatePath(`/noticias/${slug}`);
+    revalidatePath('/admin/noticias');
+    
+    return { message: "Notícia atualizada com sucesso!", error: null, errors: null };
+  } catch (error) {
+    console.error("Erro ao atualizar notícia:", error);
+    return { error: "Ocorreu um erro ao atualizar a notícia no banco de dados." };
   }
 }

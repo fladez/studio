@@ -47,9 +47,11 @@ export default async function NewsManagementPage() {
                                 <TableCell><Badge variant="secondary">{article.category}</Badge></TableCell>
                                 <TableCell>{format(article.publishedAt, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</TableCell>
                                 <TableCell className="text-right">
-                                    <Button variant="ghost" size="icon" disabled>
-                                        <FileEdit className="h-4 w-4" />
-                                        <span className="sr-only">Editar</span>
+                                    <Button variant="ghost" size="icon" asChild>
+                                        <Link href={`/admin/noticias/editar/${article.id}`}>
+                                            <FileEdit className="h-4 w-4" />
+                                            <span className="sr-only">Editar</span>
+                                        </Link>
                                     </Button>
                                     <Button variant="ghost" size="icon" className="text-destructive" disabled>
                                         <Trash2 className="h-4 w-4" />
