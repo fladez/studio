@@ -100,7 +100,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                 href={article.fullArticleLink} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="font-bold text-primary hover:text-yellow-400 transition-colors"
+                className="font-bold text-[#ff073a] hover:text-yellow-400 transition-colors"
               >
                 Leia mais.
               </Link>
