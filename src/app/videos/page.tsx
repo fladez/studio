@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Eye, PlayCircle, Clock } from 'lucide-react'
-import { videos } from '@/data/videos'
+import { getVideos } from '@/data/videos'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -40,7 +40,9 @@ function formatViews(views: number): string {
     return views.toString();
 }
 
-export default function VideosPage() {
+export default async function VideosPage() {
+    const videos = await getVideos();
+
     return (
         <div className="container mx-auto py-12">
             <div className="mb-8">

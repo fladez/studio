@@ -1,26 +1,111 @@
+import { db } from '@/lib/firebase';
+import { collection, getDocs, query, where, orderBy, limit, Timestamp, doc, getDoc } from 'firebase/firestore';
+
 export type Video = {
+    id: string; // Firestore document ID
     title: string;
     duration: string;
-    image: string;
+    image: string; // URL to the image
     dataAiHint: string;
     slug: string;
-    views: number;
     publishedAt: Date;
     category: string;
+    views: number;
 };
 
-// Helper to create dates in the past for realistic data
+const fromFirestore = (doc: any): Video => {
+    const data = doc.data();
+    return {
+        id: doc.id,
+        title: data.title || '',
+        duration: data.duration || '00:00',
+        image: data.image || 'https://placehold.co/600x400.png',
+        dataAiHint: data.dataAiHint || 'video',
+        slug: data.slug || '',
+        publishedAt: data.publishedAt instanceof Timestamp ? data.publishedAt.toDate() : new Date(),
+        category: data.category || 'Geral',
+        views: data.views || 0,
+    };
+};
+
+export async function getVideos(count?: number): Promise<Video[]> {
+    try {
+        const videosCollection = collection(db, 'videos');
+        const q = count
+            ? query(videosCollection, orderBy('publishedAt', 'desc'), limit(count))
+            : query(videosCollection, orderBy('publishedAt', 'desc'));
+
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) {
+            // Return default static data if the collection is empty
+            return defaultVideos.slice(0, count);
+        }
+        return snapshot.docs.map(fromFirestore);
+    } catch (error) {
+        console.error("Error fetching videos:", error);
+        return defaultVideos.slice(0, count);
+    }
+}
+
+export async function getVideoById(id: string): Promise<Video | null> {
+    try {
+        const docRef = doc(db, 'videos', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return fromFirestore(docSnap);
+        } else {
+            console.log("No such video document!");
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error fetching video by id ${id}:`, error);
+        return null;
+    }
+}
+
+export async function getVideoBySlug(slug: string): Promise<Video | null> {
+    try {
+        const q = query(collection(db, "videos"), where("slug", "==", slug), limit(1));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            return null;
+        }
+        return fromFirestore(snapshot.docs[0]);
+    } catch (error) {
+        console.error(`Error fetching video by slug ${slug}:`, error);
+        return null;
+    }
+}
+
+export async function getAllVideoSlugs(): Promise<{ slug: string }[]> {
+     try {
+        const snapshot = await getDocs(collection(db, 'videos'));
+        if (snapshot.empty) {
+            return defaultVideos.map(video => ({ slug: video.slug }));
+        }
+        return snapshot.docs.map(doc => ({ slug: doc.data().slug as string })).filter(item => item.slug);
+    } catch (error) {
+        console.error("Error fetching all video slugs:", error);
+        return defaultVideos.map(video => ({ slug: video.slug }));
+    }
+}
+
+
+// --- Static data as fallback ---
 const daysAgo = (days: number): Date => {
     const date = new Date();
     date.setDate(date.getDate() - days);
     return date;
 };
 
-export const videos: Video[] = [
-    { title: "Bastidores da vitória no clássico", category: "Bastidores", duration: "10:32", image: "https://placehold.co/600x400.png", dataAiHint: "locker room", slug: "bastidores-vitoria-classico", views: 152345, publishedAt: daysAgo(1) },
-    { title: "Entrevista exclusiva com o artilheiro", category: "Entrevistas", duration: "05:12", image: "https://placehold.co/600x400.png", dataAiHint: "player interview", slug: "entrevista-artilheiro", views: 98765, publishedAt: daysAgo(2) },
-    { title: "Golaços do Mengão no mês", category: "Gols", duration: "03:45", image: "https://placehold.co/600x400.png", dataAiHint: "soccer goal", slug: "golacos-mes", views: 234567, publishedAt: daysAgo(4) },
-    { title: "TBT: Relembre a conquista da Libertadores 2019", category: "Histórico", duration: "15:20", image: "https://placehold.co/600x400.png", dataAiHint: "trophy celebration", slug: "tbt-libertadores-2019", views: 1205890, publishedAt: daysAgo(7) },
-    { title: "Treino aberto para a Nação no Maracanã", category: "Treinos", duration: "08:55", image: "https://placehold.co/600x400.png", dataAiHint: "soccer training", slug: "treino-aberto-nacao", views: 78901, publishedAt: daysAgo(10) },
-    { title: "Desafios e brincadeiras com os jogadores", category: "Bastidores", duration: "07:30", image: "https://placehold.co/600x400.png", dataAiHint: "players laughing", slug: "desafios-jogadores", views: 345678, publishedAt: daysAgo(15) },
+// Add ID to the static data for fallback compatibility
+export const defaultVideos: Video[] = [
+    { id: "static1", title: "Bastidores da vitória no clássico", category: "Bastidores", duration: "10:32", image: "https://placehold.co/600x400.png", dataAiHint: "locker room", slug: "bastidores-vitoria-classico", views: 152345, publishedAt: daysAgo(1) },
+    { id: "static2", title: "Entrevista exclusiva com o artilheiro", category: "Entrevistas", duration: "05:12", image: "https://placehold.co/600x400.png", dataAiHint: "player interview", slug: "entrevista-artilheiro", views: 98765, publishedAt: daysAgo(2) },
+    { id: "static3", title: "Golaços do Mengão no mês", category: "Gols", duration: "03:45", image: "https://placehold.co/600x400.png", dataAiHint: "soccer goal", slug: "golacos-mes", views: 234567, publishedAt: daysAgo(4) },
+    { id: "static4", title: "TBT: Relembre a conquista da Libertadores 2019", category: "Histórico", duration: "15:20", image: "https://placehold.co/600x400.png", dataAiHint: "trophy celebration", slug: "tbt-libertadores-2019", views: 1205890, publishedAt: daysAgo(7) },
+    { id: "static5", title: "Treino aberto para a Nação no Maracanã", category: "Treinos", duration: "08:55", image: "https://placehold.co/600x400.png", dataAiHint: "soccer training", slug: "treino-aberto-nacao", views: 78901, publishedAt: daysAgo(10) },
+    { id: "static6", title: "Desafios e brincadeiras com os jogadores", category: "Bastidores", duration: "07:30", image: "https://placehold.co/600x400.png", dataAiHint: "players laughing", slug: "desafios-jogadores", views: 345678, publishedAt: daysAgo(15) },
 ];

@@ -10,7 +10,7 @@ import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
 import { getNews } from '@/data/news'
 import { getColumns } from '@/data/columns'
-import { videos } from '@/data/videos'
+import { getVideos } from '@/data/videos'
 import { MainCarousel } from '@/components/home/main-carousel'
 import { ActiveReaders } from '@/components/home/active-readers'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
@@ -75,11 +75,12 @@ function formatViews(views: number): string {
 export default async function Home() {
   const allNews = await getNews(10);
   const allColumns = getColumns();
+  const allVideos = await getVideos(3);
 
   const mainHeadlines = allNews.slice(0, 3);
   const dailyNews = allNews.slice(3, 9); // Now shows 6 articles
   const homePageOpinionColumns = allColumns.slice(0, 3);
-  const homePageVideos = videos.slice(0, 3);
+  const homePageVideos = allVideos;
   const latestNews = allNews.length > 0 ? allNews[0] : null;
 
   const today = new Date();

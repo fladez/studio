@@ -1,6 +1,6 @@
 import { getNews } from "@/data/news";
 import { getColumns } from "@/data/columns";
-import { videos } from "@/data/videos";
+import { getVideos } from "@/data/videos";
 import { getUserCount } from "@/data/users";
 import { StatCard } from "@/components/admin/stat-card";
 import { ContentViewsChart, ShareDestinationsChart, MostViewedContentChart } from "@/components/admin/charts";
@@ -15,6 +15,7 @@ import { format } from "date-fns";
 export default async function AdminDashboard() {
     const news = await getNews();
     const columns = getColumns();
+    const videos = await getVideos();
     const userCount = await getUserCount();
 
     const totalVideoViews = videos.reduce((acc, video) => acc + video.views, 0);
