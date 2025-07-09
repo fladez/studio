@@ -14,7 +14,33 @@ import {
 } from "@/components/ui/carousel"
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
-import type { NewsArticle } from '@/data/get-news'
+import type { NewsArticle } from '@/data/news'
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
+import { Clock } from 'lucide-react'
+
+function formatPublishedTime(publishedAt: Date): string {
+  const now = new Date();
+
+  const diffDays = differenceInDays(now, publishedAt);
+  if (diffDays > 3) {
+    return format(publishedAt, 'dd/MM/yyyy');
+  }
+  if (diffDays >= 1) {
+    return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+  }
+
+  const diffHours = differenceInHours(now, publishedAt);
+  if (diffHours >= 1) {
+    return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
+  }
+
+  const diffMinutes = differenceInMinutes(now, publishedAt);
+  if (diffMinutes >= 1) {
+    return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
+  }
+
+  return "Agora mesmo";
+}
 
 export function MainCarousel({ headlines }: { headlines: NewsArticle[] }) {
   const plugin = React.useRef(
@@ -69,9 +95,15 @@ export function MainCarousel({ headlines }: { headlines: NewsArticle[] }) {
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white">
-                  <Badge className="text-sm font-semibold bg-primary px-2 py-1 rounded">{item.category}</Badge>
-                  <h2 className="text-xl md:text-4xl font-headline font-bold mt-2 max-w-4xl">{item.title}</h2>
+                <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white w-full">
+                   <div className="flex items-center gap-x-4 mb-2">
+                    <Badge className="text-sm font-semibold bg-primary px-2 py-1 rounded shrink-0">{item.category}</Badge>
+                    <div className="flex items-center gap-2 text-xs text-white/80">
+                      <Clock className="h-3 w-3" />
+                      <span>{formatPublishedTime(item.publishedAt)}</span>
+                    </div>
+                  </div>
+                  <h2 className="text-xl md:text-4xl font-headline font-bold max-w-4xl">{item.title}</h2>
                 </div>
               </div>
             </Link>
