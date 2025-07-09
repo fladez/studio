@@ -40,14 +40,14 @@ function NavLink({ href, label, icon: Icon }: { href: string; label: string; ico
 // This is the shared navigation structure for both mobile and desktop
 function SidebarNavContent() {
     return (
-        <>
+        <div className="flex h-full flex-col">
             <div className="flex h-14 shrink-0 items-center border-b border-gray-700 px-4 lg:h-[60px] lg:px-6">
-                <Link href="/admin" className="flex items-center gap-2 font-semibold text-white">
+                <Link href="/" className="flex items-center gap-2 font-semibold text-white">
                     <Fla10Logo />
                     <span>FLA10 Admin</span>
                 </Link>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 overflow-y-auto">
                 <nav className="grid items-start gap-1 p-2 text-sm font-medium lg:p-4">
                      {navItems.map((item) => (
                         <NavLink key={item.href} {...item} />
@@ -60,7 +60,7 @@ function SidebarNavContent() {
                     Voltar ao Site
                 </Link>
             </div>
-        </>
+        </div>
     );
 }
 
@@ -86,7 +86,7 @@ export function AdminSidebar() {
             </SheetContent>
           </Sheet>
            <div className="flex-1 text-center">
-            <Link href="/admin" className="flex items-center justify-center gap-2 font-semibold text-white">
+            <Link href="/" className="flex items-center justify-center gap-2 font-semibold text-white">
                     <Fla10Logo />
                     <span className="">FLA10 Admin</span>
                 </Link>
