@@ -15,11 +15,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 
 export function AuthButton() {
-    const { user, isAdmin, loading } = useAuth();
+    const { user, loading } = useAuth();
     const router = useRouter();
 
     const handleLogout = async () => {
@@ -51,12 +51,10 @@ export function AuthButton() {
                         </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {isAdmin && (
-                        <DropdownMenuItem onClick={() => router.push('/admin')}>
-                            <User className="mr-2 h-4 w-4" />
-                            <span>Painel Admin</span>
-                        </DropdownMenuItem>
-                    )}
+                    <DropdownMenuItem onClick={() => router.push('/perfil')}>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Perfil</span>
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleLogout}>
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Sair</span>

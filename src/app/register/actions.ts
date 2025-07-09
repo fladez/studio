@@ -21,6 +21,10 @@ export async function handleRegister(prevState: State, formData: FormData): Prom
       email: user.email,
       role: 'user',
       createdAt: serverTimestamp(),
+      firstName: '',
+      lastName: '',
+      username: '',
+      dob: '',
     });
 
   } catch (e: any)
