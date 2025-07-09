@@ -1,20 +1,34 @@
+"use client";
+
 import { Fla10Logo } from "@/components/fla10-logo"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
 import { TiktokIcon } from "../tiktok-icon"
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
-const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <Link href={href} className="text-sm text-muted-foreground hover:text-primary-foreground transition-colors">
-    {children}
-  </Link>
-)
+const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
+  const pathname = usePathname();
+  const isActive = (href === '/' && pathname === '/') || (href !== '/' && href !== '#' && pathname.startsWith(href));
+
+  return (
+    <Link href={href} className={cn(
+      "text-sm transition-colors",
+      isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-primary-foreground"
+    )}>
+      {children}
+    </Link>
+  )
+}
 
 const FooterSectionTitle = ({ children }: { children: React.ReactNode }) => (
   <h3 className="text-md font-bold text-primary mb-4 font-headline">{children}</h3>
 )
 
 export function Footer() {
+  const pathname = usePathname();
+
   return (
     <footer className="w-full">
       {/* Newsletter Section */}
@@ -114,12 +128,12 @@ export function Footer() {
       
       {/* Bottom bar */}
       <div className="bg-accent text-accent-foreground border-t border-white/10">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Canal Fla Dez. Todos os direitos reservados.</p>
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 text-xs">
+          <p className="text-muted-foreground">© {new Date().getFullYear()} Canal Fla Dez. Todos os direitos reservados.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <Link href="/politica-de-privacidade" className="hover:text-primary-foreground transition-colors">Política de Privacidade</Link>
-            <Link href="/termos-de-uso" className="hover:text-primary-foreground transition-colors">Termos de Uso</Link>
-            <Link href="#" className="hover:text-primary-foreground transition-colors">Cookies</Link>
+            <Link href="/politica-de-privacidade" className={cn("transition-colors", pathname === '/politica-de-privacidade' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Política de Privacidade</Link>
+            <Link href="/termos-de-uso" className={cn("transition-colors", pathname === '/termos-de-uso' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Termos de Uso</Link>
+            <Link href="#" className="text-muted-foreground hover:text-primary-foreground transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
