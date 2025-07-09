@@ -7,6 +7,7 @@ export type NewsArticle = {
     excerpt: string;
     category: string;
     image: string; // URL to the image
+    imageCredit?: string;
     dataAiHint: string;
     slug: string;
     publishedAt: Date;
@@ -24,6 +25,7 @@ const fromFirestore = (doc: any): NewsArticle => {
         excerpt: data.excerpt || '',
         category: data.category || 'Geral',
         image: data.image || 'https://placehold.co/1200x600.png',
+        imageCredit: data.imageCredit || '',
         dataAiHint: data.dataAiHint || 'soccer news',
         slug: data.slug || '',
         publishedAt: data.publishedAt instanceof Timestamp ? data.publishedAt.toDate() : new Date(),

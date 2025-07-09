@@ -75,7 +75,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </div>
         </header>
 
-        <div className="overflow-hidden rounded-lg mb-8">
+        <div className="relative overflow-hidden rounded-lg mb-8">
           <Image
             src={article.image}
             alt={article.title}
@@ -85,6 +85,11 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             data-ai-hint={article.dataAiHint}
             priority
           />
+           {article.imageCredit && (
+            <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                Imagem: {article.imageCredit}
+            </span>
+        )}
         </div>
 
         {article.content && (

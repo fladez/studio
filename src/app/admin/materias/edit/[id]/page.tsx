@@ -122,7 +122,7 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
               <Label htmlFor="excerpt">Subtítulo (Resumo)</Label>
               <Textarea id="excerpt" name="excerpt" defaultValue={article.excerpt} required />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="grid gap-2">
                     <Label htmlFor="category">Categoria (Tag)</Label>
                     <Input id="category" name="category" defaultValue={article.category} required />
@@ -131,9 +131,15 @@ export default function EditMateriasPage({ params }: { params: { id: string } })
                     <Label htmlFor="author">Autor</Label>
                     <Input id="author" name="author" defaultValue={article.author} />
                 </div>
-                 <div className="grid gap-2">
+            </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-2">
                     <Label htmlFor="dataAiHint">Dica para IA da Imagem</Label>
                     <Input id="dataAiHint" name="dataAiHint" defaultValue={article.dataAiHint} />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="imageCredit">Crédito da Imagem (Opcional)</Label>
+                    <Input id="imageCredit" name="imageCredit" defaultValue={article.imageCredit || ''} placeholder="Ex: Foto: Reuters" />
                 </div>
             </div>
             <div className="grid gap-2">
