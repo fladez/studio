@@ -95,7 +95,7 @@ export function MainCarousel({ headlines }: { headlines: NewsArticle[] }) {
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white w-full">
+                <div className="absolute bottom-8 left-0 p-4 md:p-8 text-white w-full">
                    <div className="flex items-center gap-x-4 mb-2">
                     <Badge className="text-sm font-semibold bg-primary px-2 py-1 rounded shrink-0">{item.category}</Badge>
                     <div className="flex items-center gap-2 text-xs text-white/80">
