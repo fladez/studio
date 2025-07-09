@@ -81,7 +81,7 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
           </div>
         </div>
         {href && (
-          <Button variant="ghost" asChild className="text-primary hover:bg-primary hover:text-primary-foreground font-sans font-bold">
+          <Button variant="ghost" asChild className="font-sans font-bold text-primary hover:bg-primary hover:text-primary-foreground">
             <Link href={href}>Ver todas <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         )}
@@ -328,7 +328,14 @@ export default function Home() {
               alt="Logo do Campeonato Brasileiro"
               width={88}
               height={46}
-              className="object-contain absolute -top-4 left-4 z-10"
+              className="hidden md:block object-contain absolute -top-4 left-4 z-10"
+            />
+            <Image
+              src="https://i.imgur.com/ldrhVdT.png"
+              alt="Logo do Campeonato Brasileiro"
+              width={44}
+              height={23}
+              className="block md:hidden object-contain absolute -top-4 left-4 z-10"
             />
             <SofascoreWidget />
           </div>
