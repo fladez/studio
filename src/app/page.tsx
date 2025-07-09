@@ -276,6 +276,15 @@ export default function Home() {
         <AdBanner width={300} height={250} />
 
         <section className="pb-8">
+          <div className="flex justify-center mb-6">
+            <Image
+              src="https://i.imgur.com/ldrhVdT.png"
+              alt="Logo do Campeonato Brasileiro"
+              width={250}
+              height={131}
+              className="object-contain"
+            />
+          </div>
           <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." icon={TrendingUp} />
           <SofascoreWidget />
         </section>
