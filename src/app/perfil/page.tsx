@@ -161,6 +161,7 @@ export default function ProfilePage() {
                                         mode="single"
                                         selected={dob}
                                         onSelect={handleDateSelect}
+                                        locale={ptBR}
                                         initialFocus
                                         captionLayout="dropdown-buttons"
                                         fromYear={1920}
