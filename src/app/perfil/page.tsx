@@ -4,21 +4,23 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
-import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { db, storage } from '@/lib/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Calendar as CalendarIcon, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 
 export default function ProfilePage() {
-    const { user, loading: authLoading } = useAuth();
+    const { user, userProfile, loading: authLoading } = useAuth();
     const router = useRouter();
     const { toast } = useToast();
     
@@ -26,6 +28,10 @@ export default function ProfilePage() {
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
     const [dob, setDob] = useState<Date | undefined>();
+    const [photoURL, setPhotoURL] = useState<string | null>(null);
+
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -37,37 +43,27 @@ export default function ProfilePage() {
     }, [user, authLoading, router]);
 
     useEffect(() => {
-        async function fetchProfile() {
-            if (user) {
-                setLoading(true);
-                try {
-                    const userDocRef = doc(db, 'users', user.uid);
-                    const userDoc = await getDoc(userDocRef);
-                    if (userDoc.exists()) {
-                        const data = userDoc.data();
-                        setFirstName(data.firstName || '');
-                        setLastName(data.lastName || '');
-                        setUsername(data.username || '');
-                        if (data.dob && typeof data.dob.toDate === 'function') {
-                            setDob(data.dob.toDate());
-                        }
-                    }
-                } catch (error) {
-                    console.error("Error fetching profile:", error);
-                    toast({
-                        title: "Erro ao carregar perfil",
-                        description: "Não foi possível buscar seus dados. Verifique sua conexão e tente novamente.",
-                        variant: "destructive",
-                    });
-                } finally {
-                    setLoading(false);
-                }
+        if (userProfile) {
+            setFirstName(userProfile.firstName || '');
+            setLastName(userProfile.lastName || '');
+            setUsername(userProfile.username || '');
+            setPhotoURL(userProfile.photoURL || null);
+            if (userProfile.dob && typeof userProfile.dob.toDate === 'function') {
+                setDob(userProfile.dob.toDate());
             }
+            setLoading(false);
+        } else if (!authLoading) {
+            setLoading(false);
         }
-        if (!authLoading) {
-            fetchProfile();
+    }, [userProfile, authLoading]);
+
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            setAvatarFile(file);
+            setAvatarPreview(URL.createObjectURL(file));
         }
-    }, [user, authLoading, toast]);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -75,11 +71,19 @@ export default function ProfilePage() {
         setSaving(true);
         try {
             const userDocRef = doc(db, 'users', user.uid);
+            let updatedPhotoURL = photoURL;
+
+            if (avatarFile) {
+                const storageRef = ref(storage, `avatars/${user.uid}`);
+                await uploadBytes(storageRef, avatarFile);
+                updatedPhotoURL = await getDownloadURL(storageRef);
+            }
             
             const dataToUpdate = {
                 firstName,
                 lastName,
                 username,
+                photoURL: updatedPhotoURL,
                 dob: dob ? Timestamp.fromDate(dob) : null,
             };
 
@@ -120,9 +124,24 @@ export default function ProfilePage() {
                 <form onSubmit={handleSubmit}>
                     <CardHeader>
                         <CardTitle>Perfil de Usuário</CardTitle>
-                        <CardDescription>Atualize suas informações pessoais.</CardDescription>
+                        <CardDescription>Atualize suas informações pessoais e seu avatar.</CardDescription>
                     </CardHeader>
-                    <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                        <div className="flex flex-col items-center gap-2 md:col-span-2">
+                            <Label htmlFor="avatar-upload" className="cursor-pointer">
+                                <Avatar className="h-24 w-24">
+                                    <AvatarImage src={avatarPreview || photoURL} alt={username} />
+                                    <AvatarFallback>{firstName?.[0]}{lastName?.[0]}</AvatarFallback>
+                                </Avatar>
+                            </Label>
+                            <Button asChild variant="outline" size="sm">
+                                <Label htmlFor="avatar-upload" className="cursor-pointer">
+                                    Trocar Avatar
+                                </Label>
+                            </Button>
+                            <Input id="avatar-upload" type="file" accept="image/png, image/jpeg" className="hidden" onChange={handleAvatarChange} />
+                            <p className="text-xs text-muted-foreground">Recomendado: 200x200px, JPG ou PNG</p>
+                        </div>
                         <div className="grid gap-2">
                             <Label htmlFor="firstName">Nome</Label>
                             <Input id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Seu nome" />

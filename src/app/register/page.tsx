@@ -45,12 +45,13 @@ export default function RegisterPage() {
                 lastName: '',
                 username: '',
                 dob: null,
+                photoURL: null,
             });
             
             router.push('/');
 
         } catch (e: any) {
-            console.error(e);
+            console.error("Error creating user: ", e);
             let errorMessage = 'Ocorreu um erro ao tentar criar a conta.';
             if (e.code) {
                 switch (e.code) {
