@@ -36,8 +36,12 @@ export async function getNextGame(): Promise<NextGameData> {
       console.log("Documento 'nextGame' não encontrado, retornando dados padrão.");
       return defaultNextGame;
     }
-  } catch (error) {
-    console.error("Erro ao buscar dados do próximo jogo:", error);
+  } catch (error: any) {
+    if (error.code === 'permission-denied') {
+        console.warn("Permissão do Firestore negada. A API Cloud Firestore pode não estar ativada ou as regras de segurança podem estar incorretas. Retornando dados padrão.");
+    } else {
+        console.error("Erro ao buscar dados do próximo jogo:", error);
+    }
     // Return default data on error to prevent site crash.
     return defaultNextGame;
   }

@@ -45,8 +45,11 @@ export async function handleUpdateNextGame(prevState: State, formData: FormData)
       message: "Próximo jogo atualizado com sucesso!",
       error: null,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erro ao atualizar o próximo jogo:", error);
+    if (error.code === 'permission-denied') {
+      return { error: "Permissão negada no Firestore. Verifique se a API está ativada e se as regras de segurança permitem escrita." };
+    }
     return {
       error: "Ocorreu um erro ao salvar os dados no banco de dados.",
     };

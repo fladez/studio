@@ -74,8 +74,12 @@ export default function ProximoJogoPage() {
           setNextGame(null); 
           toast({ title: "Aviso", description: "Nenhum dado de jogo encontrado. Preencha o formulário para criar." });
         }
-      } catch (error) {
-        toast({ variant: "destructive", title: "Erro", description: "Não foi possível carregar os dados do jogo." });
+      } catch (error: any) {
+        if (error.code === 'permission-denied') {
+          toast({ variant: "destructive", title: "Erro de Permissão", description: "Não foi possível carregar os dados. Verifique as configurações do Firestore." });
+        } else {
+          toast({ variant: "destructive", title: "Erro", description: "Não foi possível carregar os dados do jogo." });
+        }
         console.error(error);
       } finally {
         setLoading(false);
