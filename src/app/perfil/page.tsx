@@ -17,22 +17,18 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 
-type UserProfile = {
-    firstName?: string;
-    lastName?: string;
-    username?: string;
-    dob?: string;
-    email?: string;
-};
-
 export default function ProfilePage() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
     const { toast } = useToast();
-    const [profile, setProfile] = useState<Partial<UserProfile>>({});
+    
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [username, setUsername] = useState('');
+    const [dob, setDob] = useState<Date | undefined>();
+    
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [dob, setDob] = useState<Date | undefined>();
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -43,14 +39,16 @@ export default function ProfilePage() {
     useEffect(() => {
         async function fetchProfile() {
             if (user) {
+                setLoading(true);
                 try {
-                    setLoading(true);
                     const userDocRef = doc(db, 'users', user.uid);
                     const userDoc = await getDoc(userDocRef);
                     if (userDoc.exists()) {
-                        const data = userDoc.data() as UserProfile;
-                        setProfile(data);
-                        if (data.dob) {
+                        const data = userDoc.data();
+                        setFirstName(data.firstName || '');
+                        setLastName(data.lastName || '');
+                        setUsername(data.username || '');
+                        if (data.dob && typeof data.dob === 'string') {
                             const dateParts = data.dob.split('-');
                             if (dateParts.length === 3) {
                                 const [year, month, day] = dateParts.map(Number);
@@ -77,20 +75,6 @@ export default function ProfilePage() {
         }
     }, [user, authLoading, toast]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setProfile(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleDateSelect = (date: Date | undefined) => {
-        setDob(date);
-        if (date) {
-            setProfile(prev => ({...prev, dob: format(date, "yyyy-MM-dd")}))
-        } else {
-            setProfile(prev => ({...prev, dob: ""}))
-        }
-    }
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!user) return;
@@ -98,12 +82,11 @@ export default function ProfilePage() {
         try {
             const userDocRef = doc(db, 'users', user.uid);
             
-            // Only update the fields that are meant to be changed by the user.
             const dataToUpdate = {
-                firstName: profile.firstName || '',
-                lastName: profile.lastName || '',
-                username: profile.username || '',
-                dob: profile.dob || '',
+                firstName,
+                lastName,
+                username,
+                dob: dob ? format(dob, "yyyy-MM-dd") : '',
             };
 
             await updateDoc(userDocRef, dataToUpdate);
@@ -146,15 +129,15 @@ export default function ProfilePage() {
                     <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="firstName">Nome</Label>
-                            <Input id="firstName" name="firstName" value={profile.firstName || ''} onChange={handleInputChange} placeholder="Seu nome" />
+                            <Input id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Seu nome" />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="lastName">Sobrenome</Label>
-                            <Input id="lastName" name="lastName" value={profile.lastName || ''} onChange={handleInputChange} placeholder="Seu sobrenome" />
+                            <Input id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Seu sobrenome" />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="username">Nome de usuário</Label>
-                            <Input id="username" name="username" value={profile.username || ''} onChange={handleInputChange} placeholder="Como você quer ser chamado" />
+                            <Input id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Como você quer ser chamado" />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="dob">Data de Nascimento</Label>
@@ -175,7 +158,7 @@ export default function ProfilePage() {
                                     <Calendar
                                         mode="single"
                                         selected={dob}
-                                        onSelect={handleDateSelect}
+                                        onSelect={setDob}
                                         locale={ptBR}
                                         initialFocus
                                         captionLayout="dropdown-buttons"
