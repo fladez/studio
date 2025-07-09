@@ -5,6 +5,8 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
+const ADMIN_EMAILS = ['admin1@fla10.com', 'admin2@fla10.com'];
+
 interface UserProfile {
   email: string | null;
   role: 'user' | 'admin';
@@ -45,7 +47,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const userDocRef = doc(db, 'users', user.uid);
         const unsubscribeSnapshot = onSnapshot(userDocRef, (doc) => {
             if (doc.exists()) {
-                setUserProfile(doc.data() as UserProfile);
+                const profile = doc.data() as UserProfile;
+                if (user.email && ADMIN_EMAILS.includes(user.email)) {
+                    profile.role = 'admin';
+                }
+                setUserProfile(profile);
             } else {
                 setUserProfile(null);
             }
