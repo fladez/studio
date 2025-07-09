@@ -1,3 +1,4 @@
+
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -36,7 +37,7 @@ function formatPublishedTime(publishedAt: Date): string {
 export default async function NoticiasPage() {
     const allNews = await getNews();
     
-    const chunkSize = 4;
+    const chunkSize = 2;
     const newsChunks = [];
     if (allNews.length > 0) {
         for (let i = 0; i < allNews.length; i += chunkSize) {
@@ -56,6 +57,7 @@ export default async function NoticiasPage() {
                 </div>
             ) : (
                 <div className="space-y-8">
+                  <AdBanner width={728} height={90} />
                   {newsChunks.map((chunk, index) => (
                     <React.Fragment key={index}>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
