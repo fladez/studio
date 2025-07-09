@@ -2,20 +2,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
-import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2, Clock } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Clock } from 'lucide-react'
 import { getNewsBySlug, getAllNewsSlugs, getNews } from '@/data/news'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { AdBanner } from '@/components/ad-banner'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { ShareButton } from '@/components/share-button'
+import { ArticleShareButton } from '@/components/article-share-button'
 
 export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate at most every hour
@@ -70,32 +64,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         <header className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <Badge variant="default">{article.category}</Badge>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <Share2 className="mr-2 h-4 w-4" />
-                  Compartilhar
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <Twitter className="mr-2 h-4 w-4" />
-                  <span>Twitter / X</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Facebook className="mr-2 h-4 w-4" />
-                  <span>Facebook</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Linkedin className="mr-2 h-4 w-4" />
-                  <span>LinkedIn</span>
-                </DropdownMenuItem>
-                 <DropdownMenuItem>
-                  <LinkIcon className="mr-2 h-4 w-4" />
-                  <span>Copiar Link</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ArticleShareButton title={article.title} slug={article.slug} />
           </div>
 
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight mb-4">{article.title}</h1>

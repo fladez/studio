@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Button } from "./ui/button"
 import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2, Instagram } from 'lucide-react'
 
-export function ShareButton({ title, slug }: { title: string, slug: string }) {
+export function ArticleShareButton({ title, slug }: { title: string, slug: string }) {
     const { toast } = useToast()
     
     const handleCopyLink = (e: React.MouseEvent) => {
@@ -65,18 +65,13 @@ export function ShareButton({ title, slug }: { title: string, slug: string }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="absolute top-1 right-1 h-8 w-8 bg-black/30 hover:bg-black/50 text-white rounded-full z-10" 
-                    onClick={(e) => {e.preventDefault(); e.stopPropagation();}}
-                    aria-label="Compartilhar"
-                >
-                    <Share2 className="h-4 w-4" />
+                <Button variant="outline">
+                    <Share2 className="mr-2 h-4 w-4" />
+                    Compartilhar
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" onClick={(e) => {e.preventDefault(); e.stopPropagation();}}>
-                <DropdownMenuItem onClick={(e) => handleShare(e, 'twitter')}>
+            <DropdownMenuContent align="end">
+                 <DropdownMenuItem onClick={(e) => handleShare(e, 'twitter')}>
                     <Twitter className="mr-2 h-4 w-4" />
                     <span>Twitter / X</span>
                 </DropdownMenuItem>
