@@ -20,54 +20,15 @@ import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
 import { cn } from '@/lib/utils'
+import { allNews } from '@/data/news'
+import { opinionColumns } from '@/data/columns'
+import { videos } from '@/data/videos'
 
-const now = new Date();
 
-const mainHeadlines = [
-  {
-    title: "Flamengo vence de virada e assume a liderança do campeonato",
-    image: "https://placehold.co/1200x600.png",
-    dataAiHint: "soccer match",
-    category: "Futebol Profissional",
-    slug: "flamengo-vence-lideranca",
-    publishedAt: new Date(now.getTime() - 2 * 60 * 1000) // 2 minutes ago
-  },
-  {
-    title: "Novo reforço é apresentado no Ninho do Urubu",
-    image: "https://placehold.co/1200x600.png",
-    dataAiHint: "player presentation",
-    category: "Mercado da Bola",
-    slug: "novo-reforco-apresentado",
-    publishedAt: new Date(now.getTime() - 5 * 60 * 60 * 1000) // 5 hours ago
-  },
-  {
-    title: "Basquete: Mengão conquista o título da NBB",
-    image: "https://placehold.co/1200x600.png",
-    dataAiHint: "basketball game",
-    category: "Esportes Olímpicos",
-    slug: "basquete-campeao-nbb",
-    publishedAt: new Date(now.getTime() - 26 * 60 * 60 * 1000) // 26 hours ago (yesterday)
-  },
-];
-
-const dailyNews = [
-    { title: "Diretoria negocia renovação com craque do time", category: "Mercado da Bola", image: "https://placehold.co/600x400.png", dataAiHint: "contract signing", slug: "diretoria-negocia-renovacao", publishedAt: new Date(now.getTime() - 10 * 60 * 60 * 1000) },
-    { title: "Confira a agenda de jogos do Flamengo para o próximo mês", category: "Calendário", image: "https://placehold.co/600x400.png", dataAiHint: "stadium overview", slug: "agenda-jogos-proximo-mes", publishedAt: new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000) },
-    { title: "Nação Rubro-Negra esgota ingressos para a final", category: "Torcida", image: "https://placehold.co/600x400.png", dataAiHint: "soccer fans", slug: "nacao-esgota-ingressos", publishedAt: new Date(now.getTime() - 3 * 60 * 60 * 1000) },
-    { title: "Sub-20 do Flamengo avança para a final do Brasileirão", category: "Base", image: "https://placehold.co/600x400.png", dataAiHint: "youth soccer", slug: "sub20-avanca-final", publishedAt: new Date(now.getTime() - 8 * 60 * 60 * 1000) },
-];
-
-const opinionColumns = [
-    { title: "A tática por trás da vitória", author: "Zico", image: "https://placehold.co/600x400.png", dataAiHint: "soccer tactics", slug: "tatica-vitoria-zico" },
-    { title: "O coração da Nação na arquibancada", author: "Ana Torcedora", image: "https://placehold.co/600x400.png", dataAiHint: "stadium crowd", slug: "coracao-nacao-ana" },
-    { title: "Análise: O que esperar do novo reforço?", author: "Júnior", image: "https://placehold.co/600x400.png", dataAiHint: "player analysis", slug: "analise-reforco-junior" },
-];
-
-const videos = [
-    { title: "Bastidores da vitória no clássico", duration: "10:32", image: "https://placehold.co/600x400.png", dataAiHint: "locker room", slug: "bastidores-vitoria-classico" },
-    { title: "Entrevista exclusiva com o artilheiro", duration: "05:12", image: "https://placehold.co/600x400.png", dataAiHint: "player interview", slug: "entrevista-artilheiro" },
-    { title: "Golaços do Mengão no mês", duration: "03:45", image: "https://placehold.co/600x400.png", dataAiHint: "soccer goal", slug: "golacos-mes" },
-];
+const mainHeadlines = allNews.slice(0, 3);
+const dailyNews = allNews.slice(3, 7);
+const homePageOpinionColumns = opinionColumns.slice(0, 3);
+const homePageVideos = videos.slice(0, 3);
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
@@ -112,16 +73,12 @@ export default function Home() {
     })
   }, [api])
 
-  const allNewsForHomepage = [...mainHeadlines, ...dailyNews];
-
-  // Sort all news to find the latest one easily
-  const sortedNews = [...allNewsForHomepage].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-  const latestNews = sortedNews[0];
+  const latestNews = allNews[0];
 
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-  const newsTodayCount = allNewsForHomepage.filter(news => {
+  const newsTodayCount = allNews.filter(news => {
       const newsDate = new Date(news.publishedAt);
       return newsDate >= startOfToday;
   }).length;
@@ -272,7 +229,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Colunas e Opinião" subtitle="Análises e comentários dos torcedores e dos melhores cronistas esportivos." href="/colunas" icon={Users} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {opinionColumns.map((column) => (
+            {homePageOpinionColumns.map((column) => (
               <Card key={column.slug} className="flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                 <CardHeader>
                   <div className="flex items-center gap-4">
@@ -284,7 +241,7 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-muted-foreground">"Uma análise profunda sobre o esquema tático que levou o time à vitória, destacando os pontos fortes e as jogadas ensaiadas..."</p>
+                  <p className="text-muted-foreground line-clamp-3">"{column.excerpt}"</p>
                 </CardContent>
                 <CardFooter>
                    <Button asChild className="w-full" variant="outline">
@@ -301,7 +258,7 @@ export default function Home() {
         <section>
           <SectionHeader title="Vídeos e Bastidores" subtitle="Conteúdo de jogos e bastidores do dia a dia do clube." href="/videos" icon={Video} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videos.map((video) => (
+            {homePageVideos.map((video) => (
               <Card key={video.slug} className="group overflow-hidden">
                 <Link href={`/videos/${video.slug}`}>
                   <CardContent className="p-0 relative">

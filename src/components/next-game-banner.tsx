@@ -1,5 +1,6 @@
 import { Calendar, Clock } from 'lucide-react';
 import { TeamCrest } from './team-crest';
+import { nextGame } from '@/data/next-game';
 
 function TeamDisplay({ name }: { name: string }) {
     return (
@@ -16,13 +17,6 @@ function TeamDisplay({ name }: { name: string }) {
 }
 
 export function NextGameBanner() {
-    const nextGame = {
-        home: "Flamengo",
-        away: "Vasco",
-        competition: "Brasileirão Série A - Rodada 18",
-        date: "20 de Julho, 2024",
-        time: "16:00",
-    };
 
     return (
         <div className="sticky top-16 z-40 w-full bg-accent/40 backdrop-blur text-accent-foreground border-b border-white/10 shadow-md">
