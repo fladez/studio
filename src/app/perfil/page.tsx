@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
 import { doc, setDoc, Timestamp } from 'firebase/firestore';
-import { db, storage } from '@/lib/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -31,7 +30,9 @@ export default function ProfilePage() {
     const [dob, setDob] = useState<Date | undefined>();
     const [photoURL, setPhotoURL] = useState<string | null>(null);
 
-    const [avatarFile, setAvatarFile] = useState<File | Blob | null>(null);
+    // This state will hold the new avatar as a Base64 data URL, ready for saving
+    const [avatarDataUrl, setAvatarDataUrl] = useState<string | null>(null);
+    // This state is for the temporary local preview of the selected image
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     
     const [loading, setLoading] = useState(true);
@@ -65,12 +66,19 @@ export default function ProfilePage() {
         }
 
         new Compressor(file, {
-            quality: 0.6,
-            maxWidth: 800,
-            maxHeight: 800,
+            quality: 0.8,
+            maxWidth: 200, // Keep dimensions small for smaller data URI
+            maxHeight: 200,
             success(result) {
-                setAvatarFile(result);
+                // Create a local URL for instant preview
                 setAvatarPreview(URL.createObjectURL(result));
+
+                // Convert the compressed image blob to a Base64 data URL for saving
+                const reader = new FileReader();
+                reader.readAsDataURL(result);
+                reader.onloadend = () => {
+                    setAvatarDataUrl(reader.result as string);
+                };
             },
             error(err) {
                 console.error(err.message);
@@ -88,27 +96,14 @@ export default function ProfilePage() {
         if (!user) return;
         
         setSaving(true);
-        console.log("Saving profile... Button disabled.");
 
         try {
             const userDocRef = doc(db, 'users', user.uid);
-            let finalPhotoURL = userProfile?.photoURL || null;
+            
+            // If a new avatar was selected (we have a data URL), use it.
+            // Otherwise, keep the existing photoURL from the database.
+            const finalPhotoURL = avatarDataUrl || photoURL;
 
-            // Step 1: Upload avatar if a new one is present
-            if (avatarFile) {
-                console.log("1. A new avatar file was selected. Starting upload to Firebase Storage...");
-                const storageRef = ref(storage, `avatars/${user.uid}`);
-                
-                await uploadBytes(storageRef, avatarFile);
-                console.log("2. Upload successful.");
-
-                finalPhotoURL = await getDownloadURL(storageRef);
-                console.log("3. Successfully retrieved new avatar URL:", finalPhotoURL);
-            } else {
-                 console.log("1. No new avatar file selected. Skipping upload.");
-            }
-
-            // Step 2: Prepare data for Firestore
             const dataToUpdate = {
                 firstName,
                 lastName,
@@ -116,11 +111,8 @@ export default function ProfilePage() {
                 photoURL: finalPhotoURL,
                 dob: dob ? Timestamp.fromDate(dob) : null,
             };
-            console.log("4. Preparing to save the following data to Firestore:", dataToUpdate);
 
-            // Step 3: Save data to Firestore
             await setDoc(userDocRef, dataToUpdate, { merge: true });
-            console.log("5. Profile data successfully saved to Firestore.");
 
             toast({
                 title: 'Sucesso!',
@@ -128,8 +120,8 @@ export default function ProfilePage() {
             });
 
         } catch (error) {
-            console.error(">>> PROFILE UPDATE FAILED <<<", error);
-            const errorMessage = (error instanceof Error) ? error.message : "Ocorreu um erro desconhecido. Verifique o console para mais detalhes.";
+            console.error(">>> FALHA NA ATUALIZAÇÃO DO PERFIL <<<", error);
+            const errorMessage = (error instanceof Error) ? error.message : "Ocorreu um erro desconhecido.";
             toast({
                 title: 'Erro ao Salvar',
                 description: errorMessage,
@@ -137,7 +129,12 @@ export default function ProfilePage() {
             });
         } finally {
             setSaving(false);
-            console.log("Finished saving process. Button re-enabled.");
+            // If a new avatar was uploaded, update the photoURL state to reflect it in the UI
+            if(avatarDataUrl) {
+                setPhotoURL(avatarDataUrl);
+            }
+            setAvatarPreview(null);
+            setAvatarDataUrl(null);
         }
     };
     
@@ -153,6 +150,8 @@ export default function ProfilePage() {
         return null; // Redirect handled by useEffect
     }
 
+    const displayAvatarSrc = avatarPreview || photoURL;
+
     return (
         <div className="container mx-auto py-12">
             <Card className="w-full max-w-2xl mx-auto">
@@ -165,7 +164,7 @@ export default function ProfilePage() {
                         <div className="flex flex-col items-center gap-2 md:col-span-2">
                             <Label htmlFor="avatar-upload" className="cursor-pointer">
                                 <Avatar className="h-24 w-24">
-                                    <AvatarImage src={avatarPreview || photoURL} alt={username} />
+                                    <AvatarImage src={displayAvatarSrc ?? undefined} alt={username} />
                                     <AvatarFallback>{firstName?.[0]}{lastName?.[0]}</AvatarFallback>
                                 </Avatar>
                             </Label>
