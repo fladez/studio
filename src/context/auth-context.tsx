@@ -5,7 +5,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
-const ADMIN_EMAILS = ['admin1@fla10.com', 'admin2@fla10.com'];
+const ADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
 
 interface UserProfile {
   email: string | null;
