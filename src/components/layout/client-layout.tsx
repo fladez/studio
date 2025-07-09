@@ -5,11 +5,13 @@ import { Footer } from '@/components/layout/footer';
 import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import { TiktokIcon } from '@/components/tiktok-icon';
+import { AuthProvider } from '@/context/auth-context';
+import { Toaster } from '../ui/toaster';
 
 function SocialBar() {
   return (
     <div className="bg-primary text-primary-foreground">
-      <div className="container mx-auto flex h-10 items-center justify-between">
+      <div className="container mx-auto flex h-10 items-center justify-between px-4">
         <p className="font-sans text-sm font-bold">Siga o FLA10</p>
         <div className="flex items-center gap-4">
           <Link href="#" aria-label="Facebook" className="transition-opacity hover:opacity-80">
@@ -41,12 +43,15 @@ export function ClientLayout({
   nextGameBanner: React.ReactNode;
 }) {
   return (
+    <AuthProvider>
       <div className="relative flex min-h-screen flex-col">
         <SocialBar />
         <Header />
         {nextGameBanner}
         <main className="flex-1">{children}</main>
         <Footer />
+        <Toaster />
       </div>
+    </AuthProvider>
   );
 }

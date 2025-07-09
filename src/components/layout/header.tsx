@@ -7,6 +7,7 @@ import { ArrowLeft, Menu, Newspaper, Users, Video } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { AuthButton } from '../auth-button'
 
 const navLinks = [
   { href: '/noticias', label: 'Notícias', icon: Newspaper },
@@ -47,58 +48,64 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="flex flex-col p-0">
-                <div className="flex h-16 items-center border-b px-6">
-                  <SheetClose asChild>
-                    <Link href="/" className="flex items-center gap-2 font-semibold">
-                        <Fla10Logo />
-                        <span className="font-bold">
-                            <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
-                        </span>
-                    </Link>
-                  </SheetClose>
-                </div>
-                <div className="flex-1 overflow-y-auto">
-                    <nav className="grid gap-2 p-4">
-                        <SheetClose asChild>
-                          <Link
-                              href="/"
-                              className={cn(
-                              "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                              pathname === '/' ? 'bg-muted text-primary' : 'text-muted-foreground'
-                              )}
-                          >
-                              <ArrowLeft className="h-4 w-4" />
-                              Início
-                          </Link>
-                        </SheetClose>
-                        {navLinks.map(link => (
-                          <SheetClose asChild key={link.href}>
+        <div className="flex items-center gap-4">
+            <div className="hidden md:flex">
+              <AuthButton />
+            </div>
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Toggle Menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="flex flex-col p-0">
+                  <div className="flex h-16 items-center border-b px-6">
+                    <SheetClose asChild>
+                      <Link href="/" className="flex items-center gap-2 font-semibold">
+                          <Fla10Logo />
+                          <span className="font-bold">
+                              <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
+                          </span>
+                      </Link>
+                    </SheetClose>
+                  </div>
+                  <div className="flex-1 overflow-y-auto">
+                      <nav className="grid gap-2 p-4">
+                          <SheetClose asChild>
                             <Link
-                                href={link.href}
+                                href="/"
                                 className={cn(
                                 "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
-                                pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
+                                pathname === '/' ? 'bg-muted text-primary' : 'text-muted-foreground'
                                 )}
                             >
-                                <link.icon className="h-4 w-4" />
-                                {link.label}
+                                <ArrowLeft className="h-4 w-4" />
+                                Início
                             </Link>
                           </SheetClose>
-                        ))}
-                    </nav>
-                </div>
-              </SheetContent>
-            </Sheet>
+                          {navLinks.map(link => (
+                            <SheetClose asChild key={link.href}>
+                              <Link
+                                  href={link.href}
+                                  className={cn(
+                                  "flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary",
+                                  pathname.startsWith(link.href) ? 'bg-muted text-primary' : 'text-muted-foreground'
+                                  )}
+                              >
+                                  <link.icon className="h-4 w-4" />
+                                  {link.label}
+                              </Link>
+                            </SheetClose>
+                          ))}
+                      </nav>
+                  </div>
+                  <div className="border-t p-4">
+                    <AuthButton />
+                  </div>
+                </SheetContent>
+              </Sheet>
           </div>
         </div>
       </div>
