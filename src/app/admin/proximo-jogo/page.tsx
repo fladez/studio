@@ -1,14 +1,14 @@
 
 "use client"
 
-import { useFormState, useFormStatus } from "react-dom"
+import { useFormStatus } from "react-dom"
 import { handleUpdateNextGame } from "./actions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Loader2, Save } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useActionState } from "react"
 import { useToast } from "@/hooks/use-toast"
 import { db } from "@/lib/firebase"
 import { doc, getDoc } from "firebase/firestore"
@@ -37,7 +37,7 @@ function SubmitButton() {
 }
 
 export default function ProximoJogoPage() {
-  const [state, formAction] = useFormState(handleUpdateNextGame, initialState);
+  const [state, formAction] = useActionState(handleUpdateNextGame, initialState);
   const { toast } = useToast();
   const [nextGame, setNextGame] = useState<NextGameData | null>(null);
   const [loading, setLoading] = useState(true);

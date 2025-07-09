@@ -1,8 +1,8 @@
 "use client"
 
-import { useFormState, useFormStatus } from "react-dom"
+import { useFormStatus } from "react-dom"
 import { handleContextualize } from "./actions"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useActionState } from "react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -33,7 +33,7 @@ function SubmitAIButton() {
 }
 
 export default function WriteColumnPage() {
-  const [state, formAction] = useFormState(handleContextualize, initialState)
+  const [state, formAction] = useActionState(handleContextualize, initialState)
   const [content, setContent] = useState("")
 
   useEffect(() => {
