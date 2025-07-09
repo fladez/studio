@@ -1,9 +1,10 @@
 "use client";
 
-import { useActionState, useEffect, useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useState } from 'react';
 import Link from 'next/link';
-import { handleLogin } from './actions';
+import { useRouter } from 'next/navigation';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,34 +12,50 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button className="w-full hover:bg-black" type="submit" disabled={pending}>
-            {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Entrando...</> : 'Entrar'}
-        </Button>
-    );
-}
-
 export default function LoginPage() {
-    const [state, formAction] = useActionState(handleLogin, { error: null });
+    const router = useRouter();
     const { toast } = useToast();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (state?.error) {
-            toast({
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            router.push('/');
+        } catch (e: any) {
+            console.error(e);
+            let errorMessage = 'Ocorreu um erro ao tentar fazer login.';
+            if (e.code) {
+                switch (e.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                    case 'auth/invalid-credential':
+                        errorMessage = 'E-mail ou senha inválidos.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'O formato do e-mail é inválido.';
+                        break;
+                }
+            }
+             toast({
                 title: "Erro de Login",
-                description: state.error,
+                description: errorMessage,
                 variant: "destructive",
             });
+        } finally {
+            setLoading(false);
         }
-    }, [state, toast]);
+    };
 
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
             <Card className="w-full max-w-sm">
-                <form action={formAction}>
+                <form onSubmit={handleLogin}>
                     <CardHeader className="space-y-1 text-center">
                         <CardTitle className="text-2xl font-bold">Login</CardTitle>
                         <CardDescription>
@@ -48,12 +65,27 @@ export default function LoginPage() {
                     <CardContent className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" name="email" placeholder="m@example.com" required />
+                            <Input 
+                                id="email" 
+                                type="email" 
+                                name="email" 
+                                placeholder="m@example.com" 
+                                required 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="password">Senha</Label>
                             <div className="relative">
-                                <Input id="password" type={showPassword ? "text" : "password"} name="password" required />
+                                <Input 
+                                    id="password" 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    required 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                                 <Button 
                                     type="button" 
                                     variant="ghost" 
@@ -68,7 +100,9 @@ export default function LoginPage() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col gap-4">
-                        <SubmitButton />
+                        <Button className="w-full hover:bg-black" type="submit" disabled={loading}>
+                            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Entrando...</> : 'Entrar'}
+                        </Button>
                          <p className="text-xs text-center text-muted-foreground">
                             Não tem uma conta?{' '}
                             <Link href="/register" className="underline hover:text-primary">

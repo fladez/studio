@@ -1,9 +1,11 @@
 "use client";
 
-import { useActionState, useEffect, useState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useState } from 'react';
 import Link from 'next/link';
-import { handleRegister } from './actions';
+import { useRouter } from 'next/navigation';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,34 +13,72 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button className="w-full hover:bg-black" type="submit" disabled={pending}>
-            {pending ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Criando conta...</> : 'Criar Conta'}
-        </Button>
-    );
-}
-
 export default function RegisterPage() {
-    const [state, formAction] = useActionState(handleRegister, { error: null });
+    const router = useRouter();
     const { toast } = useToast();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (state?.error) {
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (password.length < 6) {
             toast({
                 title: "Erro de Cadastro",
-                description: state.error,
+                description: "A senha deve ter pelo menos 6 caracteres.",
                 variant: "destructive",
             });
+            return;
         }
-    }, [state, toast]);
+        setLoading(true);
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            await setDoc(doc(db, 'users', user.uid), {
+                email: user.email,
+                role: 'user',
+                createdAt: serverTimestamp(),
+                firstName: '',
+                lastName: '',
+                username: '',
+                dob: '',
+            });
+            
+            router.push('/');
+
+        } catch (e: any) {
+            console.error(e);
+            let errorMessage = 'Ocorreu um erro ao tentar criar a conta.';
+            if (e.code) {
+                switch (e.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'Este e-mail já está em uso.';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'A senha é muito fraca. Use pelo menos 6 caracteres.';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'O formato do e-mail é inválido.';
+                        break;
+                }
+            }
+            toast({
+                title: "Erro de Cadastro",
+                description: errorMessage,
+                variant: "destructive",
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="flex items-center justify-center min-h-[calc(100vh-200px)] py-12">
             <Card className="w-full max-w-sm">
-                <form action={formAction}>
+                <form onSubmit={handleRegister}>
                     <CardHeader className="space-y-1 text-center">
                         <CardTitle className="text-2xl font-bold">Criar Conta</CardTitle>
                         <CardDescription>
@@ -48,12 +88,27 @@ export default function RegisterPage() {
                     <CardContent className="grid gap-4">
                          <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" name="email" placeholder="m@example.com" required />
+                            <Input 
+                                id="email" 
+                                type="email" 
+                                name="email" 
+                                placeholder="m@example.com" 
+                                required 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="password">Senha</Label>
                             <div className="relative">
-                                <Input id="password" type={showPassword ? "text" : "password"} name="password" required />
+                                <Input 
+                                    id="password" 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    required 
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                                 <Button 
                                     type="button" 
                                     variant="ghost" 
@@ -68,7 +123,9 @@ export default function RegisterPage() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex flex-col gap-4">
-                        <SubmitButton />
+                         <Button className="w-full hover:bg-black" type="submit" disabled={loading}>
+                            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Criando conta...</> : 'Criar Conta'}
+                        </Button>
                          <p className="text-xs text-center text-muted-foreground">
                             Já tem uma conta?{' '}
                             <Link href="/login" className="underline hover:text-primary">
