@@ -27,7 +27,7 @@ function NavLink({ href, label, icon: Icon }: { href: string; label: string; ico
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-400 transition-all hover:text-white hover:bg-gray-700",
+        "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-300 transition-all hover:text-white hover:bg-gray-700",
         isActive && "bg-gray-700 text-white"
       )}
     >
@@ -47,7 +47,7 @@ function SidebarNavContent() {
                     <span>FLA10 Admin</span>
                 </Link>
             </div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1">
                 <nav className="grid items-start gap-1 p-2 text-sm font-medium lg:p-4">
                      {navItems.map((item) => (
                         <NavLink key={item.href} {...item} />
@@ -55,7 +55,7 @@ function SidebarNavContent() {
                 </nav>
             </div>
             <div className="mt-auto border-t border-gray-700 p-4">
-                 <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-400 transition-all hover:text-white hover:bg-gray-700">
+                 <Link href="/" className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-300 transition-all hover:text-white hover:bg-gray-700">
                     <Home className="h-4 w-4" />
                     Voltar ao Site
                 </Link>
