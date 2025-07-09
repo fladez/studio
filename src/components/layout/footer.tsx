@@ -117,7 +117,7 @@ export function Footer() {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Canal Fla Dez. Todos os direitos reservados.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-primary-foreground transition-colors">Política de Privacidade</Link>
+            <Link href="/politica-de-privacidade" className="hover:text-primary-foreground transition-colors">Política de Privacidade</Link>
             <Link href="#" className="hover:text-primary-foreground transition-colors">Termos de Uso</Link>
             <Link href="#" className="hover:text-primary-foreground transition-colors">Cookies</Link>
           </div>
