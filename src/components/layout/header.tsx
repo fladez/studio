@@ -48,12 +48,6 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-2 md:flex">
-              <Button asChild className="hover:bg-black">
-                <Link href="#">Entrar</Link>
-              </Button>
-            </div>
-
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
