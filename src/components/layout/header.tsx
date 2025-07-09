@@ -106,8 +106,13 @@ export function Header() {
                 <div className="mt-auto border-t p-6">
                   <div className="flex flex-col gap-2">
                     <SheetClose asChild>
-                      <Button asChild className="hover:bg-black">
+                      <Button asChild className="w-full">
                         <Link href="/login">Entrar</Link>
+                      </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Button asChild variant="outline" className="w-full">
+                        <Link href="/register">Registrar-se</Link>
                       </Button>
                     </SheetClose>
                   </div>
