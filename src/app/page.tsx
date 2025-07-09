@@ -259,7 +259,7 @@ export default function Home() {
                         <PlayCircle className="h-16 w-16 text-white/80" />
                     </div>
                   </Link>
-                   <Badge className="absolute top-2 right-2">{video.category}</Badge>
+                   <Badge className="absolute top-2 left-2">{video.category}</Badge>
                 </CardHeader>
                 <CardContent className="p-4 flex-grow">
                    <CardTitle className="text-base font-bold font-body leading-tight">
