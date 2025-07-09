@@ -4,7 +4,11 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { redirect } from 'next/navigation';
 
-export async function handleLogin(prevState: any, formData: FormData) {
+type State = {
+  error?: string | null;
+};
+
+export async function handleLogin(prevState: State, formData: FormData): Promise<State> {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 

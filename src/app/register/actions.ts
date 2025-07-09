@@ -5,7 +5,11 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { redirect } from 'next/navigation';
 
-export async function handleRegister(prevState: any, formData: FormData) {
+type State = {
+    error?: string | null;
+}
+
+export async function handleRegister(prevState: State, formData: FormData): Promise<State> {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
