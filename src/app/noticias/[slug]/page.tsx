@@ -3,12 +3,20 @@ import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { Facebook, Twitter, Linkedin, Link as LinkIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { allNews } from '@/data/news'
+import { getNewsBySlug, getNews } from '@/data/get-news'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = allNews.find((news) => news.slug === params.slug)
+// This generates the routes at build time
+export async function generateStaticParams() {
+  const news = await getNews();
+  return news.map((article) => ({
+    slug: article.slug,
+  }));
+}
+
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const article = await getNewsBySlug(params.slug)
 
   if (!article) {
     notFound()

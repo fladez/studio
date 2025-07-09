@@ -1,34 +1,19 @@
 
-'use client'
-
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Autoplay from 'embla-carousel-autoplay'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
-import { cn } from '@/lib/utils'
-import { allNews } from '@/data/news'
+import { getNews } from '@/data/get-news'
 import { opinionColumns } from '@/data/columns'
 import { videos } from '@/data/videos'
+import { MainCarousel } from '@/components/home/main-carousel'
+import { ActiveReaders } from '@/components/home/active-readers'
 
-
-const mainHeadlines = allNews.slice(0, 3);
-const dailyNews = allNews.slice(3, 7);
-const homePageOpinionColumns = opinionColumns.slice(0, 3);
-const homePageVideos = videos.slice(0, 3);
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
@@ -51,29 +36,14 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
   )
 }
 
-export default function Home() {
-  const plugin = React.useRef(
-    Autoplay({ delay: 11000, stopOnInteraction: false })
-  );
+export default async function Home() {
+  const allNews = await getNews();
 
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
-
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap() + 1)
-
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    })
-  }, [api])
-
-  const latestNews = allNews[0];
+  const mainHeadlines = allNews.slice(0, 3);
+  const dailyNews = allNews.slice(3, 7);
+  const homePageOpinionColumns = opinionColumns.slice(0, 3);
+  const homePageVideos = videos.slice(0, 3);
+  const latestNews = allNews.length > 0 ? allNews[0] : null;
 
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -82,73 +52,26 @@ export default function Home() {
       const newsDate = new Date(news.publishedAt);
       return newsDate >= startOfToday;
   }).length;
-
-  const mostRecentNewsDate = latestNews.publishedAt;
   
-  const diffInMinutes = Math.round((new Date().getTime() - new Date(mostRecentNewsDate).getTime()) / (1000 * 60));
-  
-  let lastUpdateText: string;
-  if (diffInMinutes < 1) {
-    lastUpdateText = "Agora";
-  } else if (diffInMinutes < 60) {
-    lastUpdateText = `${diffInMinutes} min`;
-  } else {
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    lastUpdateText = `${diffInHours}h`;
+  let lastUpdateText = "Agora";
+  if (latestNews) {
+    const mostRecentNewsDate = latestNews.publishedAt;
+    const diffInMinutes = Math.round((new Date().getTime() - new Date(mostRecentNewsDate).getTime()) / (1000 * 60));
+    if (diffInMinutes < 1) {
+        lastUpdateText = "Agora";
+      } else if (diffInMinutes < 60) {
+        lastUpdateText = `${diffInMinutes} min`;
+      } else {
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        lastUpdateText = `${diffInHours}h`;
+      }
   }
 
-  const activeReaders = `${(Math.random() * (18.5 - 12.3) + 12.3).toFixed(1)}K`;
 
   return (
     <div>
       <section>
-        <Carousel 
-          setApi={setApi}
-          className="w-full" 
-          opts={{ loop: true, speed: 5 }}
-          plugins={[plugin.current]}
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent>
-            {mainHeadlines.map((item, index) => (
-              <CarouselItem key={index}>
-                <Link href={`/noticias/${item.slug}`}>
-                  <div className="relative aspect-video">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="w-full h-full object-cover"
-                      data-ai-hint={item.dataAiHint}
-                      priority={index === 0}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white">
-                      <Badge className="text-sm font-semibold bg-primary px-2 py-1 rounded">{item.category}</Badge>
-                      <h2 className="text-xl md:text-4xl font-headline font-bold mt-2 max-w-4xl">{item.title}</h2>
-                    </div>
-                  </div>
-                </Link>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-4 hidden md:flex" />
-          <CarouselNext className="right-4 hidden md:flex" />
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            {Array.from({ length: count }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => api?.scrollTo(i)}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-300 ease-in-out",
-                  current === i + 1 ? "w-4 bg-white" : "w-2 bg-white/50"
-                )}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        </Carousel>
+        <MainCarousel headlines={mainHeadlines} />
       </section>
 
       <div className="container mx-auto px-4 space-y-16">
@@ -170,7 +93,7 @@ export default function Home() {
                             <Users className="h-6 w-6" />
                         </div>
                         <div>
-                            <p className="text-2xl font-bold">{activeReaders}</p>
+                            <ActiveReaders />
                             <p className="text-sm text-muted-foreground">Leitores ativos</p>
                         </div>
                     </div>
@@ -186,42 +109,51 @@ export default function Home() {
                 </div>
             </div>
           </section>
-          <section>
-            <div className="bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
-                <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 overflow-hidden">
-                        <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
-                        <p className="font-semibold text-sm md:text-base truncate hidden sm:block">{latestNews.title}</p>
+          
+          {latestNews && (
+            <section>
+                <div className="bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-4 overflow-hidden">
+                            <span className="bg-white text-primary font-bold text-xs uppercase px-3 py-2 rounded-full whitespace-nowrap">ÚLTIMO MOMENTO</span>
+                            <p className="font-semibold text-sm md:text-base truncate hidden sm:block">{latestNews.title}</p>
+                        </div>
+                        <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
+                            <Link href={`/noticias/${latestNews.slug}`}>Leia mais</Link>
+                        </Button>
                     </div>
-                    <Button variant="link" asChild className="text-white hover:text-white/80 hover:no-underline text-sm font-bold whitespace-nowrap flex-shrink-0">
-                        <Link href={`/noticias/${latestNews.slug}`}>Leia mais</Link>
-                    </Button>
+                    <p className="font-semibold text-sm text-center mt-3 sm:hidden">{latestNews.title}</p>
                 </div>
-                <p className="font-semibold text-sm text-center mt-3 sm:hidden">{latestNews.title}</p>
-            </div>
-          </section>
+            </section>
+          )}
         </div>
       
         <section>
           <SectionHeader title="Últimas Notícias" subtitle="Fique por dentro de tudo que acontece com o Mengão." href="/noticias" icon={Newspaper} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {dailyNews.map((news) => (
-              <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                <CardHeader className="p-0">
-                  <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
-                </CardHeader>
-                <CardContent className="flex-grow p-4">
-                  <Badge variant="secondary" className="mb-2">{news.category}</Badge>
-                  <CardTitle className="text-lg font-bold font-body leading-tight">{news.title}</CardTitle>
-                </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Button asChild className="w-full">
-                    <Link href={`/noticias/${news.slug}`}>Ler Notícia</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+          {dailyNews.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {dailyNews.map((news) => (
+                <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <CardHeader className="p-0">
+                    <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                  </CardHeader>
+                  <CardContent className="flex-grow p-4">
+                    <Badge variant="secondary" className="mb-2">{news.category}</Badge>
+                    <CardTitle className="text-lg font-bold font-body leading-tight">{news.title}</CardTitle>
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0">
+                    <Button asChild className="w-full">
+                      <Link href={`/noticias/${news.slug}`}>Ler Notícia</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          ) : (
+             <div className="text-center py-8 text-muted-foreground">
+                <p>Nenhuma notícia recente para exibir.</p>
+            </div>
+          )}
         </section>
 
         <AdBanner width={468} height={60} />

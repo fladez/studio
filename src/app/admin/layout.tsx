@@ -53,8 +53,8 @@ export default function AdminLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild disabled>
-                <Link href="#">
+              <SidebarMenuButton asChild>
+                <Link href="/admin/noticias">
                   <Newspaper />
                   Notícias
                 </Link>

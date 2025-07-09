@@ -21,13 +21,15 @@ export default function AdminDashboardPage() {
             </Link>
           </CardContent>
         </Card>
-        <Card className="opacity-50 cursor-not-allowed">
+        <Card>
           <CardHeader>
             <CardTitle>Gerenciar Notícias</CardTitle>
             <CardDescription>Adicione, edite ou remova notícias do portal.</CardDescription>
           </CardHeader>
           <CardContent>
-            <span className="text-muted-foreground">Gerenciar notícias (em breve)</span>
+            <Link href="/admin/noticias" className="text-primary font-semibold hover:underline">
+              Gerenciar notícias
+            </Link>
           </CardContent>
         </Card>
          <Card className="opacity-50 cursor-not-allowed">
