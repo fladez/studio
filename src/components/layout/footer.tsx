@@ -48,19 +48,19 @@ export function Footer() {
               O portal oficial do canal FLA10, de  notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
             </p>
             <div className="flex items-center gap-4">
-              <Link href="#" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+              <Link href="https://www.facebook.com/profile.php?id=100075993313125" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Instagram" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+              <Link href="https://www.instagram.com/canalfla10/" aria-label="Instagram" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Twitter" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+              <Link href="https://x.com/canalfla10" aria-label="Twitter" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+              <Link href="https://www.youtube.com/@fladez" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
                 <Youtube className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Tiktok" className="text-muted-foreground transition-colors hover:text-primary-foreground">
+              <Link href="https://www.tiktok.com/@canalfla10" aria-label="Tiktok" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
                 <TiktokIcon className="h-5 w-5" />
               </Link>
             </div>
