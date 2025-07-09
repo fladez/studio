@@ -138,6 +138,11 @@ export default function VideosPage() {
               <Input id="image" name="image" type="url" placeholder="https://exemplo.com/imagem.png" required />
               <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9.</p>
             </div>
+            <div className="grid gap-2">
+              <Label htmlFor="videoUrl">Link do Vídeo (YouTube)</Label>
+              <Input id="videoUrl" name="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+              <p className="text-xs text-muted-foreground">Opcional. Cole o link do vídeo do YouTube aqui.</p>
+            </div>
           </CardContent>
           <CardFooter>
             <SubmitButton />

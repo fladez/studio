@@ -10,6 +10,7 @@ const VideoSchema = z.object({
   category: z.string().min(3, { message: "A categoria deve ter pelo menos 3 caracteres." }),
   duration: z.string().regex(/^\d{1,2}:\d{2}$/, { message: "A duração deve estar no formato MM:SS ou M:SS." }),
   image: z.string().url({ message: "Por favor, insira um link de imagem válido." }),
+  videoUrl: z.string().url({ message: "Por favor, insira um link de vídeo válido." }).optional().or(z.literal('')),
   dataAiHint: z.string().optional(),
 });
 
@@ -28,6 +29,7 @@ export async function createVideo(prevState: any, formData: FormData) {
     category: formData.get("category"),
     duration: formData.get("duration"),
     image: formData.get("image"),
+    videoUrl: formData.get("videoUrl"),
     dataAiHint: formData.get("dataAiHint"),
   });
 
@@ -67,6 +69,7 @@ export async function updateVideo(id: string, slug: string, prevState: any, form
     category: formData.get("category"),
     duration: formData.get("duration"),
     image: formData.get("image"),
+    videoUrl: formData.get("videoUrl"),
     dataAiHint: formData.get("dataAiHint"),
   });
 

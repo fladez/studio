@@ -134,6 +134,11 @@ export default function EditVideoPage() {
               <Label htmlFor="image">Link da Thumbnail do Vídeo</Label>
               <Input id="image" name="image" type="url" defaultValue={video.image} required />
             </div>
+             <div className="grid gap-2">
+              <Label htmlFor="videoUrl">Link do Vídeo (YouTube)</Label>
+              <Input id="videoUrl" name="videoUrl" type="url" defaultValue={video.videoUrl || ''} placeholder="https://www.youtube.com/watch?v=..." />
+               <p className="text-xs text-muted-foreground">Opcional. Cole o link do vídeo do YouTube aqui.</p>
+            </div>
           </CardContent>
           <CardFooter className="flex justify-between">
             <SubmitButton />

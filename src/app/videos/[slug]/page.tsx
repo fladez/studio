@@ -24,6 +24,12 @@ function formatViews(views: number): string {
     return views.toString();
 }
 
+function getYouTubeId(url: string) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
 export default async function VideoPage({ params }: { params: { slug: string } }) {
   const video = await getVideoBySlug(params.slug)
 
@@ -31,6 +37,7 @@ export default async function VideoPage({ params }: { params: { slug: string } }
     notFound()
   }
 
+  const videoId = video.videoUrl ? getYouTubeId(video.videoUrl) : null;
   const videoDate = format(video.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
 
   return (
@@ -51,21 +58,34 @@ export default async function VideoPage({ params }: { params: { slug: string } }
           </div>
         </header>
         
-        <div className="relative aspect-video bg-black rounded-lg flex items-center justify-center text-white">
-            <Image
-              src={video.image}
-              alt={video.title}
-              fill
-              className="w-full h-full object-cover rounded-lg"
-              data-ai-hint={video.dataAiHint}
-              priority
-            />
-            <div className="absolute inset-0 bg-black/30"></div>
-            <PlayCircle className="h-24 w-24 text-white/80 z-10" />
-            <p className="absolute bottom-4 left-4 text-lg font-bold z-10">Vídeo indisponível</p>
+        <div className="relative aspect-video bg-black rounded-lg">
+          {videoId ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}`}
+              title={video.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
+            ></iframe>
+          ) : (
+            <>
+              <Image
+                src={video.image}
+                alt={video.title}
+                fill
+                className="w-full h-full object-cover rounded-lg"
+                data-ai-hint={video.dataAiHint}
+                priority
+              />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <PlayCircle className="h-24 w-24 text-white/80" />
+              </div>
+              <p className="absolute bottom-4 left-4 text-lg font-bold z-10">Vídeo indisponível</p>
+            </>
+          )}
         </div>
-        <p className="mt-4 text-muted-foreground">Este é um player de vídeo de demonstração. Em um site real, aqui estaria o player de vídeo incorporado do YouTube, Vimeo, etc.</p>
-
+        {!videoId && <p className="mt-4 text-muted-foreground">Um link de vídeo válido não foi fornecido.</p>}
       </article>
     </div>
   )
