@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,14 +48,8 @@ export default function ProfilePage() {
                         setFirstName(data.firstName || '');
                         setLastName(data.lastName || '');
                         setUsername(data.username || '');
-                        if (data.dob && typeof data.dob === 'string') {
-                            const dateParts = data.dob.split('-');
-                            if (dateParts.length === 3) {
-                                const [year, month, day] = dateParts.map(Number);
-                                if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
-                                    setDob(new Date(year, month - 1, day));
-                                }
-                            }
+                        if (data.dob && typeof data.dob.toDate === 'function') {
+                            setDob(data.dob.toDate());
                         }
                     }
                 } catch (error) {
@@ -86,7 +80,7 @@ export default function ProfilePage() {
                 firstName,
                 lastName,
                 username,
-                dob: dob ? format(dob, "yyyy-MM-dd") : '',
+                dob: dob ? Timestamp.fromDate(dob) : null,
             };
 
             await updateDoc(userDocRef, dataToUpdate);
@@ -96,9 +90,10 @@ export default function ProfilePage() {
             });
         } catch (error) {
             console.error("Error updating profile:", error);
+            const errorMessage = (error instanceof Error) ? error.message : "Ocorreu um erro desconhecido.";
             toast({
-                title: 'Erro',
-                description: 'Não foi possível atualizar seu perfil. Tente novamente.',
+                title: 'Erro ao salvar',
+                description: `Não foi possível atualizar seu perfil. Detalhe: ${errorMessage}`,
                 variant: 'destructive',
             });
         } finally {

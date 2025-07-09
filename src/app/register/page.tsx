@@ -44,7 +44,7 @@ export default function RegisterPage() {
                 firstName: '',
                 lastName: '',
                 username: '',
-                dob: '',
+                dob: null,
             });
             
             router.push('/');
