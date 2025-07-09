@@ -1,5 +1,4 @@
 
-import type { Metadata } from 'next';
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,11 +13,6 @@ import { opinionColumns } from '@/data/columns'
 import { videos } from '@/data/videos'
 import { MainCarousel } from '@/components/home/main-carousel'
 import { ActiveReaders } from '@/components/home/active-readers'
-
-export const metadata: Metadata = {
-  title: 'FLA10 News',
-  description: 'Seu portal diário de notícias sobre o Clube de Regatas do Flamengo.',
-};
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
