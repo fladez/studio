@@ -5,6 +5,7 @@ import { getVideoBySlug, getAllVideoSlugs } from '@/data/videos'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Clock, Eye, PlayCircle } from 'lucide-react'
+import { AdBanner } from '@/components/ad-banner'
 
 // This generates the routes at build time
 export async function generateStaticParams() {
@@ -86,6 +87,10 @@ export default async function VideoPage({ params }: { params: { slug: string } }
           )}
         </div>
         {!videoId && <p className="mt-4 text-muted-foreground">Um link de vídeo válido não foi fornecido.</p>}
+        
+        <div className="mt-12 pt-8 border-t">
+            <AdBanner width={728} height={90} />
+        </div>
       </article>
     </div>
   )
