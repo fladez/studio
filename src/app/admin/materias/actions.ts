@@ -13,6 +13,7 @@ const NewsSchema = z.object({
   content: z.string().min(50, { message: "O conteúdo da matéria deve ter pelo menos 50 caracteres." }),
   image: z.string().url({ message: "Por favor, insira um link de imagem válido." }),
   dataAiHint: z.string().optional(),
+  author: z.string().optional(),
 });
 
 function generateSlug(title: string): string {
@@ -32,6 +33,7 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
     content: formData.get("content"),
     image: formData.get("image"),
     dataAiHint: formData.get("dataAiHint"),
+    author: formData.get("author"),
   });
 
   if (!validatedFields.success) {
@@ -45,13 +47,15 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
   try {
     const slug = generateSlug(validatedFields.data.title);
 
-    await addDoc(collection(db, "news"), {
+    const dataToSave = {
       ...validatedFields.data,
+      author: validatedFields.data.author || 'Redação NRN',
       slug: slug,
       publishedAt: serverTimestamp(),
       views: 0,
-      author: 'Redação NRN',
-    });
+    };
+
+    await addDoc(collection(db, "news"), dataToSave);
 
     revalidatePath("/");
     revalidatePath("/noticias");

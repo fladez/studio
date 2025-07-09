@@ -80,14 +80,18 @@ export default function MateriasPage() {
               <Label htmlFor="excerpt">Subtítulo (Resumo)</Label>
               <Textarea id="excerpt" name="excerpt" placeholder="Um resumo curto e direto que aparecerá nas listagens de notícias" required />
             </div>
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="grid gap-2">
                     <Label htmlFor="category">Categoria (Tag)</Label>
-                    <Input id="category" name="category" placeholder="Ex: Futebol Profissional, Basquete, Torcida" required />
+                    <Input id="category" name="category" placeholder="Ex: Futebol Profissional" required />
+                </div>
+                <div className="grid gap-2">
+                    <Label htmlFor="author">Autor (Opcional)</Label>
+                    <Input id="author" name="author" placeholder="Padrão: Redação NRN" />
                 </div>
                  <div className="grid gap-2">
-                    <Label htmlFor="dataAiHint">Dica para IA da Imagem (Opcional)</Label>
-                    <Input id="dataAiHint" name="dataAiHint" placeholder="Ex: soccer celebration, player interview" />
+                    <Label htmlFor="dataAiHint">Dica para IA da Imagem</Label>
+                    <Input id="dataAiHint" name="dataAiHint" placeholder="Ex: soccer celebration" />
                 </div>
             </div>
             <div className="grid gap-2">
