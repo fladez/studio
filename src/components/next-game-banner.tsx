@@ -1,6 +1,6 @@
 import { Calendar, Clock } from 'lucide-react';
 import { TeamCrest } from './team-crest';
-import { nextGame } from '@/data/next-game';
+import { getNextGame } from '@/data/get-next-game';
 
 function TeamDisplay({ name }: { name: string }) {
     return (
@@ -16,7 +16,8 @@ function TeamDisplay({ name }: { name: string }) {
     )
 }
 
-export function NextGameBanner() {
+export async function NextGameBanner() {
+    const nextGame = await getNextGame();
 
     return (
         <div className="sticky top-16 z-40 w-full bg-accent/40 backdrop-blur text-accent-foreground border-b border-white/10 shadow-md">

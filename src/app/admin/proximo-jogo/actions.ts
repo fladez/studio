@@ -2,6 +2,8 @@
 "use server";
 
 import { z } from "zod";
+import { db } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const nextGameSchema = z.object({
   home: z.string().min(1, { message: "O time da casa é obrigatório." }),
@@ -17,6 +19,10 @@ type State = {
 };
 
 export async function handleUpdateNextGame(prevState: State, formData: FormData): Promise<State> {
+  if (!db) {
+    return { error: "O banco de dados não está configurado." };
+  }
+  
   const validatedFields = nextGameSchema.safeParse({
     home: formData.get("home"),
     away: formData.get("away"),
@@ -32,15 +38,17 @@ export async function handleUpdateNextGame(prevState: State, formData: FormData)
     };
   }
 
-  // Em uma aplicação real, aqui você atualizaria o banco de dados.
-  // Por enquanto, vamos apenas logar os dados no console para demonstração.
-  console.log("Dados do próximo jogo recebidos (não salvos):", validatedFields.data);
-
-  // AVISO: A atualização não persistirá pois os dados estão em um arquivo estático (src/data/next-game.ts).
-  // Para persistir, seria necessário conectar a um banco de dados como o Firestore.
-
-  return {
-    message: "Dados do 'Próximo Jogo' recebidos com sucesso! (Ação de demonstração)",
-    error: null,
-  };
+  try {
+    const nextGameRef = doc(db, "siteData", "nextGame");
+    await setDoc(nextGameRef, validatedFields.data, { merge: true });
+    return {
+      message: "Próximo jogo atualizado com sucesso!",
+      error: null,
+    };
+  } catch (error) {
+    console.error("Erro ao atualizar o próximo jogo:", error);
+    return {
+      error: "Ocorreu um erro ao salvar os dados no banco de dados.",
+    };
+  }
 }

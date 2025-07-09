@@ -3,14 +3,16 @@
 
 import { useFormState, useFormStatus } from "react-dom"
 import { handleUpdateNextGame } from "./actions"
-import { nextGame } from "@/data/next-game"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Loader2, Save } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useToast } from "@/hooks/use-toast"
+import { db } from "@/lib/firebase"
+import { doc, getDoc } from "firebase/firestore"
+import type { NextGameData } from "@/data/get-next-game"
 
 const initialState = {
   message: "",
@@ -37,6 +39,8 @@ function SubmitButton() {
 export default function ProximoJogoPage() {
   const [state, formAction] = useFormState(handleUpdateNextGame, initialState);
   const { toast } = useToast();
+  const [nextGame, setNextGame] = useState<NextGameData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (state.message) {
@@ -54,13 +58,54 @@ export default function ProximoJogoPage() {
     }
   }, [state, toast]);
 
+  useEffect(() => {
+    async function fetchNextGame() {
+      if (!db) {
+        toast({ variant: "destructive", title: "Erro", description: "Banco de dados não configurado." });
+        setLoading(false);
+        return;
+      }
+      try {
+        const docRef = doc(db, "siteData", "nextGame");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setNextGame(docSnap.data() as NextGameData);
+        } else {
+          setNextGame(null); 
+          toast({ title: "Aviso", description: "Nenhum dado de jogo encontrado. Preencha o formulário para criar." });
+        }
+      } catch (error) {
+        toast({ variant: "destructive", title: "Erro", description: "Não foi possível carregar os dados do jogo." });
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNextGame();
+  }, [toast]);
+
+  if (loading) {
+    return (
+        <Card>
+            <CardHeader>
+                <CardTitle>Atualizar Próximo Jogo</CardTitle>
+                <CardDescription>
+                Modifique as informações da barra que exibe o próximo jogo do Flamengo. As alterações serão salvas no banco de dados e refletidas em todo o site.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex items-center justify-center p-8">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </CardContent>
+        </Card>
+    )
+  }
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Atualizar Próximo Jogo</CardTitle>
         <CardDescription>
-          Modifique as informações da barra que exibe o próximo jogo do Flamengo.
-          Os dados atuais são apenas para demonstração e não serão salvos permanentemente.
+          Modifique as informações da barra que exibe o próximo jogo do Flamengo. As alterações serão salvas no banco de dados e refletidas em todo o site.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,25 +113,25 @@ export default function ProximoJogoPage() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="home">Time da Casa</Label>
-              <Input id="home" name="home" defaultValue={nextGame.home} />
+              <Input id="home" name="home" defaultValue={nextGame?.home || "Flamengo"} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="away">Time Visitante</Label>
-              <Input id="away" name="away" defaultValue={nextGame.away} />
+              <Input id="away" name="away" defaultValue={nextGame?.away || ""} />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="competition">Competição</Label>
-            <Input id="competition" name="competition" defaultValue={nextGame.competition} />
+            <Input id="competition" name="competition" defaultValue={nextGame?.competition || ""} />
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="date">Data</Label>
-              <Input id="date" name="date" defaultValue={nextGame.date} />
+              <Input id="date" name="date" defaultValue={nextGame?.date || ""} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="time">Hora</Label>
-              <Input id="time" name="time" defaultValue={nextGame.time} />
+              <Input id="time" name="time" defaultValue={nextGame?.time || ""} />
             </div>
           </div>
           <div className="flex justify-end">
