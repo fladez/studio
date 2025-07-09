@@ -133,7 +133,7 @@ export function Footer() {
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="/politica-de-privacidade" className={cn("transition-colors", pathname === '/politica-de-privacidade' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Política de Privacidade</Link>
             <Link href="/termos-de-uso" className={cn("transition-colors", pathname === '/termos-de-uso' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Termos de Uso</Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary-foreground transition-colors">Cookies</Link>
+            <Link href="/cookies" className={cn("transition-colors", pathname === '/cookies' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Cookies</Link>
           </div>
         </div>
       </div>
