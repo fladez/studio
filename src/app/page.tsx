@@ -276,17 +276,17 @@ export default function Home() {
         <AdBanner width={300} height={250} />
 
         <section className="pb-8">
-          <div className="flex justify-center mb-6">
+          <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." icon={TrendingUp} />
+          <div className="relative mt-8">
             <Image
               src="https://i.imgur.com/ldrhVdT.png"
               alt="Logo do Campeonato Brasileiro"
-              width={250}
-              height={131}
-              className="object-contain"
+              width={125}
+              height={66}
+              className="object-contain absolute -top-4 left-4 z-10"
             />
+            <SofascoreWidget />
           </div>
-          <SectionHeader title="Tabela do Brasileirão" subtitle="Acompanhe a classificação do Mengão no campeonato." icon={TrendingUp} />
-          <SofascoreWidget />
         </section>
 
       </div>
