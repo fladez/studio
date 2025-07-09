@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
-import { doc, getDoc, updateDoc, DocumentData } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -43,22 +43,35 @@ export default function ProfilePage() {
     useEffect(() => {
         async function fetchProfile() {
             if (user) {
-                setLoading(true);
-                const userDocRef = doc(db, 'users', user.uid);
-                const userDoc = await getDoc(userDocRef);
-                if (userDoc.exists()) {
-                    const data = userDoc.data() as UserProfile;
-                    setProfile(data);
-                    if (data.dob) {
-                        const parts = data.dob.split('-').map(Number);
-                        setDob(new Date(parts[0], parts[1] - 1, parts[2]));
+                try {
+                    setLoading(true);
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                    if (userDoc.exists()) {
+                        const data = userDoc.data() as UserProfile;
+                        setProfile(data);
+                        if (data.dob) {
+                            // Ensure date parsing is robust
+                            const [year, month, day] = data.dob.split('-').map(Number);
+                            setDob(new Date(year, month - 1, day));
+                        }
                     }
+                } catch (error) {
+                    console.error("Error fetching profile:", error);
+                    toast({
+                        title: "Erro ao carregar perfil",
+                        description: "Não foi possível buscar seus dados. Verifique sua conexão e tente novamente.",
+                        variant: "destructive",
+                    });
+                } finally {
+                    setLoading(false);
                 }
-                setLoading(false);
             }
         }
-        fetchProfile();
-    }, [user]);
+        if (!authLoading) {
+            fetchProfile();
+        }
+    }, [user, authLoading, toast]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -84,7 +97,7 @@ export default function ProfilePage() {
                 description: 'Seu perfil foi atualizado.',
             });
         } catch (error) {
-            console.error(error);
+            console.error("Error updating profile:", error);
             toast({
                 title: 'Erro',
                 description: 'Não foi possível atualizar seu perfil. Tente novamente.',
@@ -104,7 +117,7 @@ export default function ProfilePage() {
     }
     
     if (!user) {
-        return null; // Redirected by useEffect
+        return null; // Redirect handled by useEffect
     }
 
     return (
@@ -152,13 +165,14 @@ export default function ProfilePage() {
                                         captionLayout="dropdown-buttons"
                                         fromYear={1920}
                                         toYear={new Date().getFullYear()}
+                                        disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                                     />
                                 </PopoverContent>
                             </Popover>
                         </div>
                          <div className="grid gap-2 md:col-span-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input id="email" type="email" value={profile.email || ''} disabled />
+                            <Input id="email" type="email" value={user.email || ''} disabled />
                         </div>
                     </CardContent>
                     <CardFooter>
