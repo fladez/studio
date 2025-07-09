@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
@@ -15,6 +15,7 @@ export async function handleLogin(prevState: State, formData: FormData): Promise
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (e: any) {
+    console.error(e);
     if (e.code) {
         switch (e.code) {
             case 'auth/user-not-found':

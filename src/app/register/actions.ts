@@ -23,7 +23,9 @@ export async function handleRegister(prevState: State, formData: FormData): Prom
       createdAt: serverTimestamp(),
     });
 
-  } catch (e: any) {
+  } catch (e: any)
+   {
+    console.error(e);
     if (e.code) {
         switch (e.code) {
             case 'auth/email-already-in-use':
