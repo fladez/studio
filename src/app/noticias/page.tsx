@@ -51,7 +51,7 @@ export default function NoticiasPage() {
                         <Link href={`/noticias/${news.slug}`}>
                             <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
                         </Link>
-                      <Badge className="absolute top-2 right-2">{news.category}</Badge>
+                      <Badge className="absolute top-2 left-2">{news.category}</Badge>
                     </CardHeader>
                     <CardContent className="flex-grow p-4 space-y-2">
                       <CardTitle className="text-lg font-bold font-body leading-tight">
