@@ -18,6 +18,7 @@ import { Calendar as CalendarIcon, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
+import Compressor from 'compressorjs';
 
 export default function ProfilePage() {
     const { user, userProfile, loading: authLoading } = useAuth();
@@ -30,7 +31,7 @@ export default function ProfilePage() {
     const [dob, setDob] = useState<Date | undefined>();
     const [photoURL, setPhotoURL] = useState<string | null>(null);
 
-    const [avatarFile, setAvatarFile] = useState<File | null>(null);
+    const [avatarFile, setAvatarFile] = useState<File | Blob | null>(null);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
     
     const [loading, setLoading] = useState(true);
@@ -58,11 +59,28 @@ export default function ProfilePage() {
     }, [userProfile, authLoading]);
 
     const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            setAvatarFile(file);
-            setAvatarPreview(URL.createObjectURL(file));
+        const file = e.target.files?.[0];
+        if (!file) {
+            return;
         }
+
+        new Compressor(file, {
+            quality: 0.6,
+            maxWidth: 800,
+            maxHeight: 800,
+            success(result) {
+                setAvatarFile(result);
+                setAvatarPreview(URL.createObjectURL(result));
+            },
+            error(err) {
+                console.error(err.message);
+                toast({
+                    title: 'Erro de Imagem',
+                    description: 'Não foi possível processar a imagem. Por favor, tente um arquivo diferente.',
+                    variant: 'destructive',
+                });
+            },
+        });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
