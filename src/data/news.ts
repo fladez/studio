@@ -50,6 +50,23 @@ export async function getNews(count?: number): Promise<NewsArticle[]> {
     }
 }
 
+export async function getNewsById(id: string): Promise<NewsArticle | null> {
+    try {
+        const docRef = doc(db, 'news', id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return fromFirestore(docSnap);
+        } else {
+            console.log("No such document!");
+            return null;
+        }
+    } catch (error) {
+        console.error(`Error fetching news by id ${id}:`, error);
+        return null;
+    }
+}
+
 export async function getNewsBySlug(slug: string): Promise<NewsArticle | null> {
     try {
         const q = query(collection(db, "news"), where("slug", "==", slug), limit(1));

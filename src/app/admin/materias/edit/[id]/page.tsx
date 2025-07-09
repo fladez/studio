@@ -1,0 +1,156 @@
+
+"use client";
+
+import { useActionState, useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
+import { getNewsById } from "@/data/news";
+import { updateNewsArticle } from "@/app/admin/materias/actions";
+import type { NewsArticle } from "@/data/news";
+
+// UI Components
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+
+const initialState = {
+  success: false,
+  message: "",
+  errors: null,
+};
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Atualizando...
+        </>
+      ) : (
+        "Salvar Alterações"
+      )}
+    </Button>
+  );
+}
+
+export default function EditMateriasPage({ params }: { params: { id: string } }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const [article, setArticle] = useState<NewsArticle | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Bind the action with the article ID and slug
+  const updateActionWithId = article ? updateNewsArticle.bind(null, params.id, article.slug) : null;
+  const [state, formAction] = useActionState(updateActionWithId || (async () => initialState), initialState);
+  
+  useEffect(() => {
+    const fetchArticle = async () => {
+      setLoading(true);
+      const newsArticle = await getNewsById(params.id);
+      if (newsArticle) {
+        setArticle(newsArticle);
+      } else {
+        toast({
+          title: "Erro",
+          description: "Não foi possível encontrar a notícia.",
+          variant: "destructive",
+        });
+        router.push("/admin/materias");
+      }
+      setLoading(false);
+    };
+
+    fetchArticle();
+  }, [params.id, router, toast]);
+  
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast({
+          title: "Sucesso!",
+          description: state.message,
+        });
+        router.push("/admin/materias");
+      } else {
+        let description = state.message;
+        if (state.errors) {
+            const errorMessages = Object.values(state.errors).flat().join(' ');
+            description += ` ${errorMessages}`;
+        }
+        toast({
+          title: "Erro ao Atualizar",
+          description: description,
+          variant: "destructive",
+        });
+      }
+    }
+  }, [state, toast, router]);
+
+  if (loading || !article) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8 max-w-4xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>Editar Matéria</CardTitle>
+          <CardDescription>
+            Faça alterações na notícia e salve para publicar.
+          </CardDescription>
+        </CardHeader>
+        <form action={formAction}>
+          <CardContent className="space-y-6">
+            <div className="grid gap-2">
+              <Label htmlFor="title">Título</Label>
+              <Input id="title" name="title" defaultValue={article.title} required />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="excerpt">Subtítulo (Resumo)</Label>
+              <Textarea id="excerpt" name="excerpt" defaultValue={article.excerpt} required />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="category">Categoria (Tag)</Label>
+                    <Input id="category" name="category" defaultValue={article.category} required />
+                </div>
+                <div className="grid gap-2">
+                    <Label htmlFor="author">Autor</Label>
+                    <Input id="author" name="author" defaultValue={article.author} />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="dataAiHint">Dica para IA da Imagem</Label>
+                    <Input id="dataAiHint" name="dataAiHint" defaultValue={article.dataAiHint} />
+                </div>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="image">Link da Foto da Matéria</Label>
+                <Input id="image" name="image" type="url" defaultValue={article.image} required />
+                 <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
+            </div>
+             <div className="grid gap-2">
+                <Label htmlFor="content">Conteúdo da Matéria</Label>
+                <Textarea id="content" name="content" defaultValue={article.content} className="min-h-[300px]" required />
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <SubmitButton />
+            <Button variant="outline" asChild>
+                <Link href="/admin/materias">Cancelar</Link>
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
+  );
+}

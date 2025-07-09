@@ -4,8 +4,7 @@
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
-import { redirect } from "next/navigation";
+import { collection, addDoc, serverTimestamp, doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const NewsSchema = z.object({
   title: z.string().min(5, { message: "O título deve ter pelo menos 5 caracteres." }),
@@ -69,6 +68,52 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
 
   // This will be returned to the client and handled in useEffect
   return { success: true, message: "Notícia criada com sucesso!" };
+}
+
+export async function updateNewsArticle(id: string, slug: string, prevState: any, formData: FormData) {
+  if (!id) {
+    return { success: false, message: "ID da matéria é inválido." };
+  }
+
+  const validatedFields = NewsSchema.safeParse({
+    title: formData.get("title"),
+    excerpt: formData.get("excerpt"),
+    category: formData.get("category"),
+    content: formData.get("content"),
+    image: formData.get("image"),
+    dataAiHint: formData.get("dataAiHint"),
+    author: formData.get("author"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      success: false,
+      message: "Erro de validação. Verifique os campos.",
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const newsDocRef = doc(db, "news", id);
+    
+    const dataToUpdate = {
+      ...validatedFields.data,
+      author: validatedFields.data.author || 'Redação NRN',
+    };
+    
+    await updateDoc(newsDocRef, dataToUpdate);
+    
+    revalidatePath("/admin/materias");
+    revalidatePath("/");
+    revalidatePath("/noticias");
+    revalidatePath(`/noticias/${slug}`);
+
+    return { success: true, message: "Notícia atualizada com sucesso!" };
+
+  } catch (error) {
+    console.error("Error updating news article:", error);
+    return { success: false, message: "Ocorreu um erro no servidor ao atualizar. Tente novamente." };
+  }
 }
 
 export async function deleteNewsArticle(id: string) {
