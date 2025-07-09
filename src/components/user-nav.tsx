@@ -17,6 +17,7 @@ export function UserNav() {
     if (!user) return null;
 
     const handleLogout = async () => {
+        if (!auth) return;
         await signOut(auth);
         router.push('/');
     };

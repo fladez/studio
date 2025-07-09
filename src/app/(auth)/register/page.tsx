@@ -36,6 +36,15 @@ export default function RegisterPage() {
   const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!auth) {
+      toast({
+        variant: "destructive",
+        title: "Erro de Configuração",
+        description: "O serviço de autenticação não está configurado. Por favor, adicione as credenciais do Firebase.",
+      });
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password)
       

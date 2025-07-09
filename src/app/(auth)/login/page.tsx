@@ -34,6 +34,14 @@ export default function LoginPage() {
   const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!auth) {
+      toast({
+        variant: "destructive",
+        title: "Erro de Configuração",
+        description: "O serviço de autenticação não está configurado. Por favor, adicione as credenciais do Firebase.",
+      });
+      return;
+    }
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password)
       toast({
