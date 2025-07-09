@@ -1,9 +1,8 @@
-
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { getNewsById } from "@/data/news";
 import { updateNewsArticle } from "@/app/admin/materias/actions";
 import type { NewsArticle } from "@/data/news";
@@ -49,12 +48,13 @@ function SubmitButton() {
   );
 }
 
-export default function EditMateriasPage({ params }: { params: { id: string } }) {
+export default function EditMateriasPage() {
   const router = useRouter();
+  const params = useParams();
   const { toast } = useToast();
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
-  const { id } = params; // Extract id during render phase
+  const id = params.id as string;
 
   // Bind the action with the article ID and slug
   const updateActionWithId = article ? updateNewsArticle.bind(null, id, article.slug) : null;
