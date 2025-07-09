@@ -35,6 +35,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       <article>
         <header className="mb-8">
           <div className="flex justify-between items-center mb-4">
+            <Badge variant="default">{article.category}</Badge>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
@@ -42,7 +43,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                   Compartilhar
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
+              <DropdownMenuContent align="end">
                 <DropdownMenuItem>
                   <Twitter className="mr-2 h-4 w-4" />
                   <span>Twitter / X</span>
@@ -61,7 +62,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Badge variant="default">{article.category}</Badge>
           </div>
 
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight mb-4">{article.title}</h1>
