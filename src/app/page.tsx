@@ -92,7 +92,7 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
 
 export default function Home() {
   const plugin = React.useRef(
-    Autoplay({ delay: 11000, stopOnInteraction: true })
+    Autoplay({ delay: 11000, stopOnInteraction: false })
   );
 
   const [api, setApi] = React.useState<CarouselApi>()
