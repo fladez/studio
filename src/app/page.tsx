@@ -1,8 +1,10 @@
 
 'use client'
 
+import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Autoplay from 'embla-carousel-autoplay'
 import {
   Carousel,
   CarouselContent,
@@ -87,6 +89,10 @@ function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, s
 }
 
 export default function Home() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
+
   const allNewsForHomepage = [...mainHeadlines, ...dailyNews];
 
   // Sort all news to find the latest one easily
@@ -120,7 +126,13 @@ export default function Home() {
   return (
     <div>
       <section>
-        <Carousel className="w-full" opts={{ loop: true }}>
+        <Carousel 
+          className="w-full" 
+          opts={{ loop: true }}
+          plugins={[plugin.current]}
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
           <CarouselContent>
             {mainHeadlines.map((item, index) => (
               <CarouselItem key={index}>
