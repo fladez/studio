@@ -67,7 +67,7 @@ const videos = [
 
 function SectionHeader({ title, subtitle, href, icon: Icon }: { title: string, subtitle?: string, href?: string, icon: React.ElementType }) {
   return (
-    <div className="mb-8 border-b-4 border-primary pb-4">
+    <div className="mb-8 border-b-2 border-primary pb-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Icon className="h-8 w-8 text-primary flex-shrink-0" />
