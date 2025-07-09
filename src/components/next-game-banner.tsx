@@ -1,6 +1,36 @@
 import { Calendar, Clock } from 'lucide-react';
 import { TeamCrest } from './team-crest';
-import { nextGame } from '@/data/next-game';
+import { nextGame as defaultGameData } from '@/data/next-game';
+import { db } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+
+// Define the type for game data to ensure consistency
+type NextGameData = {
+    home: string;
+    away: string;
+    competition: string;
+    date: string;
+    time: string;
+};
+
+async function getNextGameData(): Promise<NextGameData> {
+    try {
+        const docRef = doc(db, "siteConfig", "nextGame");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            // Return data from Firestore if it exists
+            return docSnap.data() as NextGameData;
+        } else {
+            // Fallback to default data if document doesn't exist
+            return defaultGameData;
+        }
+    } catch (error) {
+        console.error("Failed to fetch next game data for banner:", error);
+        // Fallback to default data in case of an error
+        return defaultGameData;
+    }
+}
 
 function TeamDisplay({ name }: { name: string }) {
     return (
@@ -16,7 +46,9 @@ function TeamDisplay({ name }: { name: string }) {
     )
 }
 
-export function NextGameBanner() {
+export async function NextGameBanner() {
+    const nextGame = await getNextGameData();
+
     return (
         <div className="sticky top-16 z-40 w-full bg-accent/40 backdrop-blur text-accent-foreground border-b border-white/10 shadow-md">
             <div className="container mx-auto flex items-center justify-center h-14 px-4">
