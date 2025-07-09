@@ -1,9 +1,10 @@
+
 "use server";
 
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { redirect } from "next/navigation";
 
 const NewsSchema = z.object({
@@ -68,4 +69,24 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
 
   // This will be returned to the client and handled in useEffect
   return { success: true, message: "Notícia criada com sucesso!" };
+}
+
+export async function deleteNewsArticle(id: string) {
+  if (!id) {
+    return { success: false, message: "ID da matéria é inválido." };
+  }
+
+  try {
+    const newsDocRef = doc(db, "news", id);
+    await deleteDoc(newsDocRef);
+
+    revalidatePath("/admin/materias");
+    revalidatePath("/");
+    revalidatePath("/noticias");
+    
+    return { success: true, message: "Notícia deletada com sucesso!" };
+  } catch (error) {
+    console.error("Error deleting news article:", error);
+    return { success: false, message: "Ocorreu um erro ao deletar a notícia." };
+  }
 }

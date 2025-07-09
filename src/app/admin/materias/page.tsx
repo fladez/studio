@@ -1,15 +1,27 @@
+
 "use client";
 
-import { useActionState, useRef, useEffect } from "react";
+import { useActionState, useRef, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
-import { createNewsArticle } from "./actions";
+import Link from 'next/link';
+import { createNewsArticle, deleteNewsArticle } from "./actions";
+import { getNews } from "@/data/news";
+import type { NewsArticle } from "@/data/news";
+
+// UI Components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+
+// Icons
+import { Loader2, FilePen, Trash2 } from "lucide-react";
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const initialState = {
   success: false,
@@ -37,6 +49,20 @@ export default function MateriasPage() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [newsList, setNewsList] = useState<NewsArticle[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchNews = async () => {
+    setIsLoading(true);
+    const news = await getNews();
+    setNewsList(news);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
   useEffect(() => {
     if (state.message) {
       if (state.success) {
@@ -45,8 +71,8 @@ export default function MateriasPage() {
           description: state.message,
         });
         formRef.current?.reset();
+        fetchNews(); // Re-fetch news to update the list
       } else {
-        // Concatenate all error messages for the toast
         let description = state.message;
         if (state.errors) {
             const errorMessages = Object.values(state.errors).flat().join(' ');
@@ -61,16 +87,33 @@ export default function MateriasPage() {
     }
   }, [state, toast]);
 
+  const handleDelete = async (id: string) => {
+    const result = await deleteNewsArticle(id);
+    if (result.success) {
+      toast({
+        title: "Sucesso!",
+        description: result.message,
+      });
+      setNewsList(currentNews => currentNews.filter(news => news.id !== id));
+    } else {
+      toast({
+        title: "Erro ao Deletar",
+        description: result.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <form ref={formRef} action={formAction}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Criar Nova Matéria</CardTitle>
-            <CardDescription>
-              Preencha os campos abaixo para publicar uma nova notícia no portal.
-            </CardDescription>
-          </CardHeader>
+    <div className="space-y-8 max-w-7xl mx-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>Criar Nova Matéria</CardTitle>
+          <CardDescription>
+            Preencha os campos abaixo para publicar uma nova notícia no portal.
+          </CardDescription>
+        </CardHeader>
+        <form ref={formRef} action={formAction}>
           <CardContent className="space-y-6">
             <div className="grid gap-2">
               <Label htmlFor="title">Título</Label>
@@ -107,8 +150,77 @@ export default function MateriasPage() {
           <CardFooter>
             <SubmitButton />
           </CardFooter>
-        </Card>
-      </form>
+        </form>
+      </Card>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle>Notícias Publicadas</CardTitle>
+          <CardDescription>
+            Gerencie as notícias existentes no portal.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isLoading ? (
+            <div className="flex justify-center items-center h-40">
+              <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+          ) : newsList.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Título</TableHead>
+                  <TableHead>Categoria</TableHead>
+                  <TableHead>Data de Publicação</TableHead>
+                  <TableHead className="text-right">Ações</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {newsList.map((news) => (
+                  <TableRow key={news.id}>
+                    <TableCell className="font-medium max-w-xs truncate">{news.title}</TableCell>
+                    <TableCell>{news.category}</TableCell>
+                    <TableCell>{format(news.publishedAt, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</TableCell>
+                    <TableCell className="text-right space-x-2">
+                      <Button asChild variant="ghost" size="icon">
+                        <Link href={`/admin/materias/edit/${news.id}`}>
+                          <FilePen className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Essa ação não pode ser desfeita. Isso irá deletar permanentemente a matéria.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              className="bg-destructive hover:bg-destructive/90"
+                              onClick={() => handleDelete(news.id)}
+                            >
+                              Deletar
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-center text-muted-foreground py-8">Nenhuma notícia publicada ainda.</p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
