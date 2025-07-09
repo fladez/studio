@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
-import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2 } from 'lucide-react'
+import { Facebook, Twitter, Linkedin, Link as LinkIcon, Share2, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getNewsBySlug, getAllNewsSlugs } from '@/data/news'
-import { format } from 'date-fns'
+import { getNewsBySlug, getAllNewsSlugs, getNews } from '@/data/news'
+import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import {
   DropdownMenu,
@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { AdBanner } from '@/components/ad-banner'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { ShareButton } from '@/components/share-button'
 
 export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate at most every hour
@@ -26,8 +28,35 @@ export async function generateStaticParams() {
   }));
 }
 
+function formatPublishedTime(publishedAt: Date): string {
+    const now = new Date();
+  
+    const diffDays = differenceInDays(now, publishedAt);
+    if (diffDays > 3) {
+      return format(publishedAt, 'dd/MM/yyyy');
+    }
+    if (diffDays >= 1) {
+      return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+    }
+  
+    const diffHours = differenceInHours(now, publishedAt);
+    if (diffHours >= 1) {
+      return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
+    }
+  
+    const diffMinutes = differenceInMinutes(now, publishedAt);
+    if (diffMinutes >= 1) {
+      return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
+    }
+  
+    return "Agora mesmo";
+}
+
+
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const article = await getNewsBySlug(params.slug)
+  const latestNews = await getNews(3);
+  const otherNews = latestNews.filter(n => n.slug !== params.slug).slice(0, 2);
 
   if (!article) {
     notFound()
@@ -116,6 +145,44 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <AdBanner width={728} height={90} />
         </div>
       </article>
+
+      {otherNews.length > 0 && (
+        <section className="mt-12 pt-8 border-t">
+          <h2 className="text-3xl font-headline font-bold mb-6">Últimas Notícias</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {otherNews.map((news) => (
+              <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                <CardHeader className="p-0 relative">
+                    <Link href={`/noticias/${news.slug}`}>
+                        <Image src={news.image} alt={news.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={news.dataAiHint} />
+                    </Link>
+                  <Badge className="absolute top-2 left-2">{news.category}</Badge>
+                  <ShareButton title={news.title} slug={news.slug} />
+                </CardHeader>
+                <CardContent className="flex-grow p-4 space-y-2">
+                  <CardTitle className="text-lg font-bold font-body leading-tight">
+                    <Link href={`/noticias/${news.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                       {news.title}
+                    </Link>
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{news.excerpt}</p>
+                </CardContent>
+                <CardFooter className="p-4 pt-0 text-xs text-muted-foreground">
+                    <div className="flex justify-between items-center w-full">
+                        <div className="flex items-center gap-1.5">
+                            <Clock className="h-3 w-3" />
+                            <span>{formatPublishedTime(news.publishedAt)}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span>Por {news.author || 'Redação NRN'}</span>
+                        </div>
+                    </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }
