@@ -8,6 +8,7 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react"
 import { TiktokIcon } from "../tiktok-icon"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Separator } from "../ui/separator";
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -58,41 +59,45 @@ export function Footer() {
       </div>
 
       {/* Main Footer Section */}
-      <div className="bg-accent text-accent-foreground py-16">
+      <div className="bg-accent text-accent-foreground py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6">
-            
-            {/* Logo and Description */}
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-4">
+          
+          {/* Top part: Logo, description, and social icons */}
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-8 mb-10">
+            <div className="flex-1">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
                 <Fla10Logo />
                 <span className="font-bold text-xl text-primary-foreground">
                   <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground mb-6 max-w-xs">
+              <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
                 O portal oficial do canal FLA10, de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
               </p>
-              <div className="flex items-center gap-4">
-                <Link href="https://www.facebook.com/profile.php?id=100075993313125" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
-                  <Facebook className="h-5 w-5" />
-                </Link>
-                <Link href="https://www.instagram.com/canalfla10/" aria-label="Instagram" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
-                  <Instagram className="h-5 w-5" />
-                </Link>
-                <Link href="https://x.com/canalfla10" aria-label="Twitter" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
-                  <Twitter className="h-5 w-5" />
-                </Link>
-                <Link href="https://www.youtube.com/@fladez" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
-                  <Youtube className="h-5 w-5" />
-                </Link>
-                <Link href="https://www.tiktok.com/@canalfla10" aria-label="Tiktok" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
-                  <TiktokIcon className="h-5 w-5" />
-                </Link>
-              </div>
             </div>
+            <div className="flex items-center gap-4">
+              <Link href="https://www.facebook.com/profile.php?id=100075993313125" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
+                <Facebook className="h-5 w-5" />
+              </Link>
+              <Link href="https://www.instagram.com/canalfla10/" aria-label="Instagram" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
+                <Instagram className="h-5 w-5" />
+              </Link>
+              <Link href="https://x.com/canalfla10" aria-label="Twitter" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
+                <Twitter className="h-5 w-5" />
+              </Link>
+              <Link href="https://www.youtube.com/@fladez" aria-label="Youtube" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
+                <Youtube className="h-5 w-5" />
+              </Link>
+              <Link href="https://www.tiktok.com/@canalfla10" aria-label="Tiktok" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
+                <TiktokIcon className="h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+          
+          <Separator className="bg-white/10 mb-10" />
 
-            {/* Link Columns */}
+          {/* Bottom part: Link columns */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
               <FooterSectionTitle>Portal</FooterSectionTitle>
               <ul className="space-y-2">
@@ -107,7 +112,7 @@ export function Footer() {
               <FooterSectionTitle>Categorias</FooterSectionTitle>
               <ul className="space-y-2">
                 {categoryLinks.map(link => (
-                    <FooterLink key={link.href} href={link.href}>{link.label}</FooterLink>
+                    <FooterLink key={link.href} href={`/${link.label.toLowerCase().replace(' ','-')}`}>{link.label}</FooterLink>
                 ))}
               </ul>
             </div>
