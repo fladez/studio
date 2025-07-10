@@ -146,12 +146,12 @@ export default function TitulosPage() {
                 <TrophyItem 
                     title="Campeonato Carioca"
                     count={39}
-                    years="1914, 1915 (invicto) 1920 (invicto), 1921, 1925, 1927, 1939, 1942, 1943, 1944, 1953, 1954, 1955, 1963, 1965, 1972, 1974, 1978, 1979, 1979 (especial - invicto), 1981, 1986, 1991, 1996 (invicto), 1999, 2000, 2001, 2004, 2007, 2008, 2009, 2011 (invicto), 2014, 2017 (invicto), 2019, 2020, 2021, 2024 (invicto) e 2025."
+                    years="1914, 1915 (invicto), 1920 (invicto), 1921, 1925, 1927, 1939, 1942, 1943, 1944, 1953, 1954, 1955, 1963, 1965, 1972, 1974, 1978, 1979, 1979 (especial - invicto), 1981, 1986, 1991, 1996 (invicto), 1999, 2000, 2001, 2004, 2007, 2008, 2009, 2011 (invicto), 2014, 2017 (invicto), 2019, 2020, 2021, 2024 (invicto) e 2025."
                 />
                 <TrophyItem 
                     title="Taça Guanabara"
-                    count={24}
-                    years="Inclui edições como 1970, 1972, 1973, até 2024"
+                    count={25}
+                    years="1970, 1972 (invicto), 1973 (invicto), 1978, 1979, 1980 (invicto), 1981, 1982, 1984, 1988, 1989 (invicto), 1995, 1996 (invicto), 1999 (invicto), 2001, 2004, 2007, 2008, 2011 (invicto),  2014, 2018, 2020, 2021, 2024 (invicto) e 2025."
                 />
                 <TrophyItem 
                     title="Taça Rio"
