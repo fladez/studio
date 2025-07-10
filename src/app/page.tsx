@@ -217,7 +217,7 @@ export default async function Home() {
               <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary">{column.category}</Badge>
+                    <Badge variant="default">{column.category}</Badge>
                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                       <Clock className="h-3 w-3" />
                       <span>{formatPublishedTime(column.publishedAt)}</span>
