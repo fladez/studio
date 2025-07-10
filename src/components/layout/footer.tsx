@@ -98,7 +98,7 @@ export function Footer() {
               <li><FooterLink href="#">Futebol</FooterLink></li>
               <li><FooterLink href="#">Basquete</FooterLink></li>
               <li><FooterLink href="#">Vôlei</FooterLink></li>
-              <li><FooterLink href="#">Esportes Olímpicos</FooterLink></li>
+              <li><FooterLink href="#">Olímpicos</FooterLink></li>
               <li><FooterLink href="#">E-Sports</FooterLink></li>
             </ul>
           </div>
