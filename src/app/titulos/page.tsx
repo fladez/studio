@@ -1,3 +1,4 @@
+
 import { AdBanner } from "@/components/ad-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -67,8 +68,8 @@ export default function TitulosPage() {
                 />
                  <TrophyItem 
                     title="Copa do Brasil"
-                    count={4}
-                    years="1990, 2006, 2013, 2022"
+                    count={5}
+                    years="1990 (invicto), 2006, 2013, 2022 e 2024"
                 />
                  <TrophyItem 
                     title="Supercopa do Brasil"
