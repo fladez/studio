@@ -6,7 +6,7 @@ export default function HistoriaPage() {
     <div className="container mx-auto max-w-4xl py-12 px-4">
       <div className="space-y-8">
         <header className="text-center border-b pb-6">
-          <div className="relative mx-auto h-40 w-40 mb-4">
+          <div className="relative mx-auto h-40 w-40">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
