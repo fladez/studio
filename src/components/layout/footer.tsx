@@ -98,7 +98,7 @@ export function Footer() {
               <li><FooterLink href="#">Futebol</FooterLink></li>
               <li><FooterLink href="#">Basquete</FooterLink></li>
               <li><FooterLink href="#">Vôlei</FooterLink></li>
-              <li><FooterLink href="#">Olímpicos</FooterLink></li>
+              <li><FooterLink href="/#">Olímpicos</FooterLink></li>
               <li><FooterLink href="#">E-Sports</FooterLink></li>
             </ul>
           </div>
@@ -129,7 +129,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="bg-accent text-accent-foreground border-t border-white/10">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 text-xs">
-          <p className="text-muted-foreground">© {new Date().getFullYear()} Canal Fla Dez. Todos os direitos reservados.</p>
+          <p className="text-muted-foreground">© {new Date().getFullYear()} FLA10 News - Canal Fla Dez. Todos os direitos reservados.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="/politica-de-privacidade" className={cn("transition-colors", pathname === '/politica-de-privacidade' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Política de Privacidade</Link>
             <Link href="/termos-de-uso" className={cn("transition-colors", pathname === '/termos-de-uso' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Termos de Uso</Link>
