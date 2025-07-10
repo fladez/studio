@@ -47,6 +47,16 @@ export default function CTPage() {
         <AdBanner width={728} height={90} />
       </div>
       
+       <div className="mb-12 relative aspect-video w-full h-auto overflow-hidden rounded-lg">
+          <Image
+              src="https://i.postimg.cc/zB32JKht/522736890-ninho1crop1589808535582jpg554688468.webp"
+              alt="Vista aérea do Ninho do Urubu"
+              fill
+              className="object-cover"
+              priority
+          />
+        </div>
+
       <header className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">🦅 CT Ninho do Urubu</h1>
         <p className="text-xl text-muted-foreground mt-2">O coração pulsante do Flamengo moderno</p>
