@@ -9,6 +9,8 @@ import { Clock, Eye, PlayCircle } from 'lucide-react'
 import { AdBanner } from '@/components/ad-banner'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
+export const revalidate = 3600; // Revalidate at most every hour
+
 // This generates the routes at build time
 export async function generateStaticParams() {
   const slugs = await getAllVideoSlugs();

@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
@@ -6,7 +7,6 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate at most every hour
 
 // This generates the routes at build time
@@ -30,7 +30,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
     <div className="container mx-auto max-w-4xl py-12">
       <article>
         <header className="mb-8 text-center">
-          <p className="text-primary font-sans text-6xl mb-4">{column.columnName}</p>
+          <p className="font-sans text-6xl mb-4 font-bold">{column.columnName}</p>
           <Badge variant="default">{column.category}</Badge>
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight my-4">{column.title}</h1>
           <div className="flex items-center justify-center gap-4">

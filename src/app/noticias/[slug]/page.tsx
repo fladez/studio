@@ -11,7 +11,6 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ShareButton } from '@/components/share-button'
 import { ArticleShareButton } from '@/components/article-share-button'
 
-export const dynamic = 'force-static';
 export const revalidate = 3600; // Revalidate at most every hour
 
 // This generates the routes at build time
