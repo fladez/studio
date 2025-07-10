@@ -11,9 +11,14 @@ import { ShareButton } from '@/components/share-button'
 import { AdBanner } from '@/components/ad-banner'
 import { notFound } from 'next/navigation'
 
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+const VALID_CATEGORIES: Record<string, string> = {
+    "futebol": "Futebol",
+    "basquete": "Basquete",
+    "volei": "Volei",
+    "futsal": "Futsal",
+    "e-sports": "E-Sports",
+    "esportes-olimpicos": "Esportes Olímpicos",
+};
 
 function formatPublishedTime(publishedAt: Date): string {
     const now = new Date();
@@ -41,23 +46,17 @@ function formatPublishedTime(publishedAt: Date): string {
 
 // Generate static routes for better performance and SEO
 export async function generateStaticParams() {
-    const categories = ["Futebol", "Basquete", "Volei", "Futsal", "E-Sports", "Esportes Olímpicos"];
-    return categories.map(category => ({
-      category: category.toLowerCase(),
+    return Object.keys(VALID_CATEGORIES).map(category => ({
+      category: category,
     }));
 }
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-    const decodedCategorySlug = decodeURIComponent(params.category);
+    const categorySlug = decodeURIComponent(params.category).toLowerCase();
+    const categoryName = VALID_CATEGORIES[categorySlug];
     
-    // Convert slug to the correct category name stored in Firestore
-    let categoryName = capitalizeFirstLetter(decodedCategorySlug);
-    if (decodedCategorySlug === 'e-sports') {
-        categoryName = 'E-Sports';
-    } else if (decodedCategorySlug === 'esportes-olimpicos') {
-        categoryName = 'Esportes Olímpicos';
-    } else {
-        categoryName = decodedCategorySlug.split('-').map(capitalizeFirstLetter).join(' ');
+    if (!categoryName) {
+        notFound();
     }
 
     const newsForCategory = await getNewsByCategory(categoryName);
