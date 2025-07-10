@@ -39,23 +39,30 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
+// Generate static routes for better performance and SEO
+export async function generateStaticParams() {
+    const categories = ["Futebol", "Basquete", "Volei", "Futsal", "E-Sports", "Esportes Olímpicos"];
+    return categories.map(category => ({
+      category: category.toLowerCase(),
+    }));
+}
+
 export default async function CategoryPage({ params }: { params: { category: string } }) {
     const decodedCategorySlug = decodeURIComponent(params.category);
-    // Directly use the slug, capitalizing it for the title and the fetch function.
-    // Handles simple cases like 'futebol' -> 'Futebol'.
-    // For multi-word slugs like 'e-sports', we'll rely on the DB storing it as 'E-sports' or similar.
-    const categoryName = decodedCategorySlug.split('-').map(capitalizeFirstLetter).join(' ');
-
+    
+    // Convert slug to the correct category name stored in Firestore
+    let categoryName = capitalizeFirstLetter(decodedCategorySlug);
+    if (decodedCategorySlug === 'e-sports') {
+        categoryName = 'E-Sports';
+    } else if (decodedCategorySlug === 'esportes-olimpicos') {
+        categoryName = 'Esportes Olímpicos';
+    } else {
+        categoryName = decodedCategorySlug.split('-').map(capitalizeFirstLetter).join(' ');
+    }
 
     const newsForCategory = await getNewsByCategory(categoryName);
     
-    // Although we fetch, we can double-check if we actually want to show this page.
-    // If no news is found, it might be an invalid category.
-    if (newsForCategory.length === 0) {
-        // You can decide to show a "not found" or an empty state.
-        // For now, showing an empty state seems more user-friendly.
-    }
-
+    // Group news into chunks of 4 for ad placement
     const chunkSize = 4;
     const newsChunks = [];
     if (newsForCategory.length > 0) {
@@ -78,7 +85,7 @@ export default async function CategoryPage({ params }: { params: { category: str
                 <div className="space-y-8">
                   {newsChunks.map((chunk, index) => (
                     <React.Fragment key={index}>
-                      <AdBanner width={728} height={90} />
+                      {index > 0 && <AdBanner width={728} height={90} />}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {chunk.map((news) => (
                           <Card key={news.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
