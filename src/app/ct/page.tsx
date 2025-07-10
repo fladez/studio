@@ -1,4 +1,5 @@
 
+
 import Image from "next/image";
 import { AdBanner } from "@/components/ad-banner";
 import { HistoryCarousel } from "@/components/home/history-carousel";
@@ -42,9 +43,16 @@ export default function CTPage() {
   ];
 
   const baseImages = [
-    { src: "https://placehold.co/1200x675.png", alt: "Jogadores da base do Flamengo", "data-ai-hint": "youth soccer" },
-    { src: "https://placehold.co/1200x675.png", alt: "Time da base comemorando título", "data-ai-hint": "team celebration" },
-    { src: "https://placehold.co/1200x675.png", alt: "Jovem talento treinando", "data-ai-hint": "young player" },
+    { src: "https://i.postimg.cc/wvqhQp2S/FBL-LIBERTADORES-EMELEC-FLAMENGO-G5-T3-L4-OUR-1.jpg", alt: "Talentos da base do Flamengo" },
+    { src: "https://i.postimg.cc/rszx7Nvj/fla-s20-matheus-goncalves-2022-jpg.webp", alt: "Matheus Gonçalves na base" },
+    { src: "https://i.postimg.cc/xjFKMBz4/maxresdefault.jpg", alt: "Jogadores da base comemorando" },
+    { src: "https://i.postimg.cc/Z56pkRDG/wesley-flamengo-e1735914081692.webp", alt: "Wesley, cria da base" },
+    { src: "https://i.postimg.cc/NMCr8r5H/joao-gomes-trofeu-libertadores-flamengo-e1673561836420.webp", alt: "João Gomes com a taça da Libertadores" },
+    { src: "https://i.postimg.cc/XqZBs7CD/i.jpg", alt: "Vinicius Jr. e Lucas Paquetá na base" },
+    { src: "https://i.postimg.cc/Cxpn40Lm/AFP-20250620-2221195670-v1-High-Res-Cr-Flamengo-VChelsea-Fc-Group-DFifa-Club-World-Cup20-scaled-aspect-r.webp", alt: "Matheus França em ação" },
+    { src: "https://i.postimg.cc/fLPJSnr7/copinha-fla.webp", alt: "Time da base campeão da Copinha" },
+    { src: "https://i.postimg.cc/fy0kx2GG/e973ff377195e334caa47d41e5ab5ffddfce1ea4-jpg.webp", alt: "Reinier, cria da base" },
+    { src: "https://i.postimg.cc/xjW3BW1b/dsc-2595.webp", alt: "Lorran, joia da base do Flamengo" }
   ];
 
   const tragedyMemorialImages = [
