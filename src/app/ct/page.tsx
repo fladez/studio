@@ -11,8 +11,6 @@ export default function CTPage() {
     { src: "https://i.postimg.cc/WbbW3p8Q/flamengo-base-20250416101520.webp", alt: "Vista aérea do Ninho do Urubu" },
     { src: "https://i.postimg.cc/DwRBBrhT/Whats-App-Image-2025-07-10-at-15-52-49.jpg", alt: "Campos de treinamento no Ninho do Urubu" },
     { src: "https://i.postimg.cc/rp6NSqGy/Design-sem-nome-12.png", alt: "Jogadores treinando no Ninho do Urubu" },
-    { src: "https://placehold.co/1200x675.png", alt: "Academia do CT", "data-ai-hint": "modern gym" },
-    { src: "https://placehold.co/1200x675.png", alt: "Departamento de fisioterapia", "data-ai-hint": "physical therapy" },
   ];
 
   const baseImages = [
