@@ -11,16 +11,8 @@ import { ShareButton } from '@/components/share-button'
 import { AdBanner } from '@/components/ad-banner'
 import { notFound } from 'next/navigation'
 
-const validCategories: { [key: string]: string } = {
-  futebol: "Futebol",
-  basquete: "Basquete",
-  volei: "Volei",
-  'esportes-olimpicos': "Esportes Olímpicos",
-  'e-sports': "E-Sports",
-};
-
-export async function generateStaticParams() {
-  return Object.keys(validCategories).map(category => ({ category }));
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function formatPublishedTime(publishedAt: Date): string {
@@ -48,15 +40,22 @@ function formatPublishedTime(publishedAt: Date): string {
 }
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-    const decodedCategorySlug = decodeURIComponent(params.category).toLowerCase();
-    const categoryName = validCategories[decodedCategorySlug];
+    const decodedCategorySlug = decodeURIComponent(params.category);
+    // Directly use the slug, capitalizing it for the title and the fetch function.
+    // Handles simple cases like 'futebol' -> 'Futebol'.
+    // For multi-word slugs like 'e-sports', we'll rely on the DB storing it as 'E-sports' or similar.
+    const categoryName = decodedCategorySlug.split('-').map(capitalizeFirstLetter).join(' ');
 
-    if (!categoryName) {
-        notFound();
-    }
 
     const newsForCategory = await getNewsByCategory(categoryName);
     
+    // Although we fetch, we can double-check if we actually want to show this page.
+    // If no news is found, it might be an invalid category.
+    if (newsForCategory.length === 0) {
+        // You can decide to show a "not found" or an empty state.
+        // For now, showing an empty state seems more user-friendly.
+    }
+
     const chunkSize = 4;
     const newsChunks = [];
     if (newsForCategory.length > 0) {
