@@ -104,7 +104,7 @@ export default function TitulosPage() {
                  <TrophyItem 
                     title="Copa Libertadores da América"
                     count={3}
-                    years="1981, 2019, 2022"
+                    years="1981, 2019, 2022 (invicto)"
                 />
                 <TrophyItem 
                     title="Mundial Interclubes"
