@@ -6,6 +6,15 @@ import { HardHat, Heart, Home, Trophy, Users } from "lucide-react";
 
 export default function CTPage() {
 
+  const historiaImages = [
+    { src: "https://i.postimg.cc/nLbhKhdL/622-aa57f624-acde-3f38-b1ef-1667568aa279.jpg", alt: "Construção do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/jSkzRPdF/622-8d1981c8-4b44-3b49-8de0-68d30e7b5147.jpg", alt: "Obras no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/Hk1qB8CF/12064041-x240.jpg", alt: "Estrutura inicial do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/7Yr4QW3B/14032013-uma-parte-da-construcao-do-setor-destinado-ao-futebol-profissional-do-flamengo-1363312298.webp", alt: "Construção do setor profissional" },
+    { src: "https://i.postimg.cc/vmTwVFym/flamengo-expande-o-ninho-do-urubu-com-novos-campos-e-miniestadio-1-1.webp", alt: "Expansão do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/cCQpSdRF/obrasctflamengo-ninhodourubu-div.webp", alt: "Obras no CT do Flamengo" },
+  ];
+
   const ninhoImages = [
     { src: "https://i.postimg.cc/9M5gFGgp/Whats-App-Image-2025-07-10-at-15-51-44.jpg", alt: "Entrada do CT Ninho do Urubu" },
     { src: "https://i.postimg.cc/WbbW3p8Q/flamengo-base-20250416101520.webp", alt: "Vista aérea do Ninho do Urubu" },
@@ -60,6 +69,7 @@ export default function CTPage() {
           <p>
             O nome “George Helal” é uma homenagem a um ex-presidente do clube, que doou parte do valor necessário para a aquisição do terreno. Já o apelido “Ninho do Urubu” se tornou natural: é o lugar onde os urubus (símbolo da torcida) se reúnem para voar mais alto.
           </p>
+          <HistoryCarousel images={historiaImages} autoplay={true} />
         </section>
 
         <section>
@@ -132,3 +142,5 @@ export default function CTPage() {
     </div>
   );
 }
+
+    
