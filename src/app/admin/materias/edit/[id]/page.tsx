@@ -28,9 +28,8 @@ const mainCategories = [
   "Futebol",
   "Basquete",
   "Volei",
-  "Futsal",
   "E-Sports",
-  "Esportes Olímpicos",
+  "Olímpicos",
 ];
 
 function SubmitButton() {

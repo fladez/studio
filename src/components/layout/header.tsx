@@ -26,8 +26,7 @@ const modalidadesLinks = [
   { href: "/futebol", label: "Futebol" },
   { href: "/basquete", label: "Basquete" },
   { href: "/volei", label: "Vôlei" },
-  { href: "/futsal", label: "Futsal" },
-  { href: "/esportes-olimpicos", label: "Esportes Olímpicos" },
+  { href: "/olimpicos", label: "Olímpicos" },
   { href: "/e-sports", label: "E-Sports" },
 ];
 

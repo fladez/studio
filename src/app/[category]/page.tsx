@@ -15,9 +15,8 @@ const VALID_CATEGORIES: Record<string, string> = {
     "futebol": "Futebol",
     "basquete": "Basquete",
     "volei": "Volei",
-    "futsal": "Futsal",
     "e-sports": "E-Sports",
-    "esportes-olimpicos": "Esportes Olímpicos",
+    "olimpicos": "Olímpicos",
 };
 
 function formatPublishedTime(publishedAt: Date): string {
