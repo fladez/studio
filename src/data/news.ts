@@ -56,6 +56,22 @@ export async function getNews(count?: number): Promise<NewsArticle[]> {
     }
 }
 
+export async function getNewsByCategory(category: string): Promise<NewsArticle[]> {
+    try {
+        const newsCollection = collection(db, 'news');
+        const q = query(newsCollection, where('mainCategory', '==', category), orderBy('publishedAt', 'desc'));
+        
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) {
+            return [];
+        }
+        return snapshot.docs.map(fromFirestore);
+    } catch (error) {
+        console.error(`Error fetching news for category ${category}:`, error);
+        return [];
+    }
+}
+
 export async function getNewsById(id: string): Promise<NewsArticle | null> {
     try {
         const docRef = doc(db, 'news', id);

@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ArrowLeft, Menu, Newspaper, Users, Video, Trophy, Shield, ChevronDown } from 'lucide-react'
+import { ArrowLeft, Menu, Newspaper, Users, Video, Trophy, Shield, ChevronDown, BarChart3 } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -28,6 +28,14 @@ const clubeLinks = [
   { href: "/estadio", label: "Estádio" },
   { href: "/ct", label: "CT" },
   { href: "/socio-torcedor", label: "Sócio-Torcedor" },
+];
+
+const categoryLinks = [
+  { href: "/futebol", label: "Futebol" },
+  { href: "/basquete", label: "Basquete" },
+  { href: "/volei", label: "Vôlei" },
+  { href: "/e-sports", label: "E-Sports" },
+  { href: "/olimpicos", label: "Olímpicos" },
 ];
 
 export function Header() {
@@ -85,6 +93,7 @@ export function Header() {
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map(link => <NavLink key={link.href} {...link} />)}
+            <NavDropdown label="Categorias" icon={BarChart3} links={categoryLinks} />
             <NavDropdown label="Clube" icon={Shield} links={clubeLinks} />
           </nav>
         </div>
@@ -141,6 +150,16 @@ export function Header() {
                             </SheetClose>
                           ))}
                            <div className="mt-2">
+                            <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Categorias</h4>
+                            {categoryLinks.map(link => (
+                                <SheetClose asChild key={link.label}>
+                                    <Link href={link.href} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                                        {link.label}
+                                    </Link>
+                                </SheetClose>
+                            ))}
+                          </div>
+                          <div className="mt-2">
                             <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Clube</h4>
                             {clubeLinks.map(link => (
                                 <SheetClose asChild key={link.label}>

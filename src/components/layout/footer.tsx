@@ -52,7 +52,7 @@ export function Footer() {
         <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-8">
           
           {/* Logo and Description */}
-          <div className="col-span-2 md:col-span-2">
+          <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
               <span className="font-bold text-xl text-primary-foreground">
@@ -89,7 +89,17 @@ export function Footer() {
               <li><FooterLink href="/noticias">Notícias</FooterLink></li>
               <li><FooterLink href="/videos">Vídeos</FooterLink></li>
               <li><FooterLink href="/colunas">Colunas</FooterLink></li>
-              <li><FooterLink href="/videos">Bastidores</FooterLink></li>
+            </ul>
+          </div>
+
+           <div className="col-span-1">
+            <FooterSectionTitle>Categorias</FooterSectionTitle>
+            <ul className="space-y-2">
+              <li><FooterLink href="/futebol">Futebol</FooterLink></li>
+              <li><FooterLink href="/basquete">Basquete</FooterLink></li>
+              <li><FooterLink href="/volei">Vôlei</FooterLink></li>
+              <li><FooterLink href="/e-sports">E-Sports</FooterLink></li>
+              <li><FooterLink href="/olimpicos">Olímpicos</FooterLink></li>
             </ul>
           </div>
           
