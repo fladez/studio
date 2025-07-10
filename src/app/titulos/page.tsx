@@ -42,7 +42,8 @@ export default function TitulosPage() {
             />
         </div>
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">Títulos do Flamengo</h1>
-        <p className="text-xl text-muted-foreground mt-2">Futebol Profissional Masculino (Atualizado até Julho de 2025)</p>
+        <p className="text-xl text-muted-foreground mt-2">Futebol Profissional Masculino</p>
+        <p className="text-sm text-muted-foreground">(Atualizado até Julho de 2025)</p>
       </header>
 
       <div className="space-y-12">
