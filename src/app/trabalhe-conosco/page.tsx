@@ -14,7 +14,7 @@ export default function TrabalheConoscoPage() {
       <header className="text-center mb-16">
         <div className="relative mx-auto h-48 w-48 mb-4">
           <Image
-            src="https://i.postimg.cc/kX4V3sC7/image-removebg-preview-14.png"
+            src="https://i.postimg.cc/zBDpxWpD/trabalhe-conosco-icone.png"
             alt="Trabalhe Conosco Icon"
             fill
             className="object-contain"
