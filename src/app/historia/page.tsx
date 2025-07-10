@@ -16,6 +16,15 @@ export default function HistoriaPage() {
       { src: "https://i.postimg.cc/15V6qNdq/images-1.jpg", alt: "Zico com a taça do Mundial de 1981" },
       { src: "https://i.postimg.cc/W1RZ61Rf/images.jpg", alt: "Time do Flamengo posado para foto" },
   ];
+  
+  const footballImages = [
+      { src: "https://i.postimg.cc/0QBRKNWV/1914.jpg", alt: "Equipe de futebol do Flamengo em 1914" },
+      { src: "https://i.postimg.cc/Znvk8hX4/images.jpg", alt: "Time do Flamengo antigo" },
+      { src: "https://i.postimg.cc/YS8wkR1K/flamengo-antiga-23092023-072622.jpg", alt: "Time do Flamengo em preto e branco" },
+      { src: "https://i.postimg.cc/C533JQVD/Flamengo-1.jpg", alt: "Time do Flamengo com taça" },
+      { src: "https://i.postimg.cc/y6DWQ3HY/images-1.jpg", alt: "Elenco do Flamengo" },
+      { src: "https://i.postimg.cc/y62xw61h/flamengo-capa.jpg", alt: "Escudo antigo do Flamengo" },
+  ];
 
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
@@ -61,6 +70,8 @@ export default function HistoriaPage() {
                 Em 1912, o Flamengo disputou sua primeira partida oficial de futebol e venceu o Mangueira por 16 a 2, naquela que ainda é a maior goleada da história do clube.
             </p>
           </section>
+
+          <HistoryCarousel images={footballImages} />
 
            <section>
             <h2>🏆 As Primeiras Glórias</h2>
