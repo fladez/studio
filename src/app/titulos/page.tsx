@@ -48,7 +48,7 @@ export default function TitulosPage() {
         <p className="text-sm text-muted-foreground">(Atualizado até Julho de 2025)</p>
       </header>
 
-      <div className="space-y-12">
+      <div className="space-y-12" style={{ marginTop: '-300px' }}>
          {/* Competições Nacionais */}
         <Card className="overflow-hidden">
             <CardHeader className="bg-muted/30">
