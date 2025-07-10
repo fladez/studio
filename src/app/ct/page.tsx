@@ -25,10 +25,15 @@ export default function CTPage() {
     { src: "https://i.postimg.cc/kgH3dYrR/images-3.jpg", alt: "Velas em memória dos Garotos do Ninho", "data-ai-hint": "candles memorial" },
     { src: "https://i.postimg.cc/c1fFx93t/images-6.jpg", alt: "Homenagem aos Garotos do Ninho" },
     { src: "https://i.postimg.cc/3xhNMRTD/images-5.jpg", alt: "Luto pelos Garotos do Ninho" },
+    { src: "https://i.postimg.cc/634t4JKX/images-4.jpg", alt: "Homenagem no Maracanã" },
+    { src: "https://i.postimg.cc/rF83vXHw/garotos.avif", alt: "Arte em homenagem aos Garotos do Ninho" },
+    { src: "https://i.postimg.cc/VLQn6zwz/26390d9ba3f6a9aa1db67a6f52a11443cc0398ba-jpg.webp", alt: "Grafite em memória dos Garotos do Ninho" },
+    { src: "https://i.postimg.cc/htGj4YXS/6-soccer-brazil-fla-flu.webp", alt: "Minuto de silêncio em clássico" },
   ];
 
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4">
+      {/* HMR Refresh */}
       <div className="mb-12">
         <AdBanner width={728} height={90} />
       </div>
