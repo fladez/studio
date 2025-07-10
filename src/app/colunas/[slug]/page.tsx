@@ -68,7 +68,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             <Badge variant="default">{column.category}</Badge>
           </div>
           <div className="flex items-center justify-center gap-4">
-            <div className="relative h-40 w-40 flex-shrink-0 ml-[-4.375rem]">
+            <div className="relative h-40 w-40 flex-shrink-0 -ml-24">
                 <Image
                 src="https://i.postimg.cc/YCT3F8nY/Chat-GPT-Image-9-de-jul-de-2025-23-06-12-removebg-preview.png"
                 alt="Ilustração da coluna"
