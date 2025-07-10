@@ -15,6 +15,25 @@ export default function CTPage() {
     { src: "https://i.postimg.cc/cCQpSdRF/obrasctflamengo-ninhodourubu-div.webp", alt: "Obras no CT do Flamengo" },
   ];
 
+  const estruturaImages = [
+    { src: "https://i.postimg.cc/k4pJ4QpB/estadio-no-Ninho-do-Urubu-1200x720.png", alt: "Miniestádio no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/9fXwwBJp/imagem-aerea-do-ninho-do-urubu-ct-do-flamengo-tirada-em-junho-de-2023-1710347099603-v2-750x421.png", alt: "Vista aérea do Ninho do Urubu em 2023" },
+    { src: "https://i.postimg.cc/Pf0DVY5X/FACHADA-CT-BASE-768x432.jpg", alt: "Fachada do CT da Base" },
+    { src: "https://i.postimg.cc/rwXpx9F4/50091313107-eaf6a4355b-k-768x511.jpg", alt: "Campo de treinamento do Flamengo" },
+    { src: "https://i.postimg.cc/k57XhXSX/ct-ninho-urubu-flamengo.webp", alt: "Vista do CT Ninho do Urubu" },
+    { src: "https://i.postimg.cc/tgDC0Qdd/download.jpg", alt: "Estrutura interna do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/vBB8bqXJ/dyqhjwwwsaecrge-1.webp", alt: "Academia do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/GmCydRD6/fachada-do-ninho-do-urubu-74019.webp", alt: "Fachada Ninho do Urubu" },
+    { src: "https://i.postimg.cc/13rNzdcX/flamengo-9603261.jpg", alt: "Área de treinamento do Flamengo" },
+    { src: "https://i.postimg.cc/K8xRCNS2/images-1.jpg", alt: "Campo de futebol no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/5ttj222K/images-2.jpg", alt: "Campo do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/6323CbRd/images.jpg", alt: "Vista do campo de treinamento" },
+    { src: "https://i.postimg.cc/FRMKpbgw/maxresdefault.jpg", alt: "Vista ampla dos campos" },
+    { src: "https://i.postimg.cc/RhmBqgTC/ninho-do-urubu-5-20231218094641.jpg", alt: "Ninho do Urubu em 2023" },
+    { src: "https://i.postimg.cc/2yGPyr6T/whatsapp-image-2020-05-22-at-12-46-17-1.webp", alt: "Entrada do CT do Flamengo" },
+    { src: "https://i.postimg.cc/J47fgD6F/whatsapp-image-2022-11-30-at-08-49-55.jpg", alt: "Área interna do Ninho do Urubu" }
+  ];
+
   const ninhoImages = [
     { src: "https://i.postimg.cc/9M5gFGgp/Whats-App-Image-2025-07-10-at-15-51-44.jpg", alt: "Entrada do CT Ninho do Urubu" },
     { src: "https://i.postimg.cc/WbbW3p8Q/flamengo-base-20250416101520.webp", alt: "Vista aérea do Ninho do Urubu" },
@@ -97,6 +116,7 @@ export default function CTPage() {
             <li>Laboratórios de análise de desempenho</li>
             <li>Restaurante e espaços de convivência para os atletas</li>
           </ul>
+           <HistoryCarousel images={estruturaImages} autoplay={true} />
         </section>
         
         <section>
