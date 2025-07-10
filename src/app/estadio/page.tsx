@@ -34,6 +34,14 @@ export default function EstadioPage() {
     { src: "https://i.postimg.cc/XqxnkDSQ/novo-estadio-20231121093840.jpg", alt: "Perspectiva do novo estádio do Flamengo" },
   ];
 
+  const ninhoDoUrubuImages = [
+    { src: "https://i.postimg.cc/sXb6g6G0/ninho-do-urubu-scaled.jpg", alt: "Entrada do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/pLhW2zYg/i-Fb-K-Nb-Zl-Bq-O1-V3-N3b-P7-I1q-E2q-YQ-1200x0-1.jpg", alt: "Vista aérea do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/k47JbY62/1535728567.jpg", alt: "Campo de treino no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/x87Pj3D1/flamengo-treino-ninho-do-urubu-19.jpg", alt: "Jogadores treinando no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/Pq0c2jWf/ninho-do-urubu-2-1280x720.jpg", alt: "Estrutura interna do Ninho do Urubu" },
+  ];
+
   const torcidaImages = [
     { src: "https://i.postimg.cc/0yCZjBrQ/180813-torcida-do-flamengo-marca-presenca-no-estadio-mane-garrincha-em-brasilia-para-o-duelo-contra.jpg", alt: "Torcida do Flamengo no Mané Garrincha" },
     { src: "https://i.postimg.cc/XvH8cBf6/4166421346-56ed919a9e-b.jpg", alt: "Torcida do Flamengo com bandeiras" },
@@ -104,6 +112,20 @@ export default function EstadioPage() {
               A torcida abraçou a ideia. A campanha pelo “Estádio próprio no Gasômetro” virou uma das grandes bandeiras da Nação, com apoio popular, político e institucional crescendo a cada dia.
           </p>
           <HistoryCarousel images={gasometroImages} autoplay={true} />
+        </section>
+
+        <section>
+          <h2>🏟️ Miniestádio em construção</h2>
+          <p>
+            Como parte do projeto de ampliação da estrutura, o Flamengo anunciou a construção de um miniestádio dentro do Ninho do Urubu, com capacidade estimada entre 5 e 7 mil lugares. A nova arena servirá para jogos da base, do futebol feminino, amistosos e até treinos com público.
+          </p>
+          <p>
+            O miniestádio trará arquibancadas cobertas, vestiários modernos, cabines de imprensa e iluminação para jogos noturnos, aproximando a torcida dos jovens talentos e reforçando o ambiente competitivo nas divisões inferiores.
+          </p>
+          <p>
+            A expectativa é que o equipamento seja concluído nos próximos anos e passe a ser mais uma ferramenta estratégica para desenvolver atletas em um ambiente com pressão real de jogo.
+          </p>
+           <HistoryCarousel images={ninhoDoUrubuImages} autoplay={true} />
         </section>
 
         <section>
