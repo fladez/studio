@@ -49,10 +49,10 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12">
           
           {/* Logo and Description */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
               <span className="font-bold text-xl text-primary-foreground">
@@ -60,7 +60,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground mb-6 max-w-sm text-justify">
-              O portal oficial do canal FLA10, de  notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
+              O portal oficial do canal FLA10, de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
             </p>
             <div className="flex items-center gap-4">
               <Link href="https://www.facebook.com/profile.php?id=100075993313125" aria-label="Facebook" className="text-muted-foreground transition-colors hover:text-primary-foreground" target="_blank" rel="noopener noreferrer">
@@ -111,6 +111,16 @@ export function Footer() {
               <li><FooterLink href="/estadio">Estádio</FooterLink></li>
               <li><FooterLink href="/ct">CT</FooterLink></li>
               <li><FooterLink href="/socio-torcedor">Sócio-Torcedor</FooterLink></li>
+            </ul>
+          </div>
+
+          <div>
+            <FooterSectionTitle>Institucional</FooterSectionTitle>
+            <ul className="space-y-2">
+              <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
+              <li><FooterLink href="/trabalhe-conosco">Trabalhe Conosco</FooterLink></li>
+              <li><FooterLink href="/assessoria">Assessoria</FooterLink></li>
+              <li><FooterLink href="/responsabilidade">Responsabilidade</FooterLink></li>
             </ul>
           </div>
 
