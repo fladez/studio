@@ -111,7 +111,7 @@ export function Footer() {
               <li><FooterLink href="/titulos">Títulos</FooterLink></li>
               <li><FooterLink href="/estadio">Estádio</FooterLink></li>
               <li><FooterLink href="/ct">CT</FooterLink></li>
-              <li><FooterLink href="#">Sócio-Torcedor</FooterLink></li>
+              <li><FooterLink href="/socio-torcedor">Sócio-Torcedor</FooterLink></li>
             </ul>
           </div>
 

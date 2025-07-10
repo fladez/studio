@@ -35,7 +35,7 @@ const clubeLinks = [
   { href: "/titulos", label: "Títulos" },
   { href: "/estadio", label: "Estádio" },
   { href: "/ct", label: "CT" },
-  { href: "#", label: "Sócio-Torcedor" },
+  { href: "/socio-torcedor", label: "Sócio-Torcedor" },
 ];
 
 export function Header() {
