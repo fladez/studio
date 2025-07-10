@@ -14,7 +14,7 @@ export default function ResponsabilidadePage() {
       <header className="text-center mb-16">
         <div className="relative mx-auto h-48 w-48 mb-4">
           <Image
-            src="https://i.postimg.cc/prgS0yJt/image-removebg-preview-13.png"
+            src="https://i.postimg.cc/fTvyN9vQ/image-removebg-preview-13.png"
             alt="Termo de Responsabilidade Icon"
             fill
             className="object-contain"
