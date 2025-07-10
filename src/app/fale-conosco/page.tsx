@@ -14,7 +14,7 @@ export default function FaleConoscoPage() {
       <header className="text-center mb-16">
         <div className="relative mx-auto h-48 w-48 mb-4">
           <Image
-            src="https://i.postimg.cc/tJnB8vjD/image-removebg-preview-12.png"
+            src="https://i.postimg.cc/L5LSvrxM/2511818.png"
             alt="Fale Conosco Icon"
             fill
             className="object-contain"
