@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from 'next/link'
@@ -9,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { ArrowLeft, Menu, Newspaper, Users, Video, Shapes, Shield, ChevronDown } from 'lucide-react'
+import { ArrowLeft, Menu, Newspaper, Users, Video, Trophy, Shield, ChevronDown } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -92,7 +93,7 @@ export function Header() {
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map(link => <NavLink key={link.href} {...link} />)}
-            <NavDropdown label="Modalidades" icon={Shapes} links={modalidadesLinks} />
+            <NavDropdown label="Modalidades" icon={Trophy} links={modalidadesLinks} />
             <NavDropdown label="Clube" icon={Shield} links={clubeLinks} />
           </nav>
         </div>
