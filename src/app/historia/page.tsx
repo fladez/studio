@@ -26,6 +26,16 @@ export default function HistoriaPage() {
       { src: "https://i.postimg.cc/y62xw61h/flamengo-capa.jpg", alt: "Escudo antigo do Flamengo" },
   ];
 
+  const primeirasGloriasImages = [
+    { src: "https://i.postimg.cc/Xqs8YZsv/Flamengo-1930-1.jpg", alt: "Time do Flamengo em 1930" },
+    { src: "https://i.postimg.cc/5NP7xrrm/Fla-x-Botafogo-1926-1.jpg", alt: "Jogo Flamengo x Botafogo em 1926" },
+    { src: "https://i.postimg.cc/dVLWDBPc/Flamengo-1926.jpg", alt: "Time do Flamengo em 1926" },
+    { src: "https://i.postimg.cc/g2QghZmX/Campeao-de-1927-01.jpg", alt: "Time campeão de 1927" },
+    { src: "https://i.postimg.cc/qRdQbHtp/Campeao-de-1927-03.jpg", alt: "Time campeão de 1927, outra foto" },
+    { src: "https://i.postimg.cc/Twq0BNmg/Flamengo-1930.jpg", alt: "Time do Flamengo em 1930" },
+    { src: "https://i.postimg.cc/8cp4GdB3/lossy-page1-250px-Time-de-Futebol-do-Flamengo-1933-tif.jpg", alt: "Time de futebol do Flamengo em 1933" },
+  ];
+
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
       <div className="mb-2">
@@ -79,6 +89,8 @@ export default function HistoriaPage() {
               O Rubro-Negro começou a colecionar títulos já nas primeiras décadas do século XX. No futebol carioca, se tornou referência com times competitivos e uma torcida apaixonada, ganhando os primeiros Campeonatos Cariocas nas décadas de 1910 e 1920.
             </p>
           </section>
+
+          <HistoryCarousel images={primeirasGloriasImages} />
           
           <section>
             <h2>🌎 O Flamengo no Século XX</h2>
