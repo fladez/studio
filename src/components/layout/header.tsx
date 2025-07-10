@@ -32,8 +32,8 @@ const modalidadesLinks = [
 
 const clubeLinks = [
   { href: "/historia", label: "História" },
-  { href: "#", label: "Títulos" },
-  { href: "#", label: "Estádio" },
+  { href: "/titulos", label: "Títulos" },
+  { href: "/estadio", label: "Estádio" },
   { href: "#", label: "CT" },
   { href: "#", label: "Sócio-Torcedor" },
 ];
