@@ -34,12 +34,13 @@ export default function TitulosPage() {
       </div>
 
        <header className="text-center mb-16">
-        <div className="relative mx-auto h-[36rem] w-[36rem] mb-4">
+        <div className="relative mx-auto h-[36rem] w-[36rem] mb-4" style={{ transform: 'translateY(-300px)' }}>
             <Image
                 src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
                 alt="Troféu"
                 fill
                 className="object-contain"
+                priority
             />
         </div>
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">Títulos do Flamengo</h1>
