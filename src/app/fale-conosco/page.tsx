@@ -42,7 +42,7 @@ export default function FaleConoscoPage() {
         <section>
           <h2><Mail />E-mail de contato</h2>
           <div className="text-center bg-muted/50 p-6 rounded-lg">
-            <p className="text-2xl font-mono font-bold text-primary break-all">canalfladez@gmail.com</p>
+            <p className="text-2xl font-mono font-bold text-primary break-all">fladeznews@gmail.com</p>
             <p className="text-muted-foreground mt-2">Envie sua mensagem a qualquer momento. Respondemos o mais breve possível.</p>
           </div>
         </section>

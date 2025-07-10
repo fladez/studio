@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
                 <li>Solicitar a exclusão dos seus dados, quando aplicável</li>
             </ul>
             <p>
-                Para exercer esses direitos, entre em contato conosco pelo e-mail: <strong>canalfladez@gmail.com</strong>
+                Para exercer esses direitos, entre em contato conosco pelo e-mail: <strong>fladeznews@gmail.com</strong>
             </p>
           </section>
 
@@ -111,7 +111,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="mt-2">
                 <p><strong>Canal Fla Dez – Grupo responsável pelo FLA10 News</strong></p>
-                <p>📧 E-mail: <strong>canalfladez@gmail.com</strong></p>
+                <p>📧 E-mail: <strong>fladeznews@gmail.com</strong></p>
             </div>
           </section>
         </div>

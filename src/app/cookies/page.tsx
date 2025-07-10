@@ -71,7 +71,7 @@ export default function CookiesPage() {
               Em caso de dúvidas sobre o uso de cookies ou proteção de dados, fale com a gente:
             </p>
             <div className="mt-2">
-                <p>📧 E-mail: <strong>canalfladez@gmail.com</strong></p>
+                <p>📧 E-mail: <strong>fladeznews@gmail.com</strong></p>
             </div>
           </section>
         </div>
