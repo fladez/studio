@@ -34,7 +34,7 @@ export default function TitulosPage() {
       </div>
 
        <header className="text-center mb-16">
-        <div className="relative mx-auto h-[36rem] w-[36rem] mb-4" style={{ transform: 'translateY(-300px)' }}>
+        <div className="relative mx-auto h-[36rem] w-[36rem] mb-4" style={{ transform: 'translateY(-200px)' }}>
             <Image
                 src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
                 alt="Troféu"
@@ -56,7 +56,7 @@ export default function TitulosPage() {
                     <Shield className="h-8 w-8 text-primary" />
                     <div>
                         <CardTitle className="text-2xl font-headline">Competições Nacionais</CardTitle>
-                        <CardDescription>Conquistas em todo o Brasil</CardDescription>
+                        <CardDescription>Conquistas em todo o Brasil.</CardDescription>
                     </div>
                 </div>
             </CardHeader>
