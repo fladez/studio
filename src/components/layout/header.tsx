@@ -26,6 +26,7 @@ const modalidadesLinks = [
   { href: "/futebol", label: "Futebol" },
   { href: "/basquete", label: "Basquete" },
   { href: "/volei", label: "Vôlei" },
+  { href: "/futsal", label: "Futsal" },
   { href: "/esportes-olimpicos", label: "Esportes Olímpicos" },
   { href: "/e-sports", label: "E-Sports" },
 ];
@@ -39,7 +40,7 @@ const clubeLinks = [
 ];
 
 function getCategorySlug(label: string) {
-    return label.toLowerCase().replace(/ /g, '-');
+    return label.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 export function Header() {
@@ -77,7 +78,7 @@ export function Header() {
             <DropdownMenuContent className="w-56 bg-black/80 backdrop-blur border-white/20 text-primary-foreground">
                 {links.map((link) => (
                     <DropdownMenuItem key={link.label} asChild>
-                        <Link href={`/${getCategorySlug(link.label)}`} className="cursor-pointer">{link.label}</Link>
+                        <Link href={link.href} className="cursor-pointer">{link.label}</Link>
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
@@ -157,7 +158,7 @@ export function Header() {
                             <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Modalidades</h4>
                             {modalidadesLinks.map(link => (
                                 <SheetClose asChild key={link.label}>
-                                    <Link href={`/${getCategorySlug(link.label)}`} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                                    <Link href={link.href} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
                                         {link.label}
                                     </Link>
                                 </SheetClose>
