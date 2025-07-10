@@ -1,4 +1,3 @@
-
 import { AdBanner } from "@/components/ad-banner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -126,7 +125,7 @@ export default function TitulosPage() {
                 <TrophyItem 
                     title="Copa Ouro"
                     count={1}
-                    years="1996"
+                    years="1996 (invicto)"
                 />
             </CardContent>
         </Card>
