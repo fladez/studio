@@ -21,7 +21,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-120px]">
+          <div className="mt-[-100px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
