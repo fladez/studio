@@ -13,7 +13,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-300px]">
+          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-100px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
