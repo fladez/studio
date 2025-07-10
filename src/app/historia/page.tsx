@@ -1,10 +1,26 @@
 
 import Image from "next/image";
 import { AdBanner } from "@/components/ad-banner";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export default function HistoriaPage() {
   // A simple function to demonstrate a minor change for HMR reload.
   const getPageTitle = () => "História do Clube de Regatas do Flamengo";
+
+  const historyImages = [
+      { src: "https://i.postimg.cc/MTZVM3k6/1896-flamengo.jpg", alt: "Time de remo do Flamengo em 1896" },
+      { src: "https://i.postimg.cc/KjRTQKvC/1914-flamengo.jpg", alt: "Equipe de futebol do Flamengo em 1914" },
+      { src: "https://i.postimg.cc/D0HXN2S0/4059871.jpg", alt: "Time do Flamengo campeão" },
+      { src: "https://i.postimg.cc/xj4M8P6Q/1643399982.webp", alt: "Comemoração de título do Flamengo" },
+      { src: "https://i.postimg.cc/15V6qNdq/images-1.jpg", alt: "Zico com a taça do Mundial de 1981" },
+      { src: "https://i.postimg.cc/W1RZ61Rf/images.jpg", alt: "Time do Flamengo posado para foto" },
+  ];
 
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
@@ -21,7 +37,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-100px]">
+          <div className="mt-[-120px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
@@ -38,6 +54,24 @@ export default function HistoriaPage() {
               O Flamengo começou como um grupo de jovens apaixonados por esportes náuticos, que sonhavam em formar uma equipe de regatas competitiva. A primeira vitória no remo veio em 1898, e foi comemorada com grande festa — tradição que o clube leva até hoje: celebrar com paixão cada conquista.
             </p>
           </section>
+          
+          <Carousel className="w-full max-w-2xl mx-auto my-8">
+            <CarouselContent>
+              {historyImages.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-video items-center justify-center p-0 relative overflow-hidden rounded-lg">
+                        <Image src={image.src} alt={image.alt} layout="fill" objectFit="cover" />
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
           
           <section>
             <h2>⚽ A Chegada do Futebol</h2>
