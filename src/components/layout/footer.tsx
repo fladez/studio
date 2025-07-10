@@ -88,7 +88,7 @@ export function Footer() {
               <li><FooterLink href="/noticias">Notícias</FooterLink></li>
               <li><FooterLink href="/videos">Vídeos</FooterLink></li>
               <li><FooterLink href="/colunas">Colunas</FooterLink></li>
-              <li><FooterLink href="#">Bastidores</FooterLink></li>
+              <li><FooterLink href="/videos">Bastidores</FooterLink></li>
             </ul>
           </div>
 
@@ -98,7 +98,7 @@ export function Footer() {
               <li><FooterLink href="#">Futebol</FooterLink></li>
               <li><FooterLink href="#">Basquete</FooterLink></li>
               <li><FooterLink href="#">Vôlei</FooterLink></li>
-              <li><FooterLink href="#">Futsal</FooterLink></li>
+              <li><FooterLink href="#">Esportes Olímpicos</FooterLink></li>
               <li><FooterLink href="#">E-Sports</FooterLink></li>
             </ul>
           </div>
