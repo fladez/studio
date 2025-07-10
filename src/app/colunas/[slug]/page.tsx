@@ -72,7 +72,17 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
                 <div className="absolute left-[-30px] h-40 w-40 flex-shrink-0">
                     <Image
                     src="https://i.postimg.cc/YCT3F8nY/Chat-GPT-Image-9-de-jul-de-2025-23-06-12-removebg-preview.png"
-                    alt="Ilustração da coluna"
+                    alt="Ilustração da coluna É Mengão na veia!!!"
+                    fill
+                    className="object-contain"
+                    />
+                </div>
+            )}
+            {column.columnName === "Cesta de Três" && (
+                <div className="absolute left-[-30px] h-40 w-40 flex-shrink-0">
+                    <Image
+                    src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
+                    alt="Ilustração da coluna Cesta de Três"
                     fill
                     className="object-contain"
                     />
