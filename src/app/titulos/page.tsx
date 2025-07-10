@@ -34,7 +34,7 @@ export default function TitulosPage() {
       </div>
 
        <header className="text-center mb-16">
-        <div className="relative mx-auto h-48 w-48 mb-4">
+        <div className="relative mx-auto h-72 w-72 mb-4">
             <Image
                 src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
                 alt="Troféu"
