@@ -4,13 +4,13 @@ import { AdBanner } from "@/components/ad-banner";
 
 export default function HistoriaPage() {
   return (
-    <div className="container mx-auto max-w-4xl py-10 px-4">
+    <div className="container mx-auto max-w-4xl py-12 px-4">
       <div className="mb-4">
         <AdBanner width={728} height={90} />
       </div>
       <div className="space-y-8">
-        <header className="text-center border-b pb-6 mb-4">
-          <div className="relative mx-auto h-48 w-48">
+        <header className="text-center border-b pb-6 mb-6">
+          <div className="relative mx-auto h-[23rem] w-[23rem]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
