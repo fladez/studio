@@ -49,7 +49,7 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-12">
+        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-12">
           
           {/* Logo and Description */}
           <div className="lg:col-span-1">
