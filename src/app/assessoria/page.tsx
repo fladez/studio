@@ -14,7 +14,7 @@ export default function AssessoriaPage() {
       <header className="text-center mb-16">
         <div className="relative mx-auto h-48 w-48 mb-4">
             <Image
-                src="https://i.postimg.cc/prpy0GkY/image-removebg-preview-12.png"
+                src="https://i.postimg.cc/rmzFGZ68/image-removebg-preview-12.png"
                 alt="Assessoria Icon"
                 fill
                 className="object-contain"
