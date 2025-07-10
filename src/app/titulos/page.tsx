@@ -33,7 +33,7 @@ export default function TitulosPage() {
         <AdBanner width={728} height={90} />
       </div>
 
-       <header className="text-center mb-16">
+       <header className="text-center mb-16" style={{ marginTop: '-300px' }}>
         <div className="relative mx-auto h-[36rem] w-[36rem] mb-4" style={{ transform: 'translateY(-200px)' }}>
             <Image
                 src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
@@ -48,7 +48,7 @@ export default function TitulosPage() {
         <p className="text-sm text-muted-foreground">(Atualizado até Julho de 2025)</p>
       </header>
 
-      <div className="space-y-12" style={{ marginTop: '-300px' }}>
+      <div className="space-y-12">
          {/* Competições Nacionais */}
         <Card className="overflow-hidden">
             <CardHeader className="bg-muted/30">
