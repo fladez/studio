@@ -106,7 +106,7 @@ export function Footer() {
           <div className="col-span-1">
             <FooterSectionTitle>Clube</FooterSectionTitle>
             <ul className="space-y-2">
-              <li><FooterLink href="#">História</FooterLink></li>
+              <li><FooterLink href="/historia">História</FooterLink></li>
               <li><FooterLink href="#">Títulos</FooterLink></li>
               <li><FooterLink href="#">Estádio</FooterLink></li>
               <li><FooterLink href="#">CT</FooterLink></li>
