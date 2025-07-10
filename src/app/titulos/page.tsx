@@ -29,11 +29,12 @@ function TrophyItem({ title, count, years, details }: TrophyItemProps) {
 export default function TitulosPage() {
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4">
+       {/* HMR Refresh */}
        <div className="mb-12">
         <AdBanner width={728} height={90} />
       </div>
 
-       <header className="text-center mb-16" style={{ marginTop: '-300px' }}>
+       <header className="text-center mb-16">
         <div className="relative mx-auto h-[36rem] w-[36rem] mb-4" style={{ transform: 'translateY(-200px)' }}>
             <Image
                 src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
@@ -43,9 +44,11 @@ export default function TitulosPage() {
                 priority
             />
         </div>
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">Títulos do Flamengo</h1>
-        <p className="text-xl text-muted-foreground mt-2">Futebol Profissional Masculino</p>
-        <p className="text-sm text-muted-foreground">(Atualizado até Julho de 2025)</p>
+        <div style={{ marginTop: '-300px' }}>
+          <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">Títulos do Flamengo</h1>
+          <p className="text-xl text-muted-foreground mt-2">Futebol Profissional Masculino</p>
+          <p className="text-sm text-muted-foreground">(Atualizado até Julho de 2025)</p>
+        </div>
       </header>
 
       <div className="space-y-12">
