@@ -48,7 +48,7 @@ export default function CTPage() {
       </div>
       
       <header className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">🏋️‍♂️ CT Ninho do Urubu</h1>
+        <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground">🦅 CT Ninho do Urubu</h1>
         <p className="text-xl text-muted-foreground mt-2">O coração pulsante do Flamengo moderno</p>
       </header>
 
@@ -111,7 +111,7 @@ export default function CTPage() {
           <p>
             O Flamengo investe fortemente em formação e captação, consolidando o Ninho como um verdadeiro celeiro de craques.
           </p>
-          <HistoryCarousel images={baseImages} autoplay={true} />
+          <HistoryCarousel images={baseImages} autoplay={false} />
         </section>
         
         <section>
