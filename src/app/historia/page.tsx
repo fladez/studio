@@ -4,13 +4,13 @@ import { AdBanner } from "@/components/ad-banner";
 
 export default function HistoriaPage() {
   return (
-    <div className="container mx-auto max-w-4xl py-12 px-4">
-      <div className="mb-8">
+    <div className="container mx-auto max-w-4xl py-8 px-4">
+      <div className="mb-6">
         <AdBanner width={728} height={90} />
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6">
-          <div className="relative mx-auto h-48 w-48">
+          <div className="relative mx-auto h-32 w-32">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -18,7 +18,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <h1 className="text-4xl font-headline font-bold -mt-4">História do Clube de Regatas do Flamengo</h1>
+          <h1 className="text-4xl font-headline font-bold mt-2">História do Clube de Regatas do Flamengo</h1>
           <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
         </header>
 
