@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
@@ -140,6 +141,10 @@ export default function EditColunasPage() {
             <div className="grid gap-2">
               <Label htmlFor="excerpt">Resumo (Excerpt)</Label>
               <Textarea id="excerpt" name="excerpt" defaultValue={column.excerpt} required />
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="dataAiHint">Dica para IA da Imagem (Opcional)</Label>
+                <Input id="dataAiHint" name="dataAiHint" defaultValue={column.dataAiHint || ''} />
             </div>
              <div className="grid gap-2">
                 <Label htmlFor="content">Conteúdo da Coluna</Label>

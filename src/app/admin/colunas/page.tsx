@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useActionState, useRef, useEffect, useState } from "react";
@@ -141,6 +142,10 @@ export default function ColunasPage() {
             <div className="grid gap-2">
               <Label htmlFor="excerpt">Resumo (Excerpt)</Label>
               <Textarea id="excerpt" name="excerpt" placeholder="Um resumo curto que aparecerá nas listagens" required />
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="dataAiHint">Dica para IA da Imagem (Opcional)</Label>
+                <Input id="dataAiHint" name="dataAiHint" placeholder="Ex: journalist writing" />
             </div>
              <div className="grid gap-2">
                 <Label htmlFor="content">Conteúdo da Coluna</Label>
