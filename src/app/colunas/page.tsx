@@ -46,33 +46,33 @@ export default function ColunasPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {allColumns.map((column) => (
-                     <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                    <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                         <CardHeader>
-                          <div className="flex items-center justify-between">
-                            <Badge variant="default">{column.category}</Badge>
-                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                              <Clock className="h-3 w-3" />
-                              <span>{formatPublishedTime(column.publishedAt)}</span>
+                            <div className="flex items-start gap-4">
+                                <Avatar className="h-12 w-12 border-2 border-primary/20">
+                                    <AvatarImage src={column.authorImage} alt={column.author} />
+                                    <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <p className="font-bold text-primary">{column.category}</p>
+                                    <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                                </div>
                             </div>
-                          </div>
                         </CardHeader>
-                        <CardContent className="flex-grow space-y-4">
-                          <div className="flex items-start gap-3">
-                            <Avatar className="h-10 w-10">
-                              <AvatarImage src={column.authorImage} alt={column.author} />
-                              <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <CardTitle className="text-xl font-bold font-body leading-tight">
+                        <CardContent className="flex-grow space-y-2">
+                            <CardTitle className="text-xl font-bold font-body leading-tight">
                                 <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                                  {column.title}
+                                {column.title}
                                 </Link>
-                              </CardTitle>
-                              <p className="text-sm text-muted-foreground">Por {column.author}</p>
-                            </div>
-                          </div>
-                          <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
+                            </CardTitle>
+                            <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
                         </CardContent>
+                        <CardFooter className="text-xs text-muted-foreground">
+                           <div className="flex items-center gap-1.5">
+                                <Clock className="h-3 w-3" />
+                                <span>{formatPublishedTime(column.publishedAt)}</span>
+                            </div>
+                        </CardFooter>
                     </Card>
                 ))}
             </div>
