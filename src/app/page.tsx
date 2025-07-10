@@ -224,21 +224,21 @@ export default async function Home() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-grow space-y-2">
-                  <div className="flex items-center gap-3 mb-2">
+                <CardContent className="flex-grow space-y-4">
+                  <div className="flex items-start gap-3">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={column.authorImage} alt={column.author} />
                       <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-semibold text-foreground">Por {column.author}</p>
+                      <CardTitle className="text-xl font-bold font-body leading-tight">
+                        <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                          {column.title}
+                        </Link>
+                      </CardTitle>
+                      <p className="text-sm text-muted-foreground">Por {column.author}</p>
                     </div>
                   </div>
-                  <CardTitle className="text-xl font-bold font-body leading-tight">
-                    <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                      {column.title}
-                    </Link>
-                  </CardTitle>
                   <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
                 </CardContent>
               </Card>
