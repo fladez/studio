@@ -78,6 +78,16 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
                 </div>
             )}
             <p className="font-sans text-6xl font-bold text-primary text-center">{column.columnName}</p>
+            {column.columnName === "É Mengão na veia!!!" && (
+                <div className="relative h-40 w-40 flex-shrink-0">
+                    <Image
+                    src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
+                    alt="Ilustração da coluna"
+                    fill
+                    className="object-contain"
+                    />
+                </div>
+            )}
           </div>
           <Separator className="my-4" />
           <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight">{column.title}</h1>
