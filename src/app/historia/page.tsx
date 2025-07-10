@@ -13,7 +13,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-95px]">
+          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-105px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -21,7 +21,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-20px]">
+          <div className="mt-[-120px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
