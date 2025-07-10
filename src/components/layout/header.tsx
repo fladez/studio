@@ -22,14 +22,6 @@ const navLinks = [
   { href: '/videos', label: 'Vídeos', icon: Video },
 ]
 
-const modalidadesLinks = [
-  { href: "/futebol", label: "Futebol" },
-  { href: "/basquete", label: "Basquete" },
-  { href: "/volei", label: "Vôlei" },
-  { href: "/olimpicos", label: "Olímpicos" },
-  { href: "/e-sports", label: "E-Sports" },
-];
-
 const clubeLinks = [
   { href: "/historia", label: "História" },
   { href: "/titulos", label: "Títulos" },
@@ -37,10 +29,6 @@ const clubeLinks = [
   { href: "/ct", label: "CT" },
   { href: "/socio-torcedor", label: "Sócio-Torcedor" },
 ];
-
-function getCategorySlug(label: string) {
-    return label.toLowerCase().replace(/\s+/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
 
 export function Header() {
   const pathname = usePathname()
@@ -97,7 +85,6 @@ export function Header() {
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map(link => <NavLink key={link.href} {...link} />)}
-            <NavDropdown label="Modalidades" icon={Trophy} links={modalidadesLinks} />
             <NavDropdown label="Clube" icon={Shield} links={clubeLinks} />
           </nav>
         </div>
@@ -153,16 +140,6 @@ export function Header() {
                               </Link>
                             </SheetClose>
                           ))}
-                           <div className="mt-2">
-                            <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Modalidades</h4>
-                            {modalidadesLinks.map(link => (
-                                <SheetClose asChild key={link.label}>
-                                    <Link href={link.href} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
-                                        {link.label}
-                                    </Link>
-                                </SheetClose>
-                            ))}
-                          </div>
                            <div className="mt-2">
                             <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Clube</h4>
                             {clubeLinks.map(link => (

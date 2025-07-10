@@ -49,7 +49,7 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-6 gap-8">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-8">
           
           {/* Logo and Description */}
           <div className="col-span-2 md:col-span-2">
@@ -90,17 +90,6 @@ export function Footer() {
               <li><FooterLink href="/videos">Vídeos</FooterLink></li>
               <li><FooterLink href="/colunas">Colunas</FooterLink></li>
               <li><FooterLink href="/videos">Bastidores</FooterLink></li>
-            </ul>
-          </div>
-
-          <div className="col-span-1">
-            <FooterSectionTitle>Modalidades</FooterSectionTitle>
-            <ul className="space-y-2">
-              <li><FooterLink href="/futebol">Futebol</FooterLink></li>
-              <li><FooterLink href="/basquete">Basquete</FooterLink></li>
-              <li><FooterLink href="/volei">Vôlei</FooterLink></li>
-              <li><FooterLink href="/olimpicos">Olímpicos</FooterLink></li>
-              <li><FooterLink href="/e-sports">E-Sports</FooterLink></li>
             </ul>
           </div>
           
