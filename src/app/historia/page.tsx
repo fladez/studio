@@ -1,13 +1,8 @@
 
 import Image from "next/image";
 import { AdBanner } from "@/components/ad-banner";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import { Card, CardContent } from "@/components/ui/card";
+import { HistoryCarousel } from "@/components/home/history-carousel";
 
 export default function HistoriaPage() {
   // A simple function to demonstrate a minor change for HMR reload.
@@ -29,7 +24,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-105px]">
+          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-105px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -55,23 +50,7 @@ export default function HistoriaPage() {
             </p>
           </section>
           
-          <Carousel className="w-full max-w-2xl mx-auto my-8">
-            <CarouselContent>
-              {historyImages.map((image, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-video items-center justify-center p-0 relative overflow-hidden rounded-lg">
-                        <Image src={image.src} alt={image.alt} layout="fill" objectFit="cover" />
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <HistoryCarousel images={historyImages} />
           
           <section>
             <h2>⚽ A Chegada do Futebol</h2>
