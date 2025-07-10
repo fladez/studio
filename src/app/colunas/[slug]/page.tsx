@@ -6,6 +6,7 @@ import { getColumnBySlug, getAllColumnSlugs } from '@/data/columns'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Separator } from '@/components/ui/separator'
 
 export const revalidate = 3600; // Revalidate at most every hour
 
@@ -33,9 +34,10 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
           <div className="flex justify-end mb-2">
             <Badge variant="default">{column.category}</Badge>
           </div>
-          <p className="font-sans text-6xl mb-4 font-bold text-primary text-center">{column.columnName}</p>
-          <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight my-4">{column.title}</h1>
-          <div className="flex items-center justify-start gap-4">
+          <p className="font-sans text-6xl font-bold text-primary text-center">{column.columnName}</p>
+          <Separator className="my-4" />
+          <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight">{column.title}</h1>
+          <div className="flex items-center justify-start gap-4 mt-4">
             <Avatar className="h-16 w-16">
               <AvatarImage src={column.authorImage} alt={column.author} />
               <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
