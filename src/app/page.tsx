@@ -216,32 +216,32 @@ export default async function Home() {
             {homePageOpinionColumns.map((column) => (
               <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                 <CardHeader>
-                    <div className="flex items-center justify-between">
-                        <Badge variant="secondary">{column.category}</Badge>
-                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            <span>{formatPublishedTime(column.publishedAt)}</span>
-                        </div>
+                  <div className="flex items-center justify-between">
+                    <Badge variant="secondary">{column.category}</Badge>
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      <span>{formatPublishedTime(column.publishedAt)}</span>
                     </div>
+                  </div>
                 </CardHeader>
                 <CardContent className="flex-grow space-y-2">
                   <CardTitle className="text-xl font-bold font-body leading-tight">
-                      <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                          {column.title}
-                      </Link>
+                    <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                      {column.title}
+                    </Link>
                   </CardTitle>
                   <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
                 </CardContent>
                 <CardFooter>
-                    <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10">
-                            <AvatarImage src={column.authorImage} alt={column.author} />
-                            <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="text-sm font-semibold text-foreground">Por {column.author}</p>
-                        </div>
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={column.authorImage} alt={column.author} />
+                      <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">Por {column.author}</p>
                     </div>
+                  </div>
                 </CardFooter>
               </Card>
             ))}
