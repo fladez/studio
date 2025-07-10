@@ -27,6 +27,14 @@ const FooterSectionTitle = ({ children }: { children: React.ReactNode }) => (
   <h3 className="text-md font-bold text-primary mb-4 font-headline">{children}</h3>
 )
 
+const categoryLinks = [
+  { href: "/futebol", label: "Futebol" },
+  { href: "/basquete", label: "Basquete" },
+  { href: "/volei", label: "Vôlei" },
+  { href: "/e-sports", label: "E-Sports" },
+  { href: "/olimpicos", label: "Olímpicos" },
+];
+
 export function Footer() {
   const pathname = usePathname();
 
@@ -49,10 +57,10 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           
           {/* Logo and Description */}
-          <div className="md:col-span-1">
+          <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
               <span className="font-bold text-xl text-primary-foreground">
@@ -92,6 +100,15 @@ export function Footer() {
             </ul>
           </div>
           
+          <div>
+            <FooterSectionTitle>Categorias</FooterSectionTitle>
+            <ul className="space-y-2">
+              {categoryLinks.map(link => (
+                  <li key={link.href}><FooterLink href={link.href}>{link.label}</FooterLink></li>
+              ))}
+            </ul>
+          </div>
+
           <div>
             <FooterSectionTitle>Clube</FooterSectionTitle>
             <ul className="space-y-2">
