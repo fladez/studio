@@ -13,7 +13,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-100px]">
+          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-110px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -21,11 +21,13 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
-          <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
+          <div className="mt-[-20px]">
+            <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
+            <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
+          </div>
         </header>
 
-        <div className="prose prose-lg max-w-none text-foreground text-justify space-y-6 [&_h2]:font-headline [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary [&_strong]:font-bold">
+        <div className="prose prose-lg max-w-none text-foreground text-justify space-y-6 [&_h2]:font-headline [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-primary [&_strong]:font-bold mt-[-15px]">
           <p>
             Fundado em 17 de novembro de 1895, o Clube de Regatas do Flamengo nasceu às margens da Baía de Guanabara, no bairro do Flamengo, no Rio de Janeiro. Inicialmente voltado para o remo, esporte muito popular na época, o clube logo expandiu seus horizontes e se transformou em uma das maiores potências do esporte brasileiro e mundial, principalmente no futebol.
           </p>
