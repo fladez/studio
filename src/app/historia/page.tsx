@@ -1,9 +1,13 @@
 
 import Image from "next/image";
+import { AdBanner } from "@/components/ad-banner";
 
 export default function HistoriaPage() {
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4">
+      <div className="mb-8">
+        <AdBanner width={728} height={90} />
+      </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6">
           <div className="relative mx-auto h-48 w-48">
@@ -14,7 +18,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <h1 className="text-4xl font-headline font-bold mb-2 -mt-4">História do Clube de Regatas do Flamengo</h1>
+          <h1 className="text-4xl font-headline font-bold -mt-4">História do Clube de Regatas do Flamengo</h1>
           <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
         </header>
 
@@ -116,6 +120,9 @@ export default function HistoriaPage() {
                 </p>
            </div>
         </div>
+      </div>
+      <div className="mt-12">
+        <AdBanner width={728} height={90} />
       </div>
     </div>
   );
