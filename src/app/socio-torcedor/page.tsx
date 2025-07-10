@@ -14,7 +14,7 @@ export default function SocioTorcedorPage() {
       <header className="text-center mb-16">
          <div className="relative mx-auto h-48 w-48 mb-4">
           <Image
-              src="https://i.postimg.cc/prgqYp3b/image-removebg-preview-9.png"
+              src="https://i.postimg.cc/Pq3RD2zz/image-removebg-preview-11.png"
               alt="Socio Torcedor Logo"
               fill
               className="object-contain"
