@@ -96,6 +96,17 @@ export default function HistoriaPage() {
     { src: "https://i.postimg.cc/NGpg8gV7/age20210221033.jpg", alt: "Torcida do Flamengo comemora título" },
   ];
 
+  const maracanaImages = [
+    { src: "https://i.postimg.cc/P5rhP0KV/maracana-1100562.jpg", alt: "Vista panorâmica do Maracanã" },
+    { src: "https://i.postimg.cc/SKHp1R4H/flamengo-x-Botafogo-site.jpg", alt: "Jogo do Flamengo no Maracanã" },
+    { src: "https://i.postimg.cc/MTRJCwKH/maracana-1.jpg", alt: "Fachada do Estádio do Maracanã" },
+    { src: "https://i.postimg.cc/3NTQ7qdB/flamengo-torcida-maracana.webp", alt: "Torcida do Flamengo no Maracanã" },
+    { src: "https://i.postimg.cc/cCByJc3N/flamengo-maracana-tour-riobycariocas-01.png", alt: "Tour do Maracanã com as cores do Flamengo" },
+    { src: "https://i.postimg.cc/h4LqMK53/download.jpg", alt: "Gramado do Maracanã" },
+    { src: "https://i.postimg.cc/L6mFbrd4/download-1.jpg", alt: "Vista interna do Maracanã" },
+    { src: "https://i.postimg.cc/fT5QnBZc/622f1358d18-31a9-444e-a93c-882ccf0e1e23-reproducao-00113621-0.jpg", alt: "Maracanã em dia de jogo do Flamengo" },
+  ];
+
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
       <div className="mb-2">
@@ -103,7 +114,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[15rem] w-[15rem] mt-[-75px]">
+          <div className="relative mx-auto h-[15rem] w-[15rem] mt-[-60px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -205,6 +216,8 @@ export default function HistoriaPage() {
              O Estádio do Maracanã é mais do que um palco de jogos: é um templo sagrado para a torcida rubro-negra. Ali, o Flamengo viveu suas maiores emoções e consolidou sua identidade como clube de massa e conquistas.
             </p>
           </section>
+
+          <HistoryCarousel images={maracanaImages} />
 
           <section>
             <h2>❤️ Flamengo é Religião</h2>
