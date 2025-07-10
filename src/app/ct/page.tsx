@@ -71,7 +71,6 @@ export default function CTPage() {
             <li>Laboratórios de análise de desempenho</li>
             <li>Restaurante e espaços de convivência para os atletas</li>
           </ul>
-           <HistoryCarousel images={ninhoImages} autoplay={true} />
         </section>
         
         <section>
@@ -81,10 +80,11 @@ export default function CTPage() {
            </p>
            <p>
               O miniestádio trará arquibancadas cobertas, vestiários modernos, cabines de imprensa e iluminação para jogos noturnos, aproximando a torcida dos jovens talentos e reforçando o ambiente competitivo nas divisões inferiores.
-          </p>
+           </p>
            <p>
               A expectativa é que o equipamento seja concluído nos próximos anos e passe a ser mais uma ferramenta estratégica para desenvolver atletas em um ambiente com pressão real de jogo.
           </p>
+          <HistoryCarousel images={ninhoImages} autoplay={true} />
         </section>
 
         <section>
@@ -126,5 +126,3 @@ export default function CTPage() {
     </div>
   );
 }
-
-    
