@@ -121,7 +121,7 @@ export function Footer() {
               <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
               <li><FooterLink href="/assessoria">Assessoria</FooterLink></li>
               <li><FooterLink href="/responsabilidade">Responsabilidade</FooterLink></li>
-              <li><FooterLink href="#">Trabalhe Conosco</FooterLink></li>
+              <li><FooterLink href="/trabalhe-conosco">Trabalhe Conosco</FooterLink></li>
             </ul>
           </div>
         </div>
