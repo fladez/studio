@@ -68,8 +68,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             <Badge variant="default">{column.category}</Badge>
           </div>
           <div className="flex items-center justify-center gap-4">
-            <p className="font-sans text-6xl font-bold text-primary text-center">{column.columnName}</p>
-            <div className="relative h-20 w-20 flex-shrink-0">
+            <div className="relative h-40 w-40 flex-shrink-0">
                 <Image
                 src="https://i.postimg.cc/YCT3F8nY/Chat-GPT-Image-9-de-jul-de-2025-23-06-12-removebg-preview.png"
                 alt="Ilustração da coluna"
@@ -77,6 +76,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
                 className="object-contain"
                 />
             </div>
+            <p className="font-sans text-6xl font-bold text-primary text-center">{column.columnName}</p>
           </div>
           <Separator className="my-4" />
           <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight">{column.title}</h1>
