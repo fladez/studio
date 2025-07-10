@@ -11,15 +11,17 @@ import { cn } from "@/lib/utils";
 
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const pathname = usePathname();
-  const isActive = (href === '/' && pathname === '/') || (href !== '/' && href !== '#' && pathname.startsWith(href));
+  const isActive = (href !== '/' && pathname.startsWith(href)) || (href === pathname);
 
   return (
-    <Link href={href} className={cn(
-      "text-sm transition-colors",
-      isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-primary-foreground"
-    )}>
-      {children}
-    </Link>
+    <li>
+      <Link href={href} className={cn(
+        "text-sm transition-colors",
+        isActive ? "text-primary-foreground font-semibold" : "text-muted-foreground hover:text-primary-foreground"
+      )}>
+        {children}
+      </Link>
+    </li>
   )
 }
 
@@ -58,10 +60,8 @@ export function Footer() {
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
         <div className="container mx-auto px-4">
-          <div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8"
-            style={{ transform: 'translateX(-300px)' }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6">
+            
             {/* Logo and Description */}
             <div className="lg:col-span-1">
               <div className="flex items-center gap-3 mb-4">
@@ -70,7 +70,7 @@ export function Footer() {
                   <span className="font-exo">FLA10</span><span className="font-headline"> News</span>
                 </span>
               </div>
-              <p className="text-sm text-muted-foreground mb-6 max-w-sm text-justify">
+              <p className="text-sm text-muted-foreground mb-6 max-w-xs">
                 O portal oficial do canal FLA10, de notícias do Clube de Regatas do Flamengo. Todas as informações sobre o Mengão em primeira mão.
               </p>
               <div className="flex items-center gap-4">
@@ -96,10 +96,10 @@ export function Footer() {
             <div>
               <FooterSectionTitle>Portal</FooterSectionTitle>
               <ul className="space-y-2">
-                <li><FooterLink href="/">Início</FooterLink></li>
-                <li><FooterLink href="/noticias">Notícias</FooterLink></li>
-                <li><FooterLink href="/videos">Vídeos</FooterLink></li>
-                <li><FooterLink href="/colunas">Colunas</FooterLink></li>
+                <FooterLink href="/">Início</FooterLink>
+                <FooterLink href="/noticias">Notícias</FooterLink>
+                <FooterLink href="/videos">Vídeos</FooterLink>
+                <FooterLink href="/colunas">Colunas</FooterLink>
               </ul>
             </div>
             
@@ -107,7 +107,7 @@ export function Footer() {
               <FooterSectionTitle>Categorias</FooterSectionTitle>
               <ul className="space-y-2">
                 {categoryLinks.map(link => (
-                    <li key={link.href}><FooterLink href={link.href}>{link.label}</FooterLink></li>
+                    <FooterLink key={link.href} href={link.href}>{link.label}</FooterLink>
                 ))}
               </ul>
             </div>
@@ -115,21 +115,21 @@ export function Footer() {
             <div>
               <FooterSectionTitle>Clube</FooterSectionTitle>
               <ul className="space-y-2">
-                <li><FooterLink href="/historia">História</FooterLink></li>
-                <li><FooterLink href="/titulos">Títulos</FooterLink></li>
-                <li><FooterLink href="/estadio">Estádio</FooterLink></li>
-                <li><FooterLink href="/ct">CT</FooterLink></li>
-                <li><FooterLink href="/socio-torcedor">Sócio-Torcedor</FooterLink></li>
+                <FooterLink href="/historia">História</FooterLink>
+                <FooterLink href="/titulos">Títulos</FooterLink>
+                <FooterLink href="/estadio">Estádio</FooterLink>
+                <FooterLink href="/ct">CT</FooterLink>
+                <FooterLink href="/socio-torcedor">Sócio-Torcedor</FooterLink>
               </ul>
             </div>
 
             <div>
               <FooterSectionTitle>Institucional</FooterSectionTitle>
               <ul className="space-y-2">
-                <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
-                <li><FooterLink href="/trabalhe-conosco">Trabalhe Conosco</FooterLink></li>
-                <li><FooterLink href="/assessoria">Assessoria</FooterLink></li>
-                <li><FooterLink href="/responsabilidade">Responsabilidade</FooterLink></li>
+                <FooterLink href="/fale-conosco">Fale Conosco</FooterLink>
+                <FooterLink href="/trabalhe-conosco">Trabalhe Conosco</FooterLink>
+                <FooterLink href="/assessoria">Assessoria</FooterLink>
+                <FooterLink href="/responsabilidade">Responsabilidade</FooterLink>
               </ul>
             </div>
           </div>
@@ -138,12 +138,12 @@ export function Footer() {
       
       {/* Bottom bar */}
       <div className="bg-accent text-accent-foreground border-t border-white/10">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 text-xs">
-          <p className="text-muted-foreground">© {new Date().getFullYear()} FLA10 News - Canal Fla Dez. Todos os direitos reservados.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <Link href="/politica-de-privacidade" className={cn("transition-colors", pathname === '/politica-de-privacidade' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Política de Privacidade</Link>
-            <Link href="/termos-de-uso" className={cn("transition-colors", pathname === '/termos-de-uso' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Termos de Uso</Link>
-            <Link href="/cookies" className={cn("transition-colors", pathname === '/cookies' ? 'text-primary-foreground' : 'text-muted-foreground hover:text-primary-foreground')}>Cookies</Link>
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 px-4 text-xs">
+          <p className="text-muted-foreground mb-4 md:mb-0 text-center md:text-left">© {new Date().getFullYear()} FLA10 News - Canal Fla Dez. Todos os direitos reservados.</p>
+          <div className="flex gap-4">
+            <Link href="/politica-de-privacidade" className="transition-colors text-muted-foreground hover:text-primary-foreground">Política de Privacidade</Link>
+            <Link href="/termos-de-uso" className="transition-colors text-muted-foreground hover:text-primary-foreground">Termos de Uso</Link>
+            <Link href="/cookies" className="transition-colors text-muted-foreground hover:text-primary-foreground">Cookies</Link>
           </div>
         </div>
       </div>
