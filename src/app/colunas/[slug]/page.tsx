@@ -67,16 +67,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             <Badge variant="default">{column.category}</Badge>
           </div>
           <div className="flex items-center justify-center gap-4">
-            {column.columnName === "É Mengão na veia!!!" && (
-                <div className="relative h-40 w-40 flex-shrink-0">
-                    <Image
-                    src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
-                    alt="Ilustração da coluna"
-                    fill
-                    className="object-contain"
-                    />
-                </div>
-            )}
+            
             <p className="font-sans text-6xl font-bold text-primary text-center">{column.columnName}</p>
             {column.columnName === "É Mengão na veia!!!" && (
                 <div className="relative h-40 w-40 flex-shrink-0">
