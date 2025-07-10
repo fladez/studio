@@ -1,3 +1,5 @@
+
+import * as React from 'react';
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getColumns } from "@/data/columns";
@@ -5,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AdBanner } from '@/components/ad-banner';
 
 function formatPublishedTime(publishedAt: Date): string {
     const now = new Date();
@@ -43,38 +46,55 @@ export default async function ColunasPage() {
                 </div>
             </div>
 
+            <div className="mb-8">
+                <AdBanner width={728} height={90} />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {allColumns.map((column) => (
-                    <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
-                        <CardHeader>
-                            <div className="flex items-center justify-between mb-4">
-                                <Badge variant="default">{column.category}</Badge>
-                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                    <Clock className="h-3 w-3" />
-                                    <span>{formatPublishedTime(column.publishedAt)}</span>
+                {allColumns.flatMap((column, index) => {
+                    const card = (
+                        <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                            <CardHeader>
+                                <div className="flex items-center justify-between mb-4">
+                                    <Badge variant="default">{column.category}</Badge>
+                                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                        <Clock className="h-3 w-3" />
+                                        <span>{formatPublishedTime(column.publishedAt)}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <Avatar className="h-12 w-12 border-2 border-primary/20">
-                                    <AvatarImage src={column.authorImage} alt={column.author} />
-                                    <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p className="font-bold text-primary">{column.columnName}</p>
-                                    <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                                <div className="flex items-start gap-4">
+                                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                                        <AvatarImage src={column.authorImage} alt={column.author} />
+                                        <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p className="font-bold text-primary">{column.columnName}</p>
+                                        <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                                    </div>
                                 </div>
+                            </CardHeader>
+                            <CardContent className="flex-grow space-y-2">
+                                <CardTitle className="text-xl font-bold font-body leading-tight">
+                                    <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                                    {column.title}
+                                    </Link>
+                                </CardTitle>
+                                <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
+                            </CardContent>
+                        </Card>
+                    );
+
+                    if ((index + 1) % 2 === 0 && (index + 1) < allColumns.length) {
+                        return [
+                            card,
+                            <div key={`ad-${index}`} className="col-span-1 md:col-span-2 lg:col-span-3 py-4 flex justify-center">
+                                <AdBanner width={728} height={90} />
                             </div>
-                        </CardHeader>
-                        <CardContent className="flex-grow space-y-2">
-                            <CardTitle className="text-xl font-bold font-body leading-tight">
-                                <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                                {column.title}
-                                </Link>
-                            </CardTitle>
-                            <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
-                        </CardContent>
-                    </Card>
-                ))}
+                        ];
+                    }
+
+                    return [card];
+                })}
             </div>
         </div>
     );
