@@ -35,11 +35,10 @@ export default function EstadioPage() {
   ];
 
   const ninhoDoUrubuImages = [
-    { src: "https://i.postimg.cc/sXb6g6G0/ninho-do-urubu-scaled.jpg", alt: "Entrada do Ninho do Urubu" },
-    { src: "https://i.postimg.cc/pLhW2zYg/i-Fb-K-Nb-Zl-Bq-O1-V3-N3b-P7-I1q-E2q-YQ-1200x0-1.jpg", alt: "Vista aérea do Ninho do Urubu" },
-    { src: "https://i.postimg.cc/k47JbY62/1535728567.jpg", alt: "Campo de treino no Ninho do Urubu" },
-    { src: "https://i.postimg.cc/x87Pj3D1/flamengo-treino-ninho-do-urubu-19.jpg", alt: "Jogadores treinando no Ninho do Urubu" },
-    { src: "https://i.postimg.cc/Pq0c2jWf/ninho-do-urubu-2-1280x720.jpg", alt: "Estrutura interna do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/9M5gFGgp/Whats-App-Image-2025-07-10-at-15-51-44.jpg", alt: "Entrada do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/WbbW3p8Q/flamengo-base-20250416101520.webp", alt: "Vista aérea do Ninho do Urubu" },
+    { src: "https://i.postimg.cc/DwRBBrhT/Whats-App-Image-2025-07-10-at-15-52-49.jpg", alt: "Campo de treino no Ninho do Urubu" },
+    { src: "https://i.postimg.cc/rp6NSqGy/Design-sem-nome-12.png", alt: "Jogadores treinando no Ninho do Urubu" },
   ];
 
   const torcidaImages = [
