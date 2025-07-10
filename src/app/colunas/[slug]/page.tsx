@@ -29,12 +29,12 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
   return (
     <div className="container mx-auto max-w-4xl py-12">
       <article>
-        <header className="mb-8 text-center">
-          <p className="font-sans text-6xl mb-4 font-bold">{column.columnName}</p>
+        <header className="mb-8">
+          <p className="font-sans text-6xl mb-4 font-bold text-primary">{column.columnName}</p>
           <Badge variant="default">{column.category}</Badge>
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight my-4">{column.title}</h1>
-          <div className="flex items-center justify-center gap-4">
-            <Avatar className="h-12 w-12">
+          <div className="flex items-center justify-start gap-4">
+            <Avatar className="h-16 w-16">
               <AvatarImage src={column.authorImage} alt={column.author} />
               <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
