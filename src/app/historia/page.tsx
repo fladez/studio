@@ -3,14 +3,17 @@ import Image from "next/image";
 import { AdBanner } from "@/components/ad-banner";
 
 export default function HistoriaPage() {
+  // A simple function to demonstrate a minor change for HMR reload.
+  const getPageTitle = () => "História do Clube de Regatas do Flamengo";
+
   return (
-    <div className="container mx-auto max-w-4xl py-12 px-4">
+    <div className="container mx-auto max-w-4xl py-8 px-4">
       <div className="mb-4">
         <AdBanner width={728} height={90} />
       </div>
       <div className="space-y-8">
-        <header className="text-center border-b pb-6 mb-6">
-          <div className="relative mx-auto h-[23rem] w-[23rem]">
+        <header className="text-center border-b pb-6 mb-8">
+          <div className="relative mx-auto h-[21rem] w-[21rem]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -18,7 +21,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <h1 className="text-4xl font-headline font-bold mt-2">História do Clube de Regatas do Flamengo</h1>
+          <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
           <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
         </header>
 
