@@ -56,6 +56,25 @@ export default function HistoriaPage() {
     { src: "https://i.postimg.cc/Jhb4Vjhj/campeao-1987.webp", alt: "Time do Flamengo campeão em 1987" },
   ];
 
+  const novaEraImages = [
+    { src: "https://i.postimg.cc/RhTXjsk2/36093669-es-06-12-2009-rio-de-janeiro-rj-final-do-campeonato-brasileiro-2009-flamengo-x-gremio-no-ma.webp", alt: "Flamengo campeão brasileiro 2009" },
+    { src: "https://i.postimg.cc/qBcbhqNQ/15746267275ddae5a78192c-1574626727-3x2-rt.jpg", alt: "Comemoração do título da Libertadores 2019" },
+    { src: "https://i.postimg.cc/YqbdRPfW/50980490508-321bfd1ea0-k.webp", alt: "Time do Flamengo campeão brasileiro 2020" },
+    { src: "https://i.postimg.cc/VkvDVFDH/50981336233-a16cbbf89d-k-1-1614340538807.jpg", alt: "Jogadores do Flamengo comemoram título" },
+    { src: "https://i.postimg.cc/pLSqbnSV/em-2019-o-flamengo-ergueu-a-taca-de-campeao-brasileiro-na-3-jpeg-1200x0-q70-crop-top.webp", alt: "Flamengo levantando a taça do Brasileirão 2019" },
+    { src: "https://i.postimg.cc/d3njW7dY/uncropped-flamengo-s-player-angelim-r-celebrates-5e860b031f449191dd000004.webp", alt: "Angelim comemorando gol do título de 2009" },
+    { src: "https://i.postimg.cc/TYY9K9MY/Filipe-Luis-campeao-brasileiro-2020.jpg", alt: "Filipe Luís campeão brasileiro 2020" },
+    { src: "https://i.postimg.cc/Qx4q1Thg/Pet-Angelim-2009.webp", alt: "Petkovic e Angelim em 2009" },
+    { src: "https://i.postimg.cc/dVhjBVVb/flamengo-campeao-brasileiro-2020.webp", alt: "Elenco do Flamengo com a taça do Brasileirão 2020" },
+    { src: "https://i.postimg.cc/hGSPnfQw/85843852-Players-of-Brazils-Flamengo-celebrate-on-the-podium-with-the-trophy-after-winning-the-Copa.jpg", alt: "Jogadores do Flamengo comemorando a Copa do Brasil" },
+    { src: "https://i.postimg.cc/43B4xsz3/flamengo-campeao-supercopa.webp", alt: "Flamengo campeão da Supercopa" },
+    { src: "https://i.postimg.cc/wvr6D248/flamengo-premiacao-libertadores-Easy-Resize-com.jpg", alt: "Premiação da Libertadores" },
+    { src: "https://i.postimg.cc/zvRq7h4L/Flamengo-vence-o-Atle-tico-MG-e-conquista-a-Copa-do-Brasil-pela-5a-vez-Metropoles-4-1.jpg", alt: "Flamengo campeão da Copa do Brasil" },
+    { src: "https://i.postimg.cc/qBtKS5TK/images.jpg", alt: "Time do Flamengo comemorando título" },
+    { src: "https://i.postimg.cc/6p1wkYw7/gettyimages-452315579-1.webp", alt: "Time do Flamengo campeão da Copa do Brasil 2013" },
+    { src: "https://i.postimg.cc/RhRxXTXZ/2013112796674.jpg", alt: "Comemoração do título da Copa do Brasil 2013" },
+  ];
+
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
       <div className="mb-2">
@@ -63,7 +82,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-90px]">
+          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-65px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -71,7 +90,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-80px]">
+          <div className="mt-[-100px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
@@ -154,6 +173,8 @@ export default function HistoriaPage() {
                 O ano de 2019 foi um capítulo histórico, com as conquistas da Libertadores e do Brasileirão no mesmo final de semana, sob o comando do técnico Jorge Jesus.
             </p>
           </section>
+
+          <HistoryCarousel images={novaEraImages} />
           
            <section>
             <h2>🏟️ Maracanã: A Casa do Flamengo</h2>
