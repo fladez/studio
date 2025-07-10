@@ -36,7 +36,7 @@ export default function TitulosPage() {
        <header className="text-center mb-16">
         <div className="relative mx-auto h-32 w-32 mb-4">
             <Image
-                src="https://i.postimg.cc/k5FNN5S6/trofeu-removebg-preview.png"
+                src="https://i.postimg.cc/HsqdTHLQ/image-removebg-preview-10.png"
                 alt="Troféu"
                 fill
                 className="object-contain"
