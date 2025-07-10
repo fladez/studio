@@ -7,6 +7,7 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
+import { AdBanner } from '@/components/ad-banner'
 
 export const revalidate = 3600; // Revalidate at most every hour
 
@@ -29,6 +30,9 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
+      <div className="mb-8">
+        <AdBanner width={728} height={90} />
+      </div>
       <article>
         <header className="mb-8">
           <div className="flex justify-end mb-2">
@@ -55,6 +59,10 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             dangerouslySetInnerHTML={{ __html: column.content }}
           />
         )}
+
+        <div className="mt-12 pt-8 border-t">
+            <AdBanner width={728} height={90} />
+        </div>
       </article>
     </div>
   )
