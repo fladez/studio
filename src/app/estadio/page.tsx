@@ -16,10 +16,13 @@ export default function EstadioPage() {
   ];
 
    const gaveaImages = [
-    { src: "https://i.postimg.cc/L5KTYx3M/Est-dio-da-G-vea-no-Rio-de-Janeiro-1024x683.jpg", alt: "Estádio da Gávea" },
-    { src: "https://i.postimg.cc/8z7zK6Xf/images.jpg", alt: "Vista aérea do Estádio da Gávea" },
-    { src: "https://i.postimg.cc/tJnB8vQR/images-1.jpg", alt: "Entrada do Estádio da Gávea" },
-    { src: "https://i.postimg.cc/X7B79Xy8/Gavea-social-1024x678.jpg", alt: "Sede social do Flamengo na Gávea" },
+    { src: "https://i.postimg.cc/xCH5WW6T/estadio-da-gavea.webp", alt: "Estádio da Gávea" },
+    { src: "https://i.postimg.cc/3rX99Qyt/gavea-entrada-768x512.jpg", alt: "Entrada do Estádio da Gávea" },
+    { src: "https://i.postimg.cc/XJMccsnM/gavea-reproducao-internet.jpg", alt: "Vista interna do Estádio da Gávea" },
+    { src: "https://i.postimg.cc/ZqXjsTFM/579f8749e4399.jpg", alt: "Arquibancada do Estádio da Gávea" },
+    { src: "https://i.postimg.cc/sxjWw88L/PAN-GAVEA-768x511.png", alt: "Vista panorâmica do Estádio da Gávea" },
+    { src: "https://i.postimg.cc/RF9JZyM0/Sede-Gavea.jpg", alt: "Sede social da Gávea" },
+    { src: "https://i.postimg.cc/6QZC3CnM/image.jpg", alt: "Piscina na sede da Gávea" },
   ];
 
   const gasometroImages = [
