@@ -56,6 +56,7 @@ export default function FaleConoscoPage() {
                 <li>Dúvidas sobre o portal</li>
                 <li>Mensagens para a equipe</li>
                 <li>Envio de fotos, vídeos ou relatos como colaborador da Nação</li>
+                <li>Reclamações sobre direitos autorais e propriedade intelectual</li>
             </ul>
         </section>
 
