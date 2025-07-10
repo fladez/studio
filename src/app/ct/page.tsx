@@ -23,6 +23,8 @@ export default function CTPage() {
     { src: "https://i.postimg.cc/ZK0dq0BB/5c5e02472d8c2.webp", alt: "Memorial em homenagem aos Garotos do Ninho", "data-ai-hint": "memorial tribute" },
     { src: "https://i.postimg.cc/pdkW8Y32/87069039-2996282763757331-8550401814632071168-n.jpg", alt: "Homenagem da torcida aos Garotos do Ninho", "data-ai-hint": "fan tribute" },
     { src: "https://i.postimg.cc/kgH3dYrR/images-3.jpg", alt: "Velas em memória dos Garotos do Ninho", "data-ai-hint": "candles memorial" },
+    { src: "https://i.postimg.cc/c1fFx93t/images-6.jpg", alt: "Homenagem aos Garotos do Ninho" },
+    { src: "https://i.postimg.cc/3xhNMRTD/images-5.jpg", alt: "Luto pelos Garotos do Ninho" },
   ];
 
   return (
