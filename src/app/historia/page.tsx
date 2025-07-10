@@ -75,6 +75,27 @@ export default function HistoriaPage() {
     { src: "https://i.postimg.cc/RhRxXTXZ/2013112796674.jpg", alt: "Comemoração do título da Copa do Brasil 2013" },
   ];
 
+   const torcidaImages = [
+    { src: "https://i.postimg.cc/0yCZjBrQ/180813-torcida-do-flamengo-marca-presenca-no-estadio-mane-garrincha-em-brasilia-para-o-duelo-contra.jpg", alt: "Torcida do Flamengo no Mané Garrincha" },
+    { src: "https://i.postimg.cc/XvH8cBf6/4166421346-56ed919a9e-b.jpg", alt: "Torcida do Flamengo com bandeiras" },
+    { src: "https://i.postimg.cc/ydDTf6jg/52495505908-446e2515e4-k-e1681121195500.webp", alt: "Festa da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/Y0gzHXJt/a8598480-0ee5-11ea-8faa-a5b271d72abe-wp-660x372.jpg", alt: "Torcida do Flamengo no estádio" },
+    { src: "https://i.postimg.cc/KcgNBz4C/c05677753aba609214f43085b4052d63.jpg", alt: "Bandeirão da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/R0F1FCjs/ee4ee9ab65b0cd5972abf4357682d12a.webp", alt: "Torcida do Flamengo com sinalizadores" },
+    { src: "https://i.postimg.cc/CL5wm3py/Capturar-19.webp", alt: "Mosaico da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/kGxKZ2b4/gazeta-press-foto-1924304.webp", alt: "Festa da torcida do Flamengo nas arquibancadas" },
+    { src: "https://i.postimg.cc/L6pzP3cZ/1-sem-titulo-26707763.jpg", alt: "Torcida do Flamengo em festa" },
+    { src: "https://i.postimg.cc/6p6nj55W/images-1.jpg", alt: "Torcida do Flamengo lotando o estádio" },
+    { src: "https://i.postimg.cc/5yqQgDhQ/images-2.jpg", alt: "Vista aérea da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/DZ1Sftyp/images-3.jpg", alt: "Detalhe da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/8cDj7t7p/images.jpg", alt: "Torcida do Flamengo com bandeiras e fumaça" },
+    { src: "https://i.postimg.cc/D0By8FV6/mosaico-da-torcida-do-flamengo.jpg", alt: "Outro mosaico da torcida do Flamengo" },
+    { src: "https://i.postimg.cc/FHfss2Tb/n1390581708.webp", alt: "Torcida do Flamengo vibrando" },
+    { src: "https://i.postimg.cc/Jn81xtMK/torcida-nac-a-o-rubro-negra-20231102050623.jpg", alt: "Nação Rubro-Negra em 2023" },
+    { src: "https://i.postimg.cc/cC4dqjKn/x1080.jpg", alt: "Torcida do Flamengo com bandeirão" },
+    { src: "https://i.postimg.cc/NGpg8gV7/age20210221033.jpg", alt: "Torcida do Flamengo comemora título" },
+  ];
+
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
       <div className="mb-2">
@@ -82,7 +103,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-65px]">
+          <div className="relative mx-auto h-[15rem] w-[15rem] mt-[-75px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -90,7 +111,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-100px]">
+          <div className="mt-[-120px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
@@ -157,6 +178,8 @@ export default function HistoriaPage() {
               Com uma torcida estimada em mais de 40 milhões de torcedores, o Flamengo se orgulha de ser o clube mais popular do Brasil. O lema "Uma vez Flamengo, sempre Flamengo" representa a ligação emocional e cultural entre o time e sua Nação Rubro-Negra.
             </p>
           </section>
+
+          <HistoryCarousel images={torcidaImages} />
           
           <section>
             <h2>⚽ A Nova Era: Glórias Recentes</h2>
@@ -211,5 +234,3 @@ export default function HistoriaPage() {
     </div>
   );
 }
-
-    
