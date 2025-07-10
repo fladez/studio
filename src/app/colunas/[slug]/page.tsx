@@ -1,4 +1,3 @@
-
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -67,7 +66,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
           <div className="flex justify-end mb-2">
             <Badge variant="default">{column.category}</Badge>
           </div>
-          <div className="flex items-center justify-center gap-4" style={{ transform: 'translateX(-100px)' }}>
+          <div className="flex items-center justify-center gap-4" style={{ transform: 'translateX(-50px)' }}>
             {column.columnName === "É Mengão na veia!!!" && (
                 <div className="relative h-40 w-40 flex-shrink-0">
                     <Image
