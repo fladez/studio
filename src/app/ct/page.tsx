@@ -47,7 +47,7 @@ export default function CTPage() {
         <AdBanner width={728} height={90} />
       </div>
       
-       <div className="mb-12 relative aspect-video w-full h-auto overflow-hidden rounded-lg">
+       <div className="mb-12 relative aspect-video w-full h-auto max-h-[400px] overflow-hidden rounded-lg">
           <Image
               src="https://i.postimg.cc/zB32JKht/522736890-ninho1crop1589808535582jpg554688468.webp"
               alt="Vista aérea do Ninho do Urubu"
@@ -153,4 +153,5 @@ export default function CTPage() {
   );
 }
 
+    
     
