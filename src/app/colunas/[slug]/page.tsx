@@ -30,9 +30,11 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
     <div className="container mx-auto max-w-4xl py-12">
       <article>
         <header className="mb-8">
-          <p className="font-sans text-6xl mb-4 font-bold text-primary">{column.columnName}</p>
-          <Badge variant="default">{column.category}</Badge>
-          <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight my-4">{column.title}</h1>
+          <div className="flex justify-end mb-2">
+            <Badge variant="default">{column.category}</Badge>
+          </div>
+          <p className="font-sans text-6xl mb-4 font-bold text-primary text-center">{column.columnName}</p>
+          <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight my-4">{column.title}</h1>
           <div className="flex items-center justify-start gap-4">
             <Avatar className="h-16 w-16">
               <AvatarImage src={column.authorImage} alt={column.author} />
