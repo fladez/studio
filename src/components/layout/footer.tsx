@@ -107,7 +107,7 @@ export function Footer() {
             <FooterSectionTitle>Clube</FooterSectionTitle>
             <ul className="space-y-2">
               <li><FooterLink href="/historia">História</FooterLink></li>
-              <li><FooterLink href="#">Títulos</FooterLink></li>
+              <li><FooterLink href="/titulos">Títulos</FooterLink></li>
               <li><FooterLink href="#">Estádio</FooterLink></li>
               <li><FooterLink href="#">CT</FooterLink></li>
               <li><FooterLink href="#">Sócio-Torcedor</FooterLink></li>
