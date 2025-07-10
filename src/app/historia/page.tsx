@@ -140,7 +140,7 @@ export default function HistoriaPage() {
           <p>
             O Flamengo começou como um grupo de jovens apaixonados por esportes náuticos, que sonhavam em formar uma equipe de regatas competitiva. A primeira vitória no remo veio em 1898, e foi comemorada com grande festa — tradição que o clube leva até hoje: celebrar com paixão cada conquista.
           </p>
-          <HistoryCarousel images={historyImages} />
+          <HistoryCarousel images={historyImages} autoplay={true} />
         </section>
         
         <section>
@@ -151,7 +151,7 @@ export default function HistoriaPage() {
           <p>
               Em 1912, o Flamengo disputou sua primeira partida oficial de futebol e venceu o Mangueira por 16 a 2, naquela que ainda é a maior goleada da história do clube.
           </p>
-          <HistoryCarousel images={footballImages} />
+          <HistoryCarousel images={footballImages} autoplay={true} />
         </section>
 
         <section>
@@ -159,7 +159,7 @@ export default function HistoriaPage() {
           <p>
             O Rubro-Negro começou a colecionar títulos já nas primeiras décadas do século XX. No futebol carioca, se tornou referência com times competitivos e uma torcida apaixonada, ganhando os primeiros Campeonatos Cariocas nas décadas de 1910 e 1920.
           </p>
-          <HistoryCarousel images={primeirasGloriasImages} />
+          <HistoryCarousel images={primeirasGloriasImages} autoplay={true} />
         </section>
         
         <section>
@@ -178,7 +178,7 @@ export default function HistoriaPage() {
            <p>
               Essa geração ficou eternizada como uma das mais vitoriosas da história do futebol brasileiro.
           </p>
-          <HistoryCarousel images={seculoXXImages} />
+          <HistoryCarousel images={seculoXXImages} autoplay={true} />
         </section>
 
         <section>
@@ -186,7 +186,7 @@ export default function HistoriaPage() {
           <p>
             Com uma torcida estimada em mais de 40 milhões de torcedores, o Flamengo se orgulha de ser o clube mais popular do Brasil. O lema "Uma vez Flamengo, sempre Flamengo" representa a ligação emocional e cultural entre o time e sua Nação Rubro-Negra.
           </p>
-          <HistoryCarousel images={torcidaImages} />
+          <HistoryCarousel images={torcidaImages} autoplay={true} />
         </section>
         
         <section>
@@ -203,7 +203,7 @@ export default function HistoriaPage() {
           <p>
               O ano de 2019 foi um capítulo histórico, com as conquistas da Libertadores e do Brasileirão no mesmo final de semana, sob o comando do técnico Jorge Jesus.
           </p>
-          <HistoryCarousel images={novaEraImages} />
+          <HistoryCarousel images={novaEraImages} autoplay={true} />
         </section>
         
          <section>
@@ -211,7 +211,7 @@ export default function HistoriaPage() {
           <p>
            O Estádio do Maracanã é mais do que um palco de jogos: é um templo sagrado para a torcida rubro-negra. Ali, o Flamengo viveu suas maiores emoções e consolidou sua identidade como clube de massa e conquistas.
           </p>
-          <HistoryCarousel images={maracanaImages} />
+          <HistoryCarousel images={maracanaImages} autoplay={true} />
         </section>
 
         <section>
@@ -242,5 +242,3 @@ export default function HistoriaPage() {
     </div>
   );
 }
-
-    

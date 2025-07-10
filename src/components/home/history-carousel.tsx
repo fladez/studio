@@ -17,17 +17,16 @@ type HistoryImage = {
     alt: string;
 }
 
-export function HistoryCarousel({ images }: { images: HistoryImage[] }) {
-    const plugin = React.useRef(
-        Autoplay({ delay: 6000, stopOnInteraction: true })
-    );
+export function HistoryCarousel({ images, autoplay = false }: { images: HistoryImage[], autoplay?: boolean }) {
+    const plugins = [];
+    if (autoplay) {
+        plugins.push(Autoplay({ delay: 6000, stopOnInteraction: true }));
+    }
 
     return (
         <Carousel 
             className="w-full max-w-2xl mx-auto my-8"
-            plugins={[plugin.current]}
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+            plugins={plugins}
             opts={{ loop: true }}
         >
             <CarouselContent>
