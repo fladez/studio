@@ -114,7 +114,7 @@ export default function EstadioPage() {
         </section>
 
         <section>
-          <h2>🏟️ Miniestádio em construção</h2>
+          <h2>🏟️ Miniestádio no Ninho do Urubu em construção</h2>
           <p>
             Como parte do projeto de ampliação da estrutura, o Flamengo anunciou a construção de um miniestádio dentro do Ninho do Urubu, com capacidade estimada entre 5 e 7 mil lugares. A nova arena servirá para jogos da base, do futebol feminino, amistosos e até treinos com público.
           </p>
