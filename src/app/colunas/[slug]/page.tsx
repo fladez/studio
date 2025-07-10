@@ -79,7 +79,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
                 </div>
             )}
             {column.columnName === "Cesta de Três" && (
-                <div className="absolute left-[-30px] h-40 w-40 flex-shrink-0">
+                <div className="absolute left-[-30px] h-52 w-52 flex-shrink-0">
                     <Image
                     src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
                     alt="Ilustração da coluna Cesta de Três"
