@@ -1,3 +1,4 @@
+
 import { getNews } from "@/data/news";
 import { getColumns } from "@/data/columns";
 import { getVideos } from "@/data/videos";
@@ -8,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-import { Newspaper, PenSquare, Video, Eye, Share2, Users, UserPlus, TrendingUp, BarChart, PieChart as PieChartIcon } from "lucide-react";
+import { Newspaper, PenSquare, Video, Eye, Share2, Users, UserPlus, TrendingUp, BarChart, PieChart as PieChartIcon, Futbol } from "lucide-react";
 import Link from "next/link";
 import { format } from "date-fns";
 
@@ -22,6 +23,7 @@ export default async function AdminDashboard() {
     const totalNewsViews = news.reduce((acc, article) => acc + article.views, 0);
     const totalColumnsViews = columns.reduce((acc, column) => acc + column.views, 0);
     const totalContentShares = 1345; // Placeholder
+    const totalFutebolNews = news.filter(n => n.mainCategory === 'Futebol').length;
     
     const recentContent = [...news, ...columns, ...videos]
         .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
@@ -56,6 +58,7 @@ export default async function AdminDashboard() {
             
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <StatCard title="Total de Notícias" value={news.length} icon={Newspaper} />
+                <StatCard title="Notícias de Futebol" value={totalFutebolNews} icon={Futbol} />
                 <StatCard title="Total de Colunas" value={columns.length} icon={PenSquare} />
                 <StatCard title="Total de Vídeos" value={videos.length} icon={Video} />
                 <StatCard title="Usuários Cadastrados" value={userCount} icon={UserPlus} />
