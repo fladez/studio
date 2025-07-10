@@ -96,11 +96,11 @@ export function Footer() {
           <div className="col-span-1">
             <FooterSectionTitle>Modalidades</FooterSectionTitle>
             <ul className="space-y-2">
-              <li><FooterLink href="#">Futebol</FooterLink></li>
-              <li><FooterLink href="#">Basquete</FooterLink></li>
-              <li><FooterLink href="#">Vôlei</FooterLink></li>
-              <li><FooterLink href="/#">Olímpicos</FooterLink></li>
-              <li><FooterLink href="#">E-Sports</FooterLink></li>
+              <li><FooterLink href="/futebol">Futebol</FooterLink></li>
+              <li><FooterLink href="/basquete">Basquete</FooterLink></li>
+              <li><FooterLink href="/volei">Vôlei</FooterLink></li>
+              <li><FooterLink href="/esportes-olimpicos">Olímpicos</FooterLink></li>
+              <li><FooterLink href="/e-sports">E-Sports</FooterLink></li>
             </ul>
           </div>
           
@@ -141,4 +141,3 @@ export function Footer() {
     </footer>
   )
 }
-    

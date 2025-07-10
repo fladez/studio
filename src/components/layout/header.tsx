@@ -23,11 +23,11 @@ const navLinks = [
 ]
 
 const modalidadesLinks = [
-  { href: "#", label: "Futebol" },
-  { href: "#", label: "Basquete" },
-  { href: "#", label: "Vôlei" },
-  { href: "#", label: "Olímpicos" },
-  { href: "#", label: "E-Sports" },
+  { href: "/futebol", label: "Futebol" },
+  { href: "/basquete", label: "Basquete" },
+  { href: "/volei", label: "Vôlei" },
+  { href: "/esportes-olimpicos", label: "Olímpicos" },
+  { href: "/e-sports", label: "E-Sports" },
 ];
 
 const clubeLinks = [
@@ -182,5 +182,3 @@ export function Header() {
     </header>
   )
 }
-
-    
