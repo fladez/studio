@@ -36,6 +36,26 @@ export default function HistoriaPage() {
     { src: "https://i.postimg.cc/8cp4GdB3/lossy-page1-250px-Time-de-Futebol-do-Flamengo-1933-tif.jpg", alt: "Time de futebol do Flamengo em 1933" },
   ];
 
+  const seculoXXImages = [
+    { src: "https://i.postimg.cc/vTn038h8/flamengo-1987-zico-copa-uniao-560-jpg.jpg", alt: "Flamengo campeão da Copa União 1987 com Zico" },
+    { src: "https://i.postimg.cc/nc8RM7VX/flamengo-1983-optimized.jpg", alt: "Time do Flamengo em 1983" },
+    { src: "https://i.postimg.cc/W4t65bbR/jornal-flamengo-tetracampeao-1987.jpg", alt: "Jornal noticiando o tetracampeonato do Flamengo em 1987" },
+    { src: "https://i.postimg.cc/mDC9nPvn/NVD5-K56-RGZNNHK3-EE6-JWPPCOMI.jpg", alt: "Time do Flamengo posado para foto nos anos 80" },
+    { src: "https://i.postimg.cc/cCcnsV4M/zico-bicampeao-78-79-glo-15.webp", alt: "Zico comemorando bicampeonato em 1979" },
+    { src: "https://i.postimg.cc/28zWH82H/bebeto-renato-gaucho-optimized.webp", alt: "Bebeto e Renato Gaúcho no Flamengo" },
+    { src: "https://i.postimg.cc/MGtNQGPh/Zico-taca-Flamengo-Campeao-Brasileiro-1980.jpg", alt: "Zico levantando a taça do Campeonato Brasileiro de 1980" },
+    { src: "https://i.postimg.cc/XvyBZZYv/1983-flamengo-tricampeao-brasileiro-mengo.jpg", alt: "Time do Flamengo tricampeão brasileiro em 1983" },
+    { src: "https://i.postimg.cc/G2FBQZYw/5ed3fd54c4f39.webp", alt: "Comemoração do time do Flamengo" },
+    { src: "https://i.postimg.cc/901D3ZJL/98984-zico-81-529x378-1.webp", alt: "Zico em ação no Mundial de 1981" },
+    { src: "https://i.postimg.cc/V6W6MXQz/44787-2b281364b4dd7e558fb72d0bb81a4b18.jpg", alt: "Time do Flamengo campeão mundial em 1981" },
+    { src: "https://i.postimg.cc/8P0Ch13f/44791-leandro-flamengo-1981-jpg.jpg", alt: "Leandro, lateral do Flamengo, em 1981" },
+    { src: "https://i.postimg.cc/nh9h2ybR/1992.jpg", alt: "Time do Flamengo campeão brasileiro em 1992" },
+    { src: "https://i.postimg.cc/rsp8rbN9/flamengo-campeao-1982.jpg", alt: "Time do Flamengo campeão brasileiro em 1982" },
+    { src: "https://i.postimg.cc/j2Cb5fRg/JS-1992-01.jpg", alt: "Júnior e time comemorando o título de 1992" },
+    { src: "https://i.postimg.cc/SKmHR9r6/Zico-Fla-campeao-Libertadores-19811-e1499259061200.webp", alt: "Zico com a taça da Libertadores de 1981" },
+    { src: "https://i.postimg.cc/Jhb4Vjhj/campeao-1987.webp", alt: "Time do Flamengo campeão em 1987" },
+  ];
+
   return (
     <div className="container mx-auto max-w-4xl py-2 px-4">
       <div className="mb-2">
@@ -43,7 +63,7 @@ export default function HistoriaPage() {
       </div>
       <div className="space-y-8">
         <header className="text-center border-b pb-6 mb-4 overflow-hidden">
-          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-105px]">
+          <div className="relative mx-auto h-[13.2rem] w-[13.2rem] mt-[-90px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
@@ -51,7 +71,7 @@ export default function HistoriaPage() {
                 className="object-contain"
             />
           </div>
-          <div className="mt-[-120px]">
+          <div className="mt-[-80px]">
             <h1 className="text-4xl font-headline font-bold mt-2">{getPageTitle()}</h1>
             <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
           </div>
@@ -109,6 +129,8 @@ export default function HistoriaPage() {
                 Essa geração ficou eternizada como uma das mais vitoriosas da história do futebol brasileiro.
             </p>
           </section>
+
+          <HistoryCarousel images={seculoXXImages} />
 
            <section>
             <h2>🔥 A Maior Torcida do Mundo</h2>
@@ -168,3 +190,5 @@ export default function HistoriaPage() {
     </div>
   );
 }
+
+    
