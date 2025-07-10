@@ -8,7 +8,7 @@ export default function HistoriaPage() {
         <header className="text-center border-b pb-6">
           <div className="relative mx-auto h-40 w-40 mb-4">
             <Image
-                src="https://i.postimg.cc/852x4vT0/image-removebg-preview-7.png"
+                src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
                 fill
                 className="object-contain"
