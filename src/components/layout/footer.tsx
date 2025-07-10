@@ -49,10 +49,10 @@ export function Footer() {
 
       {/* Main Footer Section */}
       <div className="bg-accent text-accent-foreground py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-12">
           
           {/* Logo and Description */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Fla10Logo />
               <span className="font-bold text-xl text-primary-foreground">
@@ -90,16 +90,17 @@ export function Footer() {
               <li><FooterLink href="/videos">Vídeos</FooterLink></li>
               <li><FooterLink href="/colunas">Colunas</FooterLink></li>
             </ul>
-             <div className="mt-6">
-                <FooterSectionTitle>Categorias</FooterSectionTitle>
-                <ul className="space-y-2">
-                    <li><FooterLink href="/futebol">Futebol</FooterLink></li>
-                    <li><FooterLink href="/basquete">Basquete</FooterLink></li>
-                    <li><FooterLink href="/volei">Vôlei</FooterLink></li>
-                    <li><FooterLink href="/e-sports">E-Sports</FooterLink></li>
-                    <li><FooterLink href="/olimpicos">Olímpicos</FooterLink></li>
-                </ul>
-            </div>
+          </div>
+          
+          <div>
+            <FooterSectionTitle>Categorias</FooterSectionTitle>
+             <ul className="space-y-2">
+                <li><FooterLink href="/futebol">Futebol</FooterLink></li>
+                <li><FooterLink href="/basquete">Basquete</FooterLink></li>
+                <li><FooterLink href="/volei">Vôlei</FooterLink></li>
+                <li><FooterLink href="/e-sports">E-Sports</FooterLink></li>
+                <li><FooterLink href="/olimpicos">Olímpicos</FooterLink></li>
+            </ul>
           </div>
           
           <div>
@@ -113,15 +114,6 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <FooterSectionTitle>Contato</FooterSectionTitle>
-            <ul className="space-y-2">
-              <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
-              <li><FooterLink href="/assessoria">Assessoria</FooterLink></li>
-              <li><FooterLink href="/responsabilidade">Responsabilidade</FooterLink></li>
-              <li><FooterLink href="/trabalhe-conosco">Trabalhe Conosco</FooterLink></li>
-            </ul>
-          </div>
         </div>
       </div>
       
