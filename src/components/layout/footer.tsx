@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Fla10Logo } from "@/components/fla10-logo"
@@ -109,7 +110,7 @@ export function Footer() {
               <li><FooterLink href="/historia">História</FooterLink></li>
               <li><FooterLink href="/titulos">Títulos</FooterLink></li>
               <li><FooterLink href="/estadio">Estádio</FooterLink></li>
-              <li><FooterLink href="#">CT</FooterLink></li>
+              <li><FooterLink href="/ct">CT</FooterLink></li>
               <li><FooterLink href="#">Sócio-Torcedor</FooterLink></li>
             </ul>
           </div>
@@ -140,3 +141,5 @@ export function Footer() {
     </footer>
   )
 }
+
+    

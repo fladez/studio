@@ -34,7 +34,7 @@ const clubeLinks = [
   { href: "/historia", label: "História" },
   { href: "/titulos", label: "Títulos" },
   { href: "/estadio", label: "Estádio" },
-  { href: "#", label: "CT" },
+  { href: "/ct", label: "CT" },
   { href: "#", label: "Sócio-Torcedor" },
 ];
 
@@ -182,3 +182,5 @@ export function Header() {
     </header>
   )
 }
+
+    
