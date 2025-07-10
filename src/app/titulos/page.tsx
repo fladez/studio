@@ -145,8 +145,8 @@ export default function TitulosPage() {
             <CardContent className="p-6 divide-y">
                 <TrophyItem 
                     title="Campeonato Carioca"
-                    count={38}
-                    years="1914, 1915, 1920, 1921, 1925, 1927, 1939, 1942, 1943, 1944, 1953, 1954, 1955, 1963, 1965, 1972, 1974, 1978, 1979, 1981, 1986, 1991, 1996, 1999, 2000, 2001, 2004, 2007, 2008, 2009, 2011, 2014, 2017, 2019, 2020, 2021, 2024"
+                    count={39}
+                    years="1914, 1915 (invicto) 1920 (invicto), 1921, 1925, 1927, 1939, 1942, 1943, 1944, 1953, 1954, 1955, 1963, 1965, 1972, 1974, 1978, 1979, 1979 (especial - invicto), 1981, 1986, 1991, 1996 (invicto), 1999, 2000, 2001, 2004, 2007, 2008, 2009, 2011 (invicto), 2014, 2017 (invicto), 2019, 2020, 2021, 2024 (invicto) e 2025."
                 />
                 <TrophyItem 
                     title="Taça Guanabara"
