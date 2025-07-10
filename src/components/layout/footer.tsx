@@ -118,7 +118,7 @@ export function Footer() {
           <div className="col-span-1">
             <FooterSectionTitle>Contato</FooterSectionTitle>
             <ul className="space-y-2">
-              <li><FooterLink href="#">Fale Conosco</FooterLink></li>
+              <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
               <li><FooterLink href="#">Assessoria</FooterLink></li>
               <li><FooterLink href="#">Credenciamento</FooterLink></li>
               <li><FooterLink href="#">Trabalhe Conosco</FooterLink></li>
