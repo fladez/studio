@@ -59,6 +59,7 @@ export async function getNews(count?: number): Promise<NewsArticle[]> {
 export async function getNewsByCategory(category: string): Promise<NewsArticle[]> {
     try {
         const newsCollection = collection(db, 'news');
+        // This is the corrected query
         const q = query(newsCollection, where('mainCategory', '==', category), orderBy('publishedAt', 'desc'));
         
         const snapshot = await getDocs(q);
