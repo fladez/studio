@@ -1,12 +1,19 @@
 
-import { Flame } from "lucide-react";
+import Image from "next/image";
 
 export default function HistoriaPage() {
   return (
     <div className="container mx-auto max-w-4xl py-12 px-4">
       <div className="space-y-8">
         <header className="text-center border-b pb-6">
-          <Flame className="mx-auto h-12 w-12 text-primary mb-4" />
+          <div className="relative mx-auto h-20 w-20 mb-4">
+            <Image
+                src="https://i.postimg.cc/852x4vT0/image-removebg-preview-7.png"
+                alt="Flamengo CRF Logo"
+                fill
+                className="object-contain"
+            />
+          </div>
           <h1 className="text-4xl font-headline font-bold mb-2">História do Clube de Regatas do Flamengo</h1>
           <p className="text-xl text-muted-foreground font-semibold">🔴⚫ O Mais Querido do Brasil</p>
         </header>
