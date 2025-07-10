@@ -1,4 +1,3 @@
-
 import * as React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -74,12 +73,12 @@ function formatViews(views: number): string {
 
 export default async function Home() {
   const allNews = await getNews(10);
-  const allColumns = getColumns();
+  const allColumns = await getColumns(3);
   const allVideos = await getVideos(3);
 
   const mainHeadlines = allNews.slice(0, 3);
   const dailyNews = allNews.slice(3, 9); // Now shows 6 articles
-  const homePageOpinionColumns = allColumns.slice(0, 3);
+  const homePageOpinionColumns = allColumns;
   const homePageVideos = allVideos;
   const latestNews = allNews.length > 0 ? allNews[0] : null;
 

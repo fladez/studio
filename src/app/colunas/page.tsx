@@ -1,6 +1,5 @@
-
 import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getColumns } from "@/data/columns";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
@@ -32,8 +31,8 @@ function formatPublishedTime(publishedAt: Date): string {
 }
 
 
-export default function ColunasPage() {
-    const allColumns = getColumns();
+export default async function ColunasPage() {
+    const allColumns = await getColumns();
 
     return (
         <div className="container mx-auto py-12">

@@ -1,21 +1,24 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
-import { getColumnBySlug, getColumns } from '@/data/columns'
+import { getColumnBySlug, getAllColumnSlugs } from '@/data/columns'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate at most every hour
+
 // This generates the routes at build time
-export function generateStaticParams() {
-  const columns = getColumns();
+export async function generateStaticParams() {
+  const columns = await getAllColumnSlugs();
   return columns.map((column) => ({
     slug: column.slug,
   }));
 }
 
-export default function ColumnPage({ params }: { params: { slug:string } }) {
-  const column = getColumnBySlug(params.slug)
+export default async function ColumnPage({ params }: { params: { slug:string } }) {
+  const column = await getColumnBySlug(params.slug)
 
   if (!column) {
     notFound()

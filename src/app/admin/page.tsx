@@ -14,7 +14,7 @@ import { format } from "date-fns";
 
 export default async function AdminDashboard() {
     const news = await getNews();
-    const columns = getColumns();
+    const columns = await getColumns();
     const videos = await getVideos();
     const userCount = await getUserCount();
 
@@ -27,12 +27,12 @@ export default async function AdminDashboard() {
         .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
         .slice(0, 5)
         .map(item => {
-            if ('excerpt' in item) { // News or Column
+            if ('excerpt' in item && 'content' in item) { // News or Column
                 return {
                     title: item.title,
-                    type: 'content' in item ? 'Coluna' : 'Notícia',
+                    type: 'columnName' in item ? 'Coluna' : 'Notícia',
                     date: item.publishedAt,
-                    slug: 'content' in item ? `/colunas/${item.slug}` : `/noticias/${item.slug}`
+                    slug: 'columnName' in item ? `/colunas/${item.slug}` : `/noticias/${item.slug}`
                 }
             } else { // Video
                  return {
