@@ -26,10 +26,12 @@ export default function EstadioPage() {
   ];
 
   const gasometroImages = [
-    { src: "https://i.postimg.cc/x8xK98Yw/render-estadio-flamengo-gasometro-1.jpg", alt: "Render do projeto do estádio do Flamengo no Gasômetro" },
-    { src: "https://i.postimg.cc/W12Z5Q2K/Estadio-do-Flamengo-no-Gasometro-1200x900-1-1024x768.jpg", alt: "Outra perspectiva do projeto do estádio" },
-    { src: "https://i.postimg.cc/8CHg99wR/images.jpg", alt: "Vista aérea da região do Gasômetro" },
-    { src: "https://i.postimg.cc/HnW2S3Tz/terreno-gasometro-flamengo-1.webp", alt: "Terreno do Gasômetro onde pode ser o estádio" },
+    { src: "https://i.postimg.cc/G2Crw1bX/terreno-gasometro-edital-flamengo-estadio.webp", alt: "Terreno do Gasômetro para o estádio do Flamengo" },
+    { src: "https://i.postimg.cc/XJfjpY2M/Gasometro-960x540.webp", alt: "Vista aérea da área do Gasômetro" },
+    { src: "https://i.postimg.cc/159tVDhv/493146171-screenshot2-22easy-resizecom-610x400.webp", alt: "Render do projeto do estádio do Flamengo" },
+    { src: "https://i.postimg.cc/Gh7cBNjp/Terreno-do-Gasometro-2.webp", alt: "Outra imagem do terreno no Gasômetro" },
+    { src: "https://i.postimg.cc/52rNrGHr/flamengo-assina-acordo-de-colaboracao-com-prefeitura-para-co-jfif-1200x0-q95-crop.jpg", alt: "Flamengo e Prefeitura assinam acordo para estádio" },
+    { src: "https://i.postimg.cc/XqxnkDSQ/novo-estadio-20231121093840.jpg", alt: "Perspectiva do novo estádio do Flamengo" },
   ];
 
   const torcidaImages = [
