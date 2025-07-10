@@ -120,7 +120,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><FooterLink href="/fale-conosco">Fale Conosco</FooterLink></li>
               <li><FooterLink href="/assessoria">Assessoria</FooterLink></li>
-              <li><FooterLink href="#">Responsabilidade</FooterLink></li>
+              <li><FooterLink href="/responsabilidade">Responsabilidade</FooterLink></li>
               <li><FooterLink href="#">Trabalhe Conosco</FooterLink></li>
             </ul>
           </div>
