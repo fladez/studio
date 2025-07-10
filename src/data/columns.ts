@@ -6,6 +6,7 @@ const daysAgo = (days: number): Date => {
 };
 
 export type OpinionColumn = {
+    columnName: string;
     title: string;
     author: string;
     authorImage: string;
@@ -20,6 +21,7 @@ export type OpinionColumn = {
 
 export const opinionColumns: OpinionColumn[] = [
     { 
+        columnName: "A Tática por Zico",
         title: "A tática por trás da vitória", 
         author: "Zico", 
         authorImage: "https://placehold.co/100x100.png",
@@ -32,6 +34,7 @@ export const opinionColumns: OpinionColumn[] = [
         views: 12500,
     },
     { 
+        columnName: "Voz da Torcida",
         title: "O coração da Nação na arquibancada", 
         author: "Ana Torcedora", 
         authorImage: "https://placehold.co/100x100.png",
@@ -44,6 +47,7 @@ export const opinionColumns: OpinionColumn[] = [
         views: 8900,
     },
     { 
+        columnName: "Análise do Maestro",
         title: "Análise: O que esperar do novo reforço?", 
         author: "Júnior", 
         authorImage: "https://placehold.co/100x100.png",
@@ -56,6 +60,7 @@ export const opinionColumns: OpinionColumn[] = [
         views: 11200,
     },
     { 
+        columnName: "Páginas Heroicas",
         title: "Memórias de 81: O dia em que o mundo foi nosso", 
         author: "Adílio", 
         authorImage: "https://placehold.co/100x100.png",
@@ -68,6 +73,7 @@ export const opinionColumns: OpinionColumn[] = [
         views: 18100,
     },
     { 
+        columnName: "Fábrica de Craques",
         title: "A base vem forte: Futuras promessas do Mengão", 
         author: "Olheiro da Gávea", 
         authorImage: "https://placehold.co/100x100.png",
@@ -80,6 +86,7 @@ export const opinionColumns: OpinionColumn[] = [
         views: 13400,
     },
     { 
+        columnName: "Gestão e Finanças",
         title: "A importância da gestão financeira no futebol moderno", 
         author: "Rodrigo Dunshee", 
         authorImage: "https://placehold.co/100x100.png",

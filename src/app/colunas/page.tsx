@@ -48,15 +48,18 @@ export default function ColunasPage() {
                 {allColumns.map((column) => (
                     <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                         <CardHeader>
-                            <div className="flex items-start gap-4">
-                                <Avatar className="h-12 w-12 border-2 border-primary/20">
-                                    <AvatarImage src={column.authorImage} alt={column.author} />
-                                    <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p className="font-bold text-primary">{column.category}</p>
-                                    <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-start gap-4">
+                                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                                        <AvatarImage src={column.authorImage} alt={column.author} />
+                                        <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p className="font-bold text-primary">{column.columnName}</p>
+                                        <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                                    </div>
                                 </div>
+                                <Badge variant="default">{column.category}</Badge>
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-2">
