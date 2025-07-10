@@ -7,13 +7,13 @@ export default function HistoriaPage() {
   const getPageTitle = () => "História do Clube de Regatas do Flamengo";
 
   return (
-    <div className="container mx-auto max-w-4xl py-8 px-4">
-      <div className="mb-4">
+    <div className="container mx-auto max-w-4xl py-2 px-4">
+      <div className="mb-2">
         <AdBanner width={728} height={90} />
       </div>
       <div className="space-y-8">
-        <header className="text-center border-b pb-6 mb-8">
-          <div className="relative mx-auto h-[18.9rem] w-[18.9rem]">
+        <header className="text-center border-b pb-6 mb-4 overflow-hidden">
+          <div className="relative mx-auto h-[18.9rem] w-[18.9rem] mt-[-300px]">
             <Image
                 src="https://i.postimg.cc/RF5TbLnK/image-removebg-preview-8.png"
                 alt="Flamengo CRF Logo"
