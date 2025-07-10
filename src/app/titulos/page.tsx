@@ -155,8 +155,8 @@ export default function TitulosPage() {
                 />
                 <TrophyItem 
                     title="Taça Rio"
-                    count={9}
-                    years="Inclui edições como 1978, 1983, 1991, até 2019"
+                    count={10}
+                    years="1978 (invicto), 1983, 1985 (invicto), 1986, 1991(invicto), 1996 (invicto), 2000, 2009, 2011 (invicto) e 2019."
                 />
             </CardContent>
         </Card>
