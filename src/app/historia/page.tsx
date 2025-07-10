@@ -94,6 +94,7 @@ export default function HistoriaPage() {
     { src: "https://i.postimg.cc/Jn81xtMK/torcida-nac-a-o-rubro-negra-20231102050623.jpg", alt: "Nação Rubro-Negra em 2023" },
     { src: "https://i.postimg.cc/cC4dqjKn/x1080.jpg", alt: "Torcida do Flamengo com bandeirão" },
     { src: "https://i.postimg.cc/NGpg8gV7/age20210221033.jpg", alt: "Torcida do Flamengo comemora título" },
+    { src: "https://i.postimg.cc/XYzMXqrX/image-placeholder-1-aspect-ratio-512-320-180.webp", alt: "Torcida do Flamengo no estádio" },
   ];
 
   const maracanaImages = [
