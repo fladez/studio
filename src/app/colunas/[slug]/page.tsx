@@ -70,7 +70,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             {column.columnName === "É Mengão na veia!!!" && (
                 <div className="relative h-40 w-40 flex-shrink-0">
                     <Image
-                    src="https://i.postimg.cc/YCT3F8nY/Chat-GPT-Image-9-de-jul-de-2025-23-06-12-removebg-preview.png"
+                    src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
                     alt="Ilustração da coluna"
                     fill
                     className="object-contain"
@@ -81,7 +81,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
             {column.columnName === "É Mengão na veia!!!" && (
                 <div className="relative h-40 w-40 flex-shrink-0">
                     <Image
-                    src="https://i.postimg.cc/YCBZF1X4/Chat-GPT-Image-9-de-jul-de-2025-23-25-49-removebg-preview.png"
+                    src="https://i.postimg.cc/YCT3F8nY/Chat-GPT-Image-9-de-jul-de-2025-23-06-12-removebg-preview.png"
                     alt="Ilustração da coluna"
                     fill
                     className="object-contain"
