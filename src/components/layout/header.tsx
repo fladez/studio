@@ -3,7 +3,13 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'
-import { ArrowLeft, Menu, Newspaper, Users, Video } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { ArrowLeft, Menu, Newspaper, Users, Video, Shapes, Shield, ChevronDown } from 'lucide-react'
 import { Fla10Logo } from '@/components/fla10-logo'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
@@ -14,6 +20,22 @@ const navLinks = [
   { href: '/colunas', label: 'Colunas', icon: Users },
   { href: '/videos', label: 'Vídeos', icon: Video },
 ]
+
+const modalidadesLinks = [
+  { href: "#", label: "Futebol" },
+  { href: "#", label: "Basquete" },
+  { href: "#", label: "Vôlei" },
+  { href: "#", label: "Olímpicos" },
+  { href: "#", label: "E-Sports" },
+];
+
+const clubeLinks = [
+  { href: "#", label: "História" },
+  { href: "#", label: "Títulos" },
+  { href: "#", label: "Estádio" },
+  { href: "#", label: "CT" },
+  { href: "#", label: "Sócio-Torcedor" },
+];
 
 export function Header() {
   const pathname = usePathname()
@@ -33,6 +55,31 @@ export function Header() {
     </Link>
   )
 
+  const NavDropdown = ({ label, icon: Icon, links }: { label: string, icon: React.ElementType, links: {href: string, label: string}[] }) => {
+    const isActive = links.some(link => pathname.startsWith(link.href) && link.href !== '#');
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger
+                className={cn(
+                    "group flex items-center gap-2 text-sm font-medium transition-colors outline-none",
+                    isActive ? "text-primary-foreground" : "text-primary-foreground/70 hover:text-primary-foreground"
+                )}
+            >
+                <Icon className="h-4 w-4" />
+                <span>{label}</span>
+                <ChevronDown className="h-4 w-4 relative top-[1px] transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-black/80 backdrop-blur border-white/20 text-primary-foreground">
+                {links.map((link) => (
+                    <DropdownMenuItem key={link.label} asChild>
+                        <Link href={link.href} className="cursor-pointer">{link.label}</Link>
+                    </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/20 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60">
       <div className="container flex h-16 items-center justify-between">
@@ -45,6 +92,8 @@ export function Header() {
           </Link>
           <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
             {navLinks.map(link => <NavLink key={link.href} {...link} />)}
+            <NavDropdown label="Modalidades" icon={Shapes} links={modalidadesLinks} />
+            <NavDropdown label="Clube" icon={Shield} links={clubeLinks} />
           </nav>
         </div>
 
@@ -99,6 +148,26 @@ export function Header() {
                               </Link>
                             </SheetClose>
                           ))}
+                           <div className="mt-2">
+                            <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Modalidades</h4>
+                            {modalidadesLinks.map(link => (
+                                <SheetClose asChild key={link.label}>
+                                    <Link href={link.href} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                                        {link.label}
+                                    </Link>
+                                </SheetClose>
+                            ))}
+                          </div>
+                           <div className="mt-2">
+                            <h4 className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">Clube</h4>
+                            {clubeLinks.map(link => (
+                                <SheetClose asChild key={link.label}>
+                                    <Link href={link.href} className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                                        {link.label}
+                                    </Link>
+                                </SheetClose>
+                            ))}
+                          </div>
                       </nav>
                   </div>
                   <div className="border-t p-4">
