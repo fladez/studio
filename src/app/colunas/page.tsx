@@ -56,15 +56,7 @@ export default function ColunasPage() {
                             </div>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-2">
-                            <CardTitle className="text-xl font-bold font-body leading-tight">
-                                <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
-                                    {column.title}
-                                </Link>
-                            </CardTitle>
-                            <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
-                        </CardContent>
-                        <CardFooter>
-                           <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 mb-2">
                                 <Avatar className="h-10 w-10">
                                 <AvatarImage src={column.authorImage} alt={column.author} />
                                 <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
@@ -73,7 +65,13 @@ export default function ColunasPage() {
                                     <p className="text-sm font-semibold text-foreground">Por {column.author}</p>
                                 </div>
                             </div>
-                        </CardFooter>
+                            <CardTitle className="text-xl font-bold font-body leading-tight">
+                                <Link href={`/colunas/${column.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                                    {column.title}
+                                </Link>
+                            </CardTitle>
+                            <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
+                        </CardContent>
                     </Card>
                 ))}
             </div>
