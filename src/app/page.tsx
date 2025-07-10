@@ -216,18 +216,22 @@ export default async function Home() {
             {homePageOpinionColumns.map((column) => (
               <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
                 <CardHeader>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-start gap-4">
-                            <Avatar className="h-12 w-12 border-2 border-primary/20">
-                                <AvatarImage src={column.authorImage} alt={column.author} />
-                                <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <p className="font-bold text-primary">{column.columnName}</p>
-                                <p className="text-sm text-muted-foreground">Por {column.author}</p>
-                            </div>
-                        </div>
+                    <div className="flex items-center justify-between mb-4">
                         <Badge variant="default">{column.category}</Badge>
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                            <Clock className="h-3 w-3" />
+                            <span>{formatPublishedTime(column.publishedAt)}</span>
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                        <Avatar className="h-12 w-12 border-2 border-primary/20">
+                            <AvatarImage src={column.authorImage} alt={column.author} />
+                            <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <p className="font-bold text-primary">{column.columnName}</p>
+                            <p className="text-sm text-muted-foreground">Por {column.author}</p>
+                        </div>
                     </div>
                 </CardHeader>
                 <CardContent className="flex-grow space-y-2">
@@ -238,12 +242,6 @@ export default async function Home() {
                     </CardTitle>
                     <p className="text-muted-foreground text-sm line-clamp-3">"{column.excerpt}"</p>
                 </CardContent>
-                 <CardFooter className="text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1.5">
-                        <Clock className="h-3 w-3" />
-                        <span>{formatPublishedTime(column.publishedAt)}</span>
-                    </div>
-                </CardFooter>
               </Card>
             ))}
           </div>
