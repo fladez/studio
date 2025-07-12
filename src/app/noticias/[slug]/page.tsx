@@ -59,6 +59,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
+      <div className="mb-8">
+        <AdBanner width={728} height={90} />
+      </div>
       <article>
         <header className="mb-8">
           <div className="flex justify-between items-center mb-4">
@@ -151,6 +154,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </div>
         </section>
       )}
+
+      <div className="mt-12">
+        <AdBanner width={728} height={90} />
+      </div>
     </div>
   )
 }
