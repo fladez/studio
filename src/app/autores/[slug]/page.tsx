@@ -49,6 +49,10 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
 
     return (
         <div className="container mx-auto py-12">
+            <div className="mb-8">
+                <AdBanner width={728} height={90} />
+            </div>
+
             <header className="mb-12">
                 <div className="flex flex-col items-center gap-4">
                     <Avatar className="h-24 w-24 border-4 border-primary/30">
@@ -62,10 +66,6 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
                 </div>
             </header>
             
-            <div className="mb-8">
-                <AdBanner width={728} height={90} />
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {authorColumns.map((column) => (
                     <Card key={column.slug} className="flex flex-col group transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
