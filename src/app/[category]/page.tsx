@@ -21,6 +21,7 @@ const VALID_CATEGORIES: { [key: string]: string } = {
 };
 
 export async function generateStaticParams() {
+  // Returns slugs like: [{ category: 'futebol' }, { category: 'basquete' }, ...]
   return Object.keys(VALID_CATEGORIES).map((slug) => ({
     category: slug,
   }));
@@ -51,12 +52,15 @@ function formatPublishedTime(publishedAt: Date): string {
 }
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
+    // Get the correct category name (e.g., "Futebol") from the URL slug (e.g., "futebol")
     const categoryName = VALID_CATEGORIES[params.category];
 
+    // If the slug is not in our valid list, show a 404 page.
     if (!categoryName) {
         notFound();
     }
 
+    // Fetch news from the database for the correct category.
     const newsInCategory = await getNewsByCategory(categoryName);
 
     return (
