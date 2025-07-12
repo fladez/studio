@@ -1,10 +1,12 @@
+
 "use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -25,8 +27,24 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            router.push('/');
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Check if the user is blocked before allowing login
+            const userDocRef = doc(db, 'users', user.uid);
+            const userDoc = await getDoc(userDocRef);
+
+            if (userDoc.exists() && userDoc.data().isBlocked) {
+                await auth.signOut(); // Sign out the user immediately
+                toast({
+                    title: "Acesso Bloqueado",
+                    description: "Sua conta foi bloqueada por um administrador. Entre em contato com o suporte.",
+                    variant: "destructive",
+                });
+            } else {
+                router.push('/');
+            }
+            
         } catch (e: any) {
             console.error(e);
             let errorMessage = 'Ocorreu um erro ao tentar fazer login.';
@@ -39,6 +57,9 @@ export default function LoginPage() {
                         break;
                     case 'auth/invalid-email':
                         errorMessage = 'O formato do e-mail é inválido.';
+                        break;
+                     case 'auth/too-many-requests':
+                        errorMessage = 'Acesso temporariamente bloqueado devido a muitas tentativas. Tente novamente mais tarde.';
                         break;
                 }
             }

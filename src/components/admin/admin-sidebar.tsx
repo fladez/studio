@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Fla10Logo } from "../fla10-logo";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { LayoutDashboard, CalendarClock, Newspaper, PenSquare, Video, Menu, Home } from "lucide-react";
+import { LayoutDashboard, CalendarClock, Newspaper, PenSquare, Video, Menu, Home, Users } from "lucide-react";
 
 // Updated labels to match page titles for consistency
 const navItems = [
@@ -15,6 +16,7 @@ const navItems = [
   { href: "/admin/materias", label: "Gerenciar Notícias", icon: Newspaper },
   { href: "/admin/colunas", label: "Gerenciar Colunas", icon: PenSquare },
   { href: "/admin/videos", label: "Gerenciar Vídeos", icon: Video },
+  { href: "/admin/inscritos", label: "Gerenciar Inscritos", icon: Users },
 ];
 
 function NavLink({ href, label, icon: Icon }: { href: string; label: string; icon: React.ElementType }) {
