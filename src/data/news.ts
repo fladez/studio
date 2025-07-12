@@ -59,19 +59,21 @@ export async function getNews(count?: number): Promise<NewsArticle[]> {
 
 export async function getNewsByCategory(category: string): Promise<NewsArticle[]> {
     try {
-        const newsCollection = collection(db, 'news');
-        const q = query(newsCollection, where('mainCategory', '==', category), orderBy('publishedAt', 'desc'));
-        
-        const snapshot = await getDocs(q);
-        if (snapshot.empty) {
+        const allNews = await getNews();
+        if (!allNews.length) {
             return [];
         }
-        return snapshot.docs.map(fromFirestore);
+        // Filter in JS to avoid case-sensitivity issues and ensure robust matching
+        const filteredNews = allNews.filter(
+            (news) => news.mainCategory.toLowerCase() === category.toLowerCase()
+        );
+        return filteredNews;
     } catch (error) {
         console.error(`Error fetching news for category ${category}:`, error);
         return [];
     }
 }
+
 
 export async function getNewsById(id: string): Promise<NewsArticle | null> {
     try {
