@@ -111,8 +111,8 @@ export default function InscritosPage() {
               </TableHeader>
               <TableBody>
                 {userList.map((user) => {
-                  const isSuperAdmin = user.email ? SUPERADMIN_EMAILS.includes(user.email) : false;
-                  const canBeModified = currentUserProfile?.role === 'superadmin' && !isSuperAdmin;
+                  const isSuperAdminByEmail = user.email ? SUPERADMIN_EMAILS.includes(user.email) : false;
+                  const canBeModified = currentUserProfile?.role === 'superadmin' && !isSuperAdminByEmail;
 
                   return (
                     <TableRow key={user.id} className={user.isBlocked ? 'bg-muted/50' : ''}>
@@ -122,7 +122,7 @@ export default function InscritosPage() {
                       </TableCell>
                       <TableCell>{user.email}</TableCell>
                       <TableCell>
-                        <Badge variant={getRoleBadgeVariant(user.role)}>{user.role}</Badge>
+                        <Badge variant={getRoleBadgeVariant(user.role)}>{isSuperAdminByEmail ? 'Super-Admin' : user.role}</Badge>
                       </TableCell>
                       <TableCell>
                         {user.createdAt ? format(user.createdAt, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}
