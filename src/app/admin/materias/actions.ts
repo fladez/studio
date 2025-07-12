@@ -63,17 +63,17 @@ export async function createNewsArticle(prevState: any, formData: FormData) {
 
     await addDoc(collection(db, "news"), dataToSave);
 
+    revalidatePath("/admin/materias");
     revalidatePath("/");
     revalidatePath("/noticias");
     revalidatePath(`/noticias/${slug}`);
+
+    return { success: true, message: "Notícia criada com sucesso!" };
 
   } catch (error) {
     console.error("Error creating news article:", error);
     return { success: false, message: "Ocorreu um erro no servidor. Tente novamente." };
   }
-
-  // This will be returned to the client and handled in useEffect
-  return { success: true, message: "Notícia criada com sucesso!" };
 }
 
 export async function updateNewsArticle(id: string, slug: string, prevState: any, formData: FormData) {
