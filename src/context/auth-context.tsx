@@ -3,7 +3,7 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
 // Hardcoded superadmins
@@ -35,22 +35,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      setLoading(true);
       if (user) {
         const userDocRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(userDocRef);
         if (docSnap.exists() && docSnap.data().isBlocked) {
-          await auth.signOut(); // Force sign out if blocked
-          setUser(null);
-          setUserProfile(null);
-          setLoading(false); // Ensure loading is set to false after signing out blocked user
+          const isSuperAdmin = user.email && SUPERADMIN_EMAILS.includes(user.email);
+          if (!isSuperAdmin) {
+             await auth.signOut();
+             setUser(null);
+             setUserProfile(null);
+          } else {
+             setUser(user);
+          }
         } else {
           setUser(user);
         }
       } else {
         setUser(null);
         setUserProfile(null);
-        setLoading(false); // Ensure loading is set to false if there is no user
       }
+      // Moved loading to a more central place in the second useEffect
     });
 
     return () => unsubscribeAuth();
@@ -58,49 +63,64 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (user) {
-        const userDocRef = doc(db, 'users', user.uid);
-        const unsubscribeSnapshot = onSnapshot(userDocRef, (docSnap) => {
-            if (docSnap.exists()) {
-                const profileData = docSnap.data();
+      const userDocRef = doc(db, 'users', user.uid);
+      
+      const handleSuperAdmin = async () => {
+        const docSnap = await getDoc(userDocRef);
+        if (!docSnap.exists()) {
+          // If superadmin logs in but has no user doc, create one.
+          await setDoc(userDocRef, {
+              email: user.email,
+              role: 'superadmin',
+              createdAt: serverTimestamp(),
+              isBlocked: false,
+          });
+        } else if (docSnap.data().role !== 'superadmin') {
+          // Ensure DB role is also superadmin
+          await setDoc(userDocRef, { role: 'superadmin' }, { merge: true });
+        }
+      };
+      
+      const isSuperAdmin = user.email && SUPERADMIN_EMAILS.includes(user.email);
+      if (isSuperAdmin) {
+        handleSuperAdmin();
+      }
 
-                // Override role if user is a superadmin
-                const isSuperAdmin = user.email && SUPERADMIN_EMAILS.includes(user.email);
-                const effectiveRole = isSuperAdmin ? 'superadmin' : profileData.role || 'user';
-                
-                const profile: UserProfile = {
-                    email: profileData.email || null,
-                    role: effectiveRole,
-                    firstName: profileData.firstName || '',
-                    lastName: profileData.lastName || '',
-                    username: profileData.username || '',
-                    photoURL: profileData.photoURL || null,
-                    dob: profileData.dob || null,
-                    isBlocked: profileData.isBlocked || false,
-                };
-                
-                if (profile.isBlocked && !isSuperAdmin) { // Superadmins cannot be blocked
-                    auth.signOut();
-                } else {
-                    setUserProfile(profile);
-
-                    // If a superadmin's role in DB is not 'superadmin', update it.
-                    if (isSuperAdmin && profileData.role !== 'superadmin') {
-                       setDoc(userDocRef, { role: 'superadmin' }, { merge: true });
-                    }
-                }
-            } else {
-                setUserProfile(null);
-            }
-            setLoading(false);
-        }, (error) => {
-            console.error("Error fetching user profile:", error);
+      const unsubscribeSnapshot = onSnapshot(userDocRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const profileData = docSnap.data();
+          const effectiveRole = (user.email && SUPERADMIN_EMAILS.includes(user.email)) ? 'superadmin' : profileData.role || 'user';
+          
+          if (profileData.isBlocked && effectiveRole !== 'superadmin') {
+            auth.signOut();
             setUserProfile(null);
-            setLoading(false);
-        });
-        
-        return () => unsubscribeSnapshot();
+            setUser(null);
+          } else {
+            setUserProfile({
+              email: profileData.email || null,
+              role: effectiveRole,
+              firstName: profileData.firstName || '',
+              lastName: profileData.lastName || '',
+              username: profileData.username || '',
+              photoURL: profileData.photoURL || null,
+              dob: profileData.dob || null,
+              isBlocked: profileData.isBlocked || false,
+            });
+          }
+        } else {
+          // If doc doesn't exist for a normal user, they might be new.
+          setUserProfile(null);
+        }
+        setLoading(false);
+      }, (error) => {
+        console.error("Error fetching user profile:", error);
+        setUserProfile(null);
+        setLoading(false);
+      });
+      
+      return () => unsubscribeSnapshot();
     } else {
-       setLoading(false);
+      setLoading(false);
     }
   }, [user]);
 
