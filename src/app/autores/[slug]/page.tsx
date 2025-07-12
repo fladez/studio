@@ -120,6 +120,9 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
                     <p>Nenhuma coluna encontrada para este autor.</p>
                 </div>
             )}
+            <div className="mt-12">
+                <AdBanner width={728} height={90} />
+            </div>
         </div>
     );
 }
