@@ -97,19 +97,14 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
               <AvatarImage src={column.authorImage} alt={column.author} />
               <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
-            <div className="text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                    <p className="font-bold text-base text-foreground">Por {column.author}</p>
-                    {column.authorLink && (
-                        <>
-                            <span className="text-muted-foreground/50">&bull;</span>
-                            <a href={column.authorLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-colors">
-                                @{column.author.toLowerCase().replace(/\s+/g, '')}
-                            </a>
-                        </>
-                    )}
-                </div>
-              <p>{columnDate}</p>
+            <div className="text-sm">
+                <p className="font-bold text-base text-foreground">Por {column.author}</p>
+                {column.authorLink && (
+                    <a href={column.authorLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-colors text-muted-foreground">
+                        @{column.author.toLowerCase().replace(/\s+/g, '')}
+                    </a>
+                )}
+              <p className="text-muted-foreground">{columnDate}</p>
             </div>
           </div>
         </header>
