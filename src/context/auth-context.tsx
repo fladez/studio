@@ -3,10 +3,11 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
-const ADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
+// Hardcoded superadmins
+const SUPERADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
 
 interface UserProfile {
   email: string | null;
@@ -57,12 +58,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (user) {
         const userDocRef = doc(db, 'users', user.uid);
-        const unsubscribeSnapshot = onSnapshot(userDocRef, (doc) => {
-            if (doc.exists()) {
-                const profileData = doc.data();
+        const unsubscribeSnapshot = onSnapshot(userDocRef, (docSnap) => {
+            if (docSnap.exists()) {
+                const profileData = docSnap.data();
+
+                // Override role if user is a superadmin
+                const isSuperAdmin = user.email && SUPERADMIN_EMAILS.includes(user.email);
+                const effectiveRole = isSuperAdmin ? 'superadmin' : profileData.role || 'user';
+                
                 const profile: UserProfile = {
                     email: profileData.email || null,
-                    role: profileData.role || 'user',
+                    role: effectiveRole,
                     firstName: profileData.firstName || '',
                     lastName: profileData.lastName || '',
                     username: profileData.username || '',
@@ -70,15 +76,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                     dob: profileData.dob || null,
                     isBlocked: profileData.isBlocked || false,
                 };
-
-                if (user.email && ADMIN_EMAILS.includes(user.email)) {
-                    profile.role = 'superadmin'; // Superadmin has full control
-                }
                 
-                if (profile.isBlocked) {
+                if (profile.isBlocked && !isSuperAdmin) { // Superadmins cannot be blocked
                     auth.signOut();
                 } else {
                     setUserProfile(profile);
+
+                    // If a superadmin's role in DB is not 'superadmin', update it.
+                    if (isSuperAdmin && profileData.role !== 'superadmin') {
+                       setDoc(userDocRef, { role: 'superadmin' }, { merge: true });
+                    }
                 }
             } else {
                 setUserProfile(null);

@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from 'next/link';
+import { useAuth } from "@/hooks/use-auth";
 import { getUsers, type UserProfile } from "@/data/users";
 import { updateUserRole, toggleUserBlockStatus } from "./actions";
 
@@ -20,8 +20,11 @@ import { Loader2, UserCog, Ban } from "lucide-react";
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+const SUPERADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
+
 export default function InscritosPage() {
   const { toast } = useToast();
+  const { userProfile: currentUserProfile } = useAuth();
   const [userList, setUserList] = useState<UserProfile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -107,76 +110,84 @@ export default function InscritosPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {userList.map((user) => (
-                  <TableRow key={user.id} className={user.isBlocked ? 'bg-muted/50' : ''}>
-                    <TableCell className="font-medium max-w-xs truncate">
-                      {user.firstName || user.username || 'Não definido'}
-                      {user.isBlocked && <Badge variant="destructive" className="ml-2">Bloqueado</Badge>}
-                    </TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>
-                      <Badge variant={getRoleBadgeVariant(user.role)}>{user.role}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      {user.createdAt ? format(user.createdAt, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}
-                    </TableCell>
-                    <TableCell className="text-right space-x-2">
-                        <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button variant="ghost" size="icon" title="Gerenciar Perfil">
-                                    <UserCog className="h-4 w-4" />
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Alterar Perfil de {user.firstName || user.email}</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                    Selecione o novo perfil para este usuário.
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <Select onValueChange={(value: 'user' | 'admin' | 'superadmin') => handleRoleChange(user.id, value)} defaultValue={user.role}>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Selecione um perfil" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="user">Usuário</SelectItem>
-                                        <SelectItem value="admin">Administrador Comum</SelectItem>
-                                        <SelectItem value="superadmin">Administrador Total</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Fechar</AlertDialogCancel>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
+                {userList.map((user) => {
+                  const isSuperAdmin = user.email ? SUPERADMIN_EMAILS.includes(user.email) : false;
+                  const canBeModified = currentUserProfile?.role === 'superadmin' && !isSuperAdmin;
 
-                        <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                 <Button variant="ghost" size="icon" title={user.isBlocked ? "Desbloquear Usuário" : "Bloquear Usuário"}>
-                                    <Ban className={`h-4 w-4 ${user.isBlocked ? 'text-green-500' : 'text-destructive'}`} />
-                                </Button>
-                            </AlertDialogTrigger>
-                             <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Confirmar {user.isBlocked ? "Desbloqueio" : "Bloqueio"}</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        Você tem certeza que deseja {user.isBlocked ? "desbloquear" : "bloquear"} este usuário? {user.isBlocked ? 'Ele poderá fazer login novamente.' : 'Ele não poderá mais fazer login.'}
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                    <AlertDialogAction 
-                                        className={!user.isBlocked ? "bg-destructive hover:bg-destructive/90" : ""}
-                                        onClick={() => handleBlockToggle(user.id, user.isBlocked || false)}
-                                    >
-                                        {user.isBlocked ? "Desbloquear" : "Bloquear"}
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                  return (
+                    <TableRow key={user.id} className={user.isBlocked ? 'bg-muted/50' : ''}>
+                      <TableCell className="font-medium max-w-xs truncate">
+                        {user.firstName || user.username || 'Não definido'}
+                        {user.isBlocked && <Badge variant="destructive" className="ml-2">Bloqueado</Badge>}
+                      </TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Badge variant={getRoleBadgeVariant(user.role)}>{user.role}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        {user.createdAt ? format(user.createdAt, "dd/MM/yyyy", { locale: ptBR }) : 'N/A'}
+                      </TableCell>
+                      <TableCell className="text-right space-x-2">
+                          <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                  <Button variant="ghost" size="icon" title="Gerenciar Perfil" disabled={!canBeModified}>
+                                      <UserCog className="h-4 w-4" />
+                                  </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                      <AlertDialogTitle>Alterar Perfil de {user.firstName || user.email}</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                      Selecione o novo perfil para este usuário.
+                                      </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <Select onValueChange={(value: 'user' | 'admin' | 'superadmin') => handleRoleChange(user.id, value)} defaultValue={user.role}>
+                                      <SelectTrigger>
+                                          <SelectValue placeholder="Selecione um perfil" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                          <SelectItem value="user">Usuário</SelectItem>
+                                          <SelectItem value="admin">Administrador</SelectItem>
+                                          {/* Apenas superadmins podem criar outros superadmins */}
+                                          {currentUserProfile?.role === 'superadmin' && (
+                                              <SelectItem value="superadmin">Super-Admin</SelectItem>
+                                          )}
+                                      </SelectContent>
+                                  </Select>
+                                  <AlertDialogFooter>
+                                      <AlertDialogCancel>Fechar</AlertDialogCancel>
+                                  </AlertDialogFooter>
+                              </AlertDialogContent>
+                          </AlertDialog>
+
+                          <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                  <Button variant="ghost" size="icon" title={user.isBlocked ? "Desbloquear Usuário" : "Bloquear Usuário"} disabled={!canBeModified}>
+                                      <Ban className={`h-4 w-4 ${user.isBlocked ? 'text-green-500' : 'text-destructive'}`} />
+                                  </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                      <AlertDialogTitle>Confirmar {user.isBlocked ? "Desbloqueio" : "Bloqueio"}</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                          Você tem certeza que deseja {user.isBlocked ? "desbloquear" : "bloquear"} este usuário? {user.isBlocked ? 'Ele poderá fazer login novamente.' : 'Ele não poderá mais fazer login.'}
+                                      </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                      <AlertDialogAction 
+                                          className={!user.isBlocked ? "bg-destructive hover:bg-destructive/90" : ""}
+                                          onClick={() => handleBlockToggle(user.id, user.isBlocked || false)}
+                                      >
+                                          {user.isBlocked ? "Desbloquear" : "Bloquear"}
+                                      </AlertDialogAction>
+                                  </AlertDialogFooter>
+                              </AlertDialogContent>
+                          </AlertDialog>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           ) : (
