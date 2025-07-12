@@ -107,6 +107,9 @@ export default async function CategoryPage({ params }: { params: { category: str
                 ))}
                 </div>
             )}
+             <div className="mt-12">
+                <AdBanner width={728} height={90} />
+            </div>
         </div>
     )
 }
