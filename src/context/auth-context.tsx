@@ -42,18 +42,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           await auth.signOut(); // Force sign out if blocked
           setUser(null);
           setUserProfile(null);
+          setLoading(false); // Ensure loading is set to false after signing out blocked user
         } else {
           setUser(user);
         }
       } else {
         setUser(null);
         setUserProfile(null);
+        setLoading(false); // Ensure loading is set to false if there is no user
       }
-      if (loading) setLoading(false);
     });
 
     return () => unsubscribeAuth();
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
     if (user) {
