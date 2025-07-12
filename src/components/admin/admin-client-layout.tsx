@@ -12,13 +12,13 @@ export function AdminClientLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!loading) {
-      if (!user || userProfile?.role !== 'admin') {
+      if (!user || !userProfile || (userProfile.role !== 'admin' && userProfile.role !== 'superadmin')) {
         router.push('/login');
       }
     }
   }, [user, userProfile, loading, router]);
 
-  if (loading || !user || userProfile?.role !== 'admin') {
+  if (loading || !user || !userProfile || (userProfile.role !== 'admin' && userProfile.role !== 'superadmin')) {
     return (
       <div className="flex h-screen items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />
