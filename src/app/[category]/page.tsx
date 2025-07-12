@@ -51,7 +51,7 @@ function formatPublishedTime(publishedAt: Date): string {
 }
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-    const categoryName = VALID_CATEGORIES[params.category.toLowerCase()];
+    const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
         notFound();
