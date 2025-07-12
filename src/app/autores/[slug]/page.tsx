@@ -9,6 +9,7 @@ import { Clock, User } from "lucide-react";
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AdBanner } from '@/components/ad-banner';
+import { Separator } from '@/components/ui/separator';
 
 export async function generateStaticParams() {
     const authors = await getAllAuthorSlugs();
@@ -65,20 +66,23 @@ export default async function AuthorPage({ params }: { params: { slug: string } 
                     <p className="text-lg text-muted-foreground">Colunista no FLA10 News</p>
                     
                     {authorDetails.author === 'Hélio Pacheco' && (
-                        <div className="text-base text-foreground/80 max-w-2xl mt-2 space-y-2 text-justify">
-                           <p>
-                                Hélio Pacheco é graduado em Administração de Empresas, 1994 e Comunicação Social - Jornalismo, 1999, pela Universidade Gama Filho (UGF).
-                            </p>
+                        <>
+                            <div className="text-base text-foreground/80 max-w-2xl mt-2 space-y-2 text-justify">
                             <p>
-                                Concluiu o 1° curso de Jornalismo Esportivo da Fundação Mudes, comandado pelo Jornalista Paulo Júlio Clemant, em 2001, na época de O Globo.
-                            </p>
-                            <p>
-                                Foi Assessor de Imprensa da FBERJ (Federação de Basquete do RJ) de 1999 a 2006, Locutor do Evento Tim de Música e Esportes de Praia (2004/2005), Produtor e Coordenador do Programa Momento Esportivo da Rádio Brasil 940 AM, em 2001 e colaborador do Blog Puro Esporte de 2001 a 2007.
-                            </p>
-                            <p>
-                                Desde 2024 comanda o projeto Canal Office Sports e Office Fla e se junta novamente como colaborador do Blog FLA Dez News.
-                            </p>
-                        </div>
+                                    Hélio Pacheco é graduado em Administração de Empresas, 1994 e Comunicação Social - Jornalismo, 1999, pela Universidade Gama Filho (UGF).
+                                </p>
+                                <p>
+                                    Concluiu o 1° curso de Jornalismo Esportivo da Fundação Mudes, comandado pelo Jornalista Paulo Júlio Clemant, em 2001, na época de O Globo.
+                                </p>
+                                <p>
+                                    Foi Assessor de Imprensa da FBERJ (Federação de Basquete do RJ) de 1999 a 2006, Locutor do Evento Tim de Música e Esportes de Praia (2004/2005), Produtor e Coordenador do Programa Momento Esportivo da Rádio Brasil 940 AM, em 2001 e colaborador do Blog Puro Esporte de 2001 a 2007.
+                                </p>
+                                <p>
+                                    Desde 2024 comanda o projeto Canal Office Sports e Office Fla e se junta novamente como colaborador do Blog FLA Dez News.
+                                </p>
+                            </div>
+                             <Separator className="bg-primary w-1/2 mx-auto my-6" />
+                        </>
                     )}
                 </div>
             </header>
