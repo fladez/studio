@@ -3,7 +3,7 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
 const SUPERADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
@@ -53,62 +53,64 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     setLoading(true);
     const userDocRef = doc(db, 'users', user.uid);
-    const isSuperAdminByEmail = !!user.email && SUPERADMIN_EMAILS.includes(user.email);
-
+    
     const unsubscribeSnapshot = onSnapshot(userDocRef, async (docSnap) => {
-      if (isSuperAdminByEmail) {
-        // If the user is a superadmin by email, we ensure their document exists and has the correct role.
-        if (!docSnap.exists() || docSnap.data()?.role !== 'superadmin') {
-          const newSuperAdminProfile = {
-            email: user.email,
-            role: 'superadmin',
-            createdAt: serverTimestamp(),
-            isBlocked: false,
-            firstName: '',
-            lastName: '',
-            username: '',
-            photoURL: null,
-            dob: null,
-          };
-          await setDoc(userDocRef, newSuperAdminProfile, { merge: true });
-          // Set the profile immediately instead of waiting for the next snapshot
-          setUserProfile({
-            ...newSuperAdminProfile,
-            id: user.uid,
-            createdAt: new Date(), // Approximate creation time for local state
-          });
-          setLoading(false);
-          return; // Skip further processing for this snapshot
-        }
-      }
+      const isSuperAdminByEmail = !!user.email && SUPERADMIN_EMAILS.includes(user.email);
       
-      if (docSnap.exists()) {
-        const profileData = docSnap.data();
+      let finalProfile: UserProfile | null = null;
 
-        // A superadmin should never be blocked from logging in.
-        if (profileData.isBlocked && !isSuperAdminByEmail) {
-          auth.signOut();
+      if (docSnap.exists()) {
+        const dbProfile = docSnap.data();
+
+        // If user is blocked and NOT a superadmin, sign out.
+        if (dbProfile.isBlocked && !isSuperAdminByEmail) {
+          await auth.signOut();
           setUser(null);
           setUserProfile(null);
-        } else {
-          setUserProfile({
-            id: docSnap.id,
-            email: profileData.email || null,
-            role: isSuperAdminByEmail ? 'superadmin' : profileData.role || 'user',
-            firstName: profileData.firstName || '',
-            lastName: profileData.lastName || '',
-            username: profileData.username || '',
-            photoURL: profileData.photoURL || null,
-            dob: profileData.dob || null,
-            createdAt: profileData.createdAt || null,
-            isBlocked: profileData.isBlocked || false,
-          });
+          setLoading(false);
+          return;
         }
-      } else {
-        // Doc doesn't exist for a regular user, or it was just created for a superadmin
-        if(!isSuperAdminByEmail) setUserProfile(null);
+
+        // Construct the profile from DB data
+        finalProfile = {
+          id: docSnap.id,
+          email: dbProfile.email || null,
+          role: dbProfile.role || 'user',
+          firstName: dbProfile.firstName || '',
+          lastName: dbProfile.lastName || '',
+          username: dbProfile.username || '',
+          photoURL: dbProfile.photoURL || null,
+          dob: dbProfile.dob || null,
+          createdAt: dbProfile.createdAt || null,
+          isBlocked: dbProfile.isBlocked || false,
+        };
+
+        // If they are a superadmin by email, override the role and ensure DB is consistent.
+        if (isSuperAdminByEmail) {
+          finalProfile.role = 'superadmin';
+          if (dbProfile.role !== 'superadmin') {
+            await updateDoc(userDocRef, { role: 'superadmin' });
+          }
+        }
+        
+      } else if (isSuperAdminByEmail) {
+        // Doc doesn't exist, but user is a superadmin. Create the document.
+        const newSuperAdminProfile = {
+          email: user.email,
+          role: 'superadmin' as const,
+          createdAt: serverTimestamp(),
+          isBlocked: false,
+          firstName: user.email.split('@')[0], // Default name
+          lastName: '',
+          username: user.email.split('@')[0],
+          photoURL: null,
+          dob: null,
+        };
+        await setDoc(userDocRef, newSuperAdminProfile);
+        finalProfile = { ...newSuperAdminProfile, id: user.uid, createdAt: new Date() };
       }
       
+      setUserProfile(finalProfile);
       setLoading(false);
 
     }, (error) => {
