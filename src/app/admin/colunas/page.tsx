@@ -136,6 +136,10 @@ export default function ColunasPage() {
                 </div>
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="authorLink">Link do Autor (Opcional)</Label>
+              <Input id="authorLink" name="authorLink" type="url" placeholder="https://twitter.com/autor" />
+            </div>
+            <div className="grid gap-2">
               <Label htmlFor="title">Título do Artigo</Label>
               <Input id="title" name="title" placeholder="Um título chamativo para a coluna de hoje" required />
             </div>

@@ -135,6 +135,10 @@ export default function EditColunasPage() {
                 </div>
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="authorLink">Link do Autor (Opcional)</Label>
+              <Input id="authorLink" name="authorLink" type="url" defaultValue={column.authorLink || ''} />
+            </div>
+            <div className="grid gap-2">
               <Label htmlFor="title">Título do Artigo</Label>
               <Input id="title" name="title" defaultValue={column.title} required />
             </div>
