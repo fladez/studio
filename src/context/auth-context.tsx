@@ -3,10 +3,9 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc, onSnapshot, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
-// Hardcoded superadmins
 const SUPERADMIN_EMAILS = ['canalfladez@gmail.com', 'rcorreas@gmail.com'];
 
 interface UserProfile {
@@ -18,6 +17,7 @@ interface UserProfile {
   username: string;
   photoURL: string | null;
   dob: any;
+  createdAt: any;
   isBlocked?: boolean;
 }
 
@@ -51,26 +51,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
+    setLoading(true);
     const userDocRef = doc(db, 'users', user.uid);
     const isSuperAdminByEmail = !!user.email && SUPERADMIN_EMAILS.includes(user.email);
 
     const unsubscribeSnapshot = onSnapshot(userDocRef, async (docSnap) => {
       if (isSuperAdminByEmail) {
+        // If the user is a superadmin by email, we ensure their document exists and has the correct role.
         if (!docSnap.exists() || docSnap.data()?.role !== 'superadmin') {
-          // Ensure superadmin doc exists and has the correct role
-          await setDoc(userDocRef, { 
-            email: user.email, 
+          const newSuperAdminProfile = {
+            email: user.email,
             role: 'superadmin',
             createdAt: serverTimestamp(),
             isBlocked: false,
-          }, { merge: true });
+            firstName: '',
+            lastName: '',
+            username: '',
+            photoURL: null,
+            dob: null,
+          };
+          await setDoc(userDocRef, newSuperAdminProfile, { merge: true });
+          // Set the profile immediately instead of waiting for the next snapshot
+          setUserProfile({
+            ...newSuperAdminProfile,
+            id: user.uid,
+            createdAt: new Date(), // Approximate creation time for local state
+          });
+          setLoading(false);
+          return; // Skip further processing for this snapshot
         }
       }
-
+      
       if (docSnap.exists()) {
         const profileData = docSnap.data();
-        
-        // Final check: a superadmin should never be blocked from logging in.
+
+        // A superadmin should never be blocked from logging in.
         if (profileData.isBlocked && !isSuperAdminByEmail) {
           auth.signOut();
           setUser(null);
@@ -79,22 +94,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUserProfile({
             id: docSnap.id,
             email: profileData.email || null,
-            // The role is always superadmin if their email matches, otherwise from DB.
             role: isSuperAdminByEmail ? 'superadmin' : profileData.role || 'user',
             firstName: profileData.firstName || '',
             lastName: profileData.lastName || '',
             username: profileData.username || '',
             photoURL: profileData.photoURL || null,
             dob: profileData.dob || null,
+            createdAt: profileData.createdAt || null,
             isBlocked: profileData.isBlocked || false,
           });
         }
-      } else if (!isSuperAdminByEmail) {
-        // Doc doesn't exist for a regular user
-         setUserProfile(null);
+      } else {
+        // Doc doesn't exist for a regular user, or it was just created for a superadmin
+        if(!isSuperAdminByEmail) setUserProfile(null);
       }
       
       setLoading(false);
+
     }, (error) => {
       console.error("Error fetching user profile:", error);
       setUserProfile(null);
