@@ -57,19 +57,6 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
   const otherColumns = allColumns.filter(c => c.id !== column.id).slice(0, 2);
   const columnDate = format(column.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
 
-  const AuthorInfo = () => (
-    <div className="flex items-center justify-start gap-4 mt-4">
-      <Avatar className="h-16 w-16">
-        <AvatarImage src={column.authorImage} alt={column.author} />
-        <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-      </Avatar>
-      <div className="text-sm text-muted-foreground">
-        <p className="font-bold text-base text-foreground">Por {column.author}</p>
-        <span>{columnDate}</span>
-      </div>
-    </div>
-  );
-
   return (
     <div className="container mx-auto max-w-4xl py-12">
       <div className="mb-8">
@@ -105,13 +92,26 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
           </div>
           <Separator className="my-4" />
           <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight">{column.title}</h1>
-           {column.authorLink ? (
-            <a href={column.authorLink} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80">
-              <AuthorInfo />
-            </a>
-          ) : (
-            <AuthorInfo />
-          )}
+          <div className="flex items-center justify-start gap-4 mt-4">
+            <Avatar className="h-16 w-16">
+              <AvatarImage src={column.authorImage} alt={column.author} />
+              <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="text-sm text-muted-foreground">
+              <p className="font-bold text-base text-foreground">Por {column.author}</p>
+              <div className="flex items-center gap-2">
+                <span>{columnDate}</span>
+                {column.authorLink && (
+                  <>
+                    <span className="text-muted-foreground/50">&bull;</span>
+                    <a href={column.authorLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-colors">
+                      @{column.author.toLowerCase().replace(/\s+/g, '')}
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
         </header>
         
         {column.content && (
