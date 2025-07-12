@@ -14,6 +14,16 @@ import { Clock } from 'lucide-react'
 
 export const revalidate = 3600; // Revalidate at most every hour
 
+// Helper function to generate slugs
+function generateSlug(name: string): string {
+    return name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '');
+}
+
 // This generates the routes at build time
 export async function generateStaticParams() {
   const columns = await getAllColumnSlugs();
@@ -56,6 +66,7 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
   
   const otherColumns = allColumns.filter(c => c.id !== column.id).slice(0, 2);
   const columnDate = format(column.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
+  const authorSlug = generateSlug(column.author);
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
@@ -93,12 +104,18 @@ export default async function ColumnPage({ params }: { params: { slug:string } }
           <Separator className="my-4" />
           <h1 className="font-headline text-3xl md:text-4xl font-bold leading-tight">{column.title}</h1>
           <div className="flex items-center justify-start gap-4 mt-4">
-            <Avatar className="h-16 w-16">
-              <AvatarImage src={column.authorImage} alt={column.author} />
-              <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
-            </Avatar>
+            <Link href={`/autores/${authorSlug}`}>
+              <Avatar className="h-16 w-16">
+                <AvatarImage src={column.authorImage} alt={column.author} />
+                <AvatarFallback>{column.author.slice(0, 2).toUpperCase()}</AvatarFallback>
+              </Avatar>
+            </Link>
             <div className="text-sm">
-                <p className="font-bold text-base text-foreground">Por {column.author}</p>
+                <p className="font-bold text-base text-foreground">
+                    <Link href={`/autores/${authorSlug}`} className="hover:text-primary transition-colors">
+                        Por {column.author}
+                    </Link>
+                </p>
                 {column.authorLink && (
                     <a href={column.authorLink} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-colors text-muted-foreground">
                         @{column.author.toLowerCase().replace(/\s+/g, '')}

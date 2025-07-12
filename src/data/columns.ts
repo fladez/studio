@@ -17,6 +17,16 @@ export type OpinionColumn = {
     views: number;
 };
 
+// Helper function to generate slugs
+function generateSlug(name: string): string {
+    return name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '');
+}
+
 const fromFirestore = (doc: any): OpinionColumn => {
     const data = doc.data();
     return {
@@ -53,6 +63,35 @@ export async function getColumns(count?: number): Promise<OpinionColumn[]> {
         return [];
     }
 }
+
+export async function getColumnsByAuthorSlug(authorSlug: string): Promise<OpinionColumn[]> {
+    try {
+        const allColumns = await getColumns();
+        const authorColumns = allColumns.filter(column => generateSlug(column.author) === authorSlug);
+        return authorColumns;
+    } catch (error) {
+        console.error(`Error fetching columns for author slug ${authorSlug}:`, error);
+        return [];
+    }
+}
+
+export async function getAuthorDetailsBySlug(authorSlug: string): Promise<{ author: string; authorImage: string } | null> {
+    try {
+        const allColumns = await getColumns();
+        const authorColumn = allColumns.find(column => generateSlug(column.author) === authorSlug);
+        if (authorColumn) {
+            return {
+                author: authorColumn.author,
+                authorImage: authorColumn.authorImage,
+            };
+        }
+        return null;
+    } catch (error) {
+        console.error(`Error fetching author details for slug ${authorSlug}:`, error);
+        return null;
+    }
+}
+
 
 export async function getColumnById(id: string): Promise<OpinionColumn | null> {
     try {
@@ -95,6 +134,20 @@ export async function getAllColumnSlugs(): Promise<{ slug: string }[]> {
         return snapshot.docs.map(doc => ({ slug: doc.data().slug as string })).filter(item => item.slug);
     } catch (error) {
         console.error("Error fetching all column slugs:", error);
+        return [];
+    }
+}
+
+export async function getAllAuthorSlugs(): Promise<{ slug: string }[]> {
+    try {
+        const snapshot = await getDocs(collection(db, 'columns'));
+        if (snapshot.empty) {
+            return [];
+        }
+        const authors = new Set(snapshot.docs.map(doc => doc.data().author as string));
+        return Array.from(authors).map(author => ({ slug: generateSlug(author) }));
+    } catch (error) {
+        console.error("Error fetching all author slugs:", error);
         return [];
     }
 }
