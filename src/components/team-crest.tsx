@@ -23,6 +23,7 @@ const teamCrests: Record<string, string> = {
   "Red Bull Bragantino": "https://i.imgur.com/v7ZxAlE.png",
   "Athletico-PR": "https://i.imgur.com/aQ3Qp9n.png",
   "Atlético-GO": "https://i.imgur.com/wV1RWSn.png",
+  "Santos": "https://i.postimg.cc/PrS7QGkR/Escudo-do-Santos-Futebol-Clube.png",
 };
 
 
