@@ -57,37 +57,25 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   const articleDate = format(article.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
   
-  // Logic to insert ad banner in the middle of the content
-  const contentParts = article.content?.split('</p>') || [];
-  const paragraphCount = contentParts.filter(part => part.trim().startsWith('<p')).length;
-  let contentWithAd: React.ReactNode = null;
+  let contentWithAd = article.content || "";
 
   if (article.content) {
-    if (paragraphCount > 10) {
-        const midPoint = Math.floor(paragraphCount / 2);
-        let paragraphsProcessed = 0;
-        const contentArray: React.ReactNode[] = [];
-        
-        contentParts.forEach((part, index) => {
-            if (part.trim()) {
-                const htmlPart = part + (index < contentParts.length - 1 ? '</p>' : '');
-                contentArray.push(<div key={`part-${index}`} dangerouslySetInnerHTML={{ __html: htmlPart }} />);
-                
-                if (part.trim().startsWith('<p')) {
-                    paragraphsProcessed++;
-                    if (paragraphsProcessed === midPoint) {
-                        contentArray.push(
-                            <div key="ad-banner-mid" className="my-8">
-                                <AdBanner width={300} height={250} />
-                            </div>
-                        );
-                    }
-                }
-            }
-        });
-        contentWithAd = <>{contentArray}</>;
-    } else {
-        contentWithAd = <div dangerouslySetInnerHTML={{ __html: article.content }} />;
+    // A robust way to split by paragraph tags, ignoring case.
+    const paragraphs = article.content.split(/<\/p>/i).filter(p => p.trim() !== '');
+    if (paragraphs.length > 10) {
+      const midPoint = Math.floor(paragraphs.length / 2);
+      // Reconstruct the HTML with the ad banner injected.
+      // This is safer than trying to inject a React component into dangerouslySetInnerHTML.
+      const adHtml = `
+        <div class="my-8 mx-auto flex items-center justify-center rounded-lg border border-dashed bg-muted/30 text-center text-muted-foreground" style="width: 300px; height: 250px;">
+          <div>
+            <p class="text-sm font-medium">Publicidade</p>
+            <p class="text-xs">300x250</p>
+          </div>
+        </div>
+      `;
+      paragraphs.splice(midPoint, 0, adHtml);
+      contentWithAd = paragraphs.map(p => p.includes('<div') ? p : p + '</p>').join('');
     }
   }
 
@@ -128,9 +116,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         </div>
 
         {contentWithAd && (
-          <div className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold">
-            {contentWithAd}
-          </div>
+          <div 
+            className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
+            dangerouslySetInnerHTML={{ __html: contentWithAd }}
+          />
         )}
 
         {article.fullArticleLink && (
