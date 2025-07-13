@@ -29,7 +29,7 @@ function formatPublishedTime(publishedAt: Date): string {
       return format(publishedAt, 'dd/MM/yyyy');
     }
     if (diffDays >= 1) {
-      return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+      return `${diffDays > 1 ? 's' : ''} atrás`;
     }
   
     const diffHours = differenceInHours(now, publishedAt);
@@ -56,6 +56,41 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   }
 
   const articleDate = format(article.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
+  
+  // Logic to insert ad banner in the middle of the content
+  const contentParts = article.content?.split('</p>') || [];
+  const paragraphCount = contentParts.filter(part => part.trim().startsWith('<p')).length;
+  let contentWithAd: React.ReactNode = null;
+
+  if (article.content) {
+    if (paragraphCount > 10) {
+        const midPoint = Math.floor(paragraphCount / 2);
+        let paragraphsProcessed = 0;
+        const contentArray: React.ReactNode[] = [];
+        
+        contentParts.forEach((part, index) => {
+            if (part.trim()) {
+                const htmlPart = part + (index < contentParts.length - 1 ? '</p>' : '');
+                contentArray.push(<div key={`part-${index}`} dangerouslySetInnerHTML={{ __html: htmlPart }} />);
+                
+                if (part.trim().startsWith('<p')) {
+                    paragraphsProcessed++;
+                    if (paragraphsProcessed === midPoint) {
+                        contentArray.push(
+                            <div key="ad-banner-mid" className="my-8">
+                                <AdBanner width={300} height={250} />
+                            </div>
+                        );
+                    }
+                }
+            }
+        });
+        contentWithAd = <>{contentArray}</>;
+    } else {
+        contentWithAd = <div dangerouslySetInnerHTML={{ __html: article.content }} />;
+    }
+  }
+
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
@@ -92,11 +127,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         )}
         </div>
 
-        {article.content && (
-          <div 
-            className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+        {contentWithAd && (
+          <div className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold">
+            {contentWithAd}
+          </div>
         )}
 
         {article.fullArticleLink && (
