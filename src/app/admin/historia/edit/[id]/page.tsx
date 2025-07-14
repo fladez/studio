@@ -134,13 +134,27 @@ export default function EditHistoriaPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                <div className="grid gap-2">
-                  <Label htmlFor="image">Link da Foto</Label>
+                  <Label htmlFor="image">Link da Foto Principal</Label>
                   <Input id="image" name="image" type="url" defaultValue={article.image} required />
               </div>
                <div className="grid gap-2">
-                  <Label htmlFor="videoUrl">Link do Vídeo (Opcional)</Label>
-                  <Input id="videoUrl" name="videoUrl" type="url" defaultValue={article.videoUrl || ''} />
+                  <Label htmlFor="imageCredit1">Crédito da Foto Principal</Label>
+                  <Input id="imageCredit1" name="imageCredit1" type="text" defaultValue={article.imageCredit1 || ''} />
               </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="grid gap-2">
+                  <Label htmlFor="image2">Link da Foto Secundária (Opcional)</Label>
+                  <Input id="image2" name="image2" type="url" defaultValue={article.image2 || ''} />
+              </div>
+               <div className="grid gap-2">
+                  <Label htmlFor="imageCredit2">Crédito da Foto Secundária</Label>
+                  <Input id="imageCredit2" name="imageCredit2" type="text" defaultValue={article.imageCredit2 || ''} />
+              </div>
+            </div>
+             <div className="grid gap-2">
+                <Label htmlFor="videoUrl">Link do Vídeo (Opcional)</Label>
+                <Input id="videoUrl" name="videoUrl" type="url" defaultValue={article.videoUrl || ''} />
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="content">Matéria Completa</Label>

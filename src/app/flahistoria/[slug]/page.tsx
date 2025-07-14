@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getHistoryArticleBySlug, getHistoryArticles, getAllHistorySlugs } from '@/data/history'
+import { getHistoryArticleBySlug, getHistoryArticles } from '@/data/history'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AdBanner } from '@/components/ad-banner'
@@ -11,19 +11,16 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 
 export const revalidate = 3600; // Revalidate at most every hour
 
-export async function generateStaticParams() {
-  const slugs = await getAllHistorySlugs();
-  return slugs.map((item) => ({
-    slug: item.slug,
-  }));
-}
-
-
 function getYouTubeId(url: string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
     return (match && match[2].length === 11) ? match[2] : null;
 }
+
+const parseContent = (content: string): string[] => {
+    // Splits content by </p> tags and filters out empty strings.
+    return content.split(/<\/p>/i).map(p => p.trim()).filter(p => p.length > 0);
+};
 
 export default async function HistoryArticlePage({ params }: { params: { slug: string } }) {
   const article = await getHistoryArticleBySlug(params.slug)
@@ -37,9 +34,11 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
   const articleDate = format(article.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
   const videoId = article.videoUrl ? getYouTubeId(article.videoUrl) : null;
   
-  const contentParts = article.content ? article.content.split('<h3>Domínio Absoluto</h3>') : [];
-  const beforeContent = contentParts[0];
-  const afterContent = contentParts.length > 1 ? `<h3>Domínio Absoluto</h3>${contentParts[1]}` : '';
+  const paragraphs = article.content ? parseContent(article.content) : [];
+  const midPoint = Math.floor(paragraphs.length / 2);
+  const firstHalf = paragraphs.slice(0, midPoint).map(p => p.includes('<p') ? p : `<p>${p}`).join('</p>') + (paragraphs.length > 0 ? '</p>' : '');
+  const secondHalf = paragraphs.slice(midPoint).map(p => p.includes('<p') ? p : `<p>${p}`).join('</p>') + (paragraphs.length > midPoint ? '</p>' : '');
+
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
@@ -79,26 +78,42 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
             data-ai-hint={article.dataAiHint}
             priority
           />
+           {article.imageCredit1 && (
+            <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                Imagem: {article.imageCredit1}
+            </span>
+          )}
         </div>
         
         <div className="prose prose-lg max-w-none text-foreground/90 text-justify space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold">
-          {contentParts.length > 1 && article.contentImage ? (
-            <>
-              <div dangerouslySetInnerHTML={{ __html: beforeContent }} />
-              <div className="relative my-6 aspect-video">
-                <Image
-                  src={article.contentImage}
-                  alt="Zico, Adílio e Nunes comemoram gol contra o Liverpool"
-                  fill
-                  className="w-full h-auto object-cover rounded-lg"
-                  data-ai-hint="zico adilio nunes"
-                />
-              </div>
-              <div dangerouslySetInnerHTML={{ __html: afterContent }} />
-            </>
-          ) : (
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
-          )}
+           {article.content && (
+              <>
+                <div dangerouslySetInnerHTML={{ __html: firstHalf }} />
+
+                {article.image2 && (
+                    <div className="my-8 space-y-2">
+                        <div className="relative aspect-video">
+                            <Image
+                                src={article.image2}
+                                alt={`Imagem secundária para ${article.title}`}
+                                fill
+                                className="w-full h-auto object-cover rounded-lg"
+                            />
+                            {article.imageCredit2 && (
+                                <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                                    Imagem: {article.imageCredit2}
+                                </span>
+                            )}
+                        </div>
+                         <div className="mt-4">
+                            <AdBanner width={300} height={250} />
+                        </div>
+                    </div>
+                )}
+
+                <div dangerouslySetInnerHTML={{ __html: secondHalf }} />
+              </>
+            )}
         </div>
 
         {videoId && (

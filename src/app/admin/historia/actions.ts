@@ -11,6 +11,9 @@ const HistorySchema = z.object({
   subtitle: z.string().min(10, { message: "O subtítulo deve ter pelo menos 10 caracteres." }),
   author: z.string().min(3, { message: "O nome do autor é obrigatório." }),
   image: z.string().url({ message: "Por favor, insira um link de imagem válido." }),
+  imageCredit1: z.string().optional(),
+  image2: z.string().url({ message: "O link da imagem 2 deve ser uma URL válida." }).optional().or(z.literal('')),
+  imageCredit2: z.string().optional(),
   videoUrl: z.string().url({ message: "Por favor, insira um link de vídeo válido." }).optional().or(z.literal('')),
   content: z.string().min(50, { message: "A matéria deve ter pelo menos 50 caracteres." }),
   dataAiHint: z.string().optional(),
@@ -31,6 +34,9 @@ export async function createHistoryArticle(prevState: any, formData: FormData) {
     subtitle: formData.get("subtitle"),
     author: formData.get("author"),
     image: formData.get("image"),
+    imageCredit1: formData.get("imageCredit1"),
+    image2: formData.get("image2"),
+    imageCredit2: formData.get("imageCredit2"),
     videoUrl: formData.get("videoUrl"),
     content: formData.get("content"),
     dataAiHint: formData.get("dataAiHint"),
@@ -55,6 +61,7 @@ export async function createHistoryArticle(prevState: any, formData: FormData) {
 
     revalidatePath("/admin/historia");
     revalidatePath("/");
+    revalidatePath("/flahistoria");
 
     return { success: true, message: "Artigo histórico criado com sucesso!" };
   } catch (error) {
@@ -69,6 +76,9 @@ export async function updateHistoryArticle(id: string, prevState: any, formData:
     subtitle: formData.get("subtitle"),
     author: formData.get("author"),
     image: formData.get("image"),
+    imageCredit1: formData.get("imageCredit1"),
+    image2: formData.get("image2"),
+    imageCredit2: formData.get("imageCredit2"),
     videoUrl: formData.get("videoUrl"),
     content: formData.get("content"),
     dataAiHint: formData.get("dataAiHint"),
@@ -88,6 +98,8 @@ export async function updateHistoryArticle(id: string, prevState: any, formData:
 
     revalidatePath("/admin/historia");
     revalidatePath("/");
+    revalidatePath("/flahistoria");
+
 
     return { success: true, message: "Artigo histórico atualizado com sucesso!" };
   } catch (error) {
@@ -107,6 +119,7 @@ export async function deleteHistoryArticle(id: string) {
 
     revalidatePath("/admin/historia");
     revalidatePath("/");
+    revalidatePath("/flahistoria");
     
     return { success: true, message: "Artigo histórico deletado com sucesso!" };
   } catch (error) {
