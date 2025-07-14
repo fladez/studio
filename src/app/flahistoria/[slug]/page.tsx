@@ -9,15 +9,7 @@ import { AdBanner } from '@/components/ad-banner'
 import { Clock, PlayCircle, Trophy } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
-// This generates the routes at build time - Keeping it commented out for dynamic rendering
-/*
-export async function generateStaticParams() {
-  const slugs = await getAllHistorySlugs();
-  return slugs.map((item) => ({
-    slug: item.slug,
-  }));
-}
-*/
+export const revalidate = 3600; // Revalidate at most every hour
 
 function getYouTubeId(url: string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -36,6 +28,10 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
   const otherArticles = allArticles.filter(a => a.slug !== article.slug).slice(0, 3);
   const articleDate = format(article.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
   const videoId = article.videoUrl ? getYouTubeId(article.videoUrl) : null;
+  
+  const contentParts = article.content ? article.content.split('<h3>Domínio Absoluto</h3>') : [];
+  const beforeContent = contentParts[0];
+  const afterContent = contentParts.length > 1 ? `<h3>Domínio Absoluto</h3>${contentParts[1]}` : '';
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
@@ -77,12 +73,27 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
           />
         </div>
         
-        {article.content && (
-          <div 
-            className="prose prose-lg max-w-none text-foreground/90 text-justify space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-        )}
+        <div className="prose prose-lg max-w-none text-foreground/90 text-justify space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold">
+          {contentParts.length > 1 ? (
+            <>
+              <div dangerouslySetInnerHTML={{ __html: beforeContent }} />
+              {article.contentImage && (
+                <div className="relative my-6 aspect-video">
+                  <Image
+                    src={article.contentImage}
+                    alt="Zico, Adílio e Nunes comemoram gol contra o Liverpool"
+                    fill
+                    className="w-full h-auto object-cover rounded-lg"
+                    data-ai-hint="zico adilio nunes"
+                  />
+                </div>
+              )}
+              <div dangerouslySetInnerHTML={{ __html: afterContent }} />
+            </>
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          )}
+        </div>
 
         {videoId && (
             <div className="mt-12">
