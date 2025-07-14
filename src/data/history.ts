@@ -1,6 +1,6 @@
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, orderBy, limit, Timestamp, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy, limit, Timestamp, doc, getDoc } from 'firebase/firestore';
 
 export type HistoryArticle = {
     id: string; // Firestore document ID
@@ -63,5 +63,33 @@ export async function getHistoryArticleById(id: string): Promise<HistoryArticle 
     } catch (error) {
         console.error(`Error fetching history article by id ${id}:`, error);
         return null;
+    }
+}
+
+export async function getHistoryArticleBySlug(slug: string): Promise<HistoryArticle | null> {
+    try {
+        const q = query(collection(db, "history"), where("slug", "==", slug), limit(1));
+        const snapshot = await getDocs(q);
+
+        if (snapshot.empty) {
+            return null;
+        }
+        return fromFirestore(snapshot.docs[0]);
+    } catch (error) {
+        console.error(`Error fetching history article by slug ${slug}:`, error);
+        return null;
+    }
+}
+
+export async function getAllHistorySlugs(): Promise<{ slug: string }[]> {
+    try {
+        const snapshot = await getDocs(collection(db, 'history'));
+        if (snapshot.empty) {
+            return [];
+        }
+        return snapshot.docs.map(doc => ({ slug: doc.data().slug as string })).filter(item => item.slug);
+    } catch (error) {
+        console.error("Error fetching all history slugs:", error);
+        return [];
     }
 }

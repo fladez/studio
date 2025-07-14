@@ -1,7 +1,53 @@
 
 import Image from "next/image";
+import Link from "next/link";
 import { AdBanner } from "@/components/ad-banner";
 import { HistoryCarousel } from "@/components/home/history-carousel";
+import { getHistoryArticles } from "@/data/history";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Clock } from "lucide-react";
+import { format } from "date-fns";
+
+async function ArticleList() {
+    const articles = await getHistoryArticles();
+
+    if (articles.length === 0) {
+        return null;
+    }
+
+    return (
+        <section className="mt-16 pt-12 border-t">
+            <h2 className="font-headline text-3xl font-bold mb-8 text-primary">Artigos Históricos</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {articles.map((article) => (
+                    <Card key={article.slug} className="flex flex-col group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                        <Link href={`/historia/${article.slug}`}>
+                            <CardHeader className="p-0 relative">
+                                <Image src={article.image} alt={article.title} width={600} height={400} className="rounded-t-lg object-cover aspect-[3/2] transition-transform duration-300 group-hover:scale-105" data-ai-hint={article.dataAiHint} />
+                            </CardHeader>
+                        </Link>
+                        <CardContent className="flex-grow p-4 space-y-2">
+                            <CardTitle className="text-lg font-bold font-body leading-tight">
+                                <Link href={`/historia/${article.slug}`} className="hover:text-[#FF073A] transition-colors duration-200">
+                                    {article.title}
+                                </Link>
+                            </CardTitle>
+                            <p className="text-sm text-muted-foreground line-clamp-3">{article.subtitle}</p>
+                        </CardContent>
+                        <CardFooter className="p-4 pt-0 text-xs text-muted-foreground flex justify-between items-center">
+                            <div className="flex items-center gap-1.5">
+                                <Clock className="h-3 w-3" />
+                                <span>{format(article.publishedAt, 'dd/MM/yyyy')}</span>
+                            </div>
+                            <span>Por {article.author}</span>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </section>
+    );
+}
+
 
 export default function HistoriaPage() {
   const getPageTitle = () => "História do Clube de Regatas do Flamengo";
@@ -220,6 +266,8 @@ export default function HistoriaPage() {
             Mais do que um clube de futebol, o Flamengo é parte da cultura popular brasileira. Ele está presente nas músicas, nas ruas, nas bandeiras, nas favelas e nos corações. É sinônimo de paixão, raça e amor incondicional.
           </p>
         </section>
+
+         <ArticleList />
         
          <footer className="text-center pt-8 border-t">
               <p className="font-headline text-2xl font-bold text-foreground">📣 Viva a História. Viva o Flamengo.</p>
