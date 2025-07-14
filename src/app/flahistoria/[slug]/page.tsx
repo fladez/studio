@@ -5,9 +5,7 @@ import { getHistoryArticleBySlug, getAllHistorySlugs } from '@/data/history'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AdBanner } from '@/components/ad-banner'
-import { Clock, PlayCircle } from 'lucide-react'
-
-export const revalidate = 3600;
+import { Clock, PlayCircle, Trophy } from 'lucide-react'
 
 // This generates the routes at build time
 export async function generateStaticParams() {
@@ -38,6 +36,17 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
       <div className="mb-8">
         <AdBanner width={728} height={90} />
       </div>
+
+       <div className="mb-8 border-b border-primary/40 pb-4">
+            <div className="flex items-center gap-3">
+                <Trophy className="h-8 w-8 text-primary flex-shrink-0" />
+                <div>
+                    <h2 className="text-3xl font-headline font-bold">Flamengo na História</h2>
+                    <p className="text-lg text-muted-foreground mt-1">Relembre os momentos que marcaram nossa trajetória.</p>
+                </div>
+            </div>
+        </div>
+
       <article>
         <header className="mb-8">
           <h1 className="font-headline text-4xl md:text-5xl font-bold leading-tight mb-2">{article.title}</h1>
