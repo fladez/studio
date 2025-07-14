@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock, User, Eye, PlayCircle } from 'lucide-react'
+import { ArrowRight, Users, Video, Newspaper, TrendingUp, Clock, User, Eye, PlayCircle, Trophy } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { AdBanner } from '@/components/ad-banner'
 import { SofascoreWidget } from '@/components/sofascore-widget'
@@ -24,7 +24,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return format(publishedAt, 'dd/MM/yyyy');
   }
   if (diffDays >= 1) {
-    return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+    return `${diffDays > 1 ? 's' : ''} atrás`;
   }
 
   const diffHours = differenceInHours(now, publishedAt);
@@ -243,6 +243,31 @@ export default async function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </section>
+
+        <section>
+          <SectionHeader title="Flamengo na História" subtitle="Relembre os momentos que marcaram a trajetória do Mengão." href="/historia" icon={Trophy} />
+          <div className="flex justify-center">
+            <Card className="w-full max-w-2xl group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+              <Link href="/historia">
+                <CardHeader className="p-0 relative">
+                  <Image src="https://placehold.co/700x400.png" alt="Mundial de 1981" width={700} height={400} className="w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105" data-ai-hint="historic photo" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <Badge variant="secondary" className="absolute top-3 right-3">Memória</Badge>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <CardTitle className="text-2xl font-bold font-body leading-tight mb-2 group-hover:text-[#FF073A] transition-colors duration-200">
+                    Mundial de 1981: O Dia em que o Mundo se Curvou ao Flamengo
+                  </CardTitle>
+                  <p className="text-base text-muted-foreground mb-4">Relembre a vitória épica por 3 a 0 sobre o Liverpool que consagrou a geração de Zico.</p>
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    <span>{formatPublishedTime(new Date('1981-12-13T12:00:00Z'))}</span>
+                  </div>
+                </CardContent>
+              </Link>
+            </Card>
           </div>
         </section>
         
