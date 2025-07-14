@@ -254,7 +254,7 @@ export default async function Home() {
                 <CardHeader className="p-0 relative">
                   <Image src="https://placehold.co/700x400.png" alt="Mundial de 1981" width={700} height={400} className="w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105" data-ai-hint="historic photo" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <Badge variant="secondary" className="absolute top-3 right-3">Memória</Badge>
+                  <Badge variant="default" className="absolute top-3 left-3">Memória</Badge>
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle className="text-2xl font-bold font-body leading-tight mb-2 group-hover:text-[#FF073A] transition-colors duration-200">
