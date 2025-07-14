@@ -188,6 +188,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={historyImages} autoplay={true} />
         </section>
+
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
         
         <section>
           <h2>⚽ A Chegada do Futebol</h2>
@@ -199,6 +203,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={footballImages} autoplay={true} />
         </section>
+        
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
 
         <section>
           <h2>🏆 As Primeiras Glórias</h2>
@@ -207,6 +215,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={primeirasGloriasImages} autoplay={true} />
         </section>
+        
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
         
         <section>
           <h2>🌎 O Flamengo no Século XX</h2>
@@ -226,6 +238,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={seculoXXImages} autoplay={true} />
         </section>
+        
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
 
         <section>
           <h2>🔥 A Maior Torcida do Mundo</h2>
@@ -234,6 +250,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={torcidaImages} autoplay={true} />
         </section>
+        
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
         
         <section>
           <h2>⚽ A Nova Era: Glórias Recentes</h2>
@@ -252,6 +272,10 @@ export default function HistoriaPage() {
           <HistoryCarousel images={novaEraImages} autoplay={true} />
         </section>
         
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
+        
          <section>
           <h2>🏟️ Maracanã: A Casa do Flamengo</h2>
           <p>
@@ -259,6 +283,10 @@ export default function HistoriaPage() {
           </p>
           <HistoryCarousel images={maracanaImages} autoplay={true} />
         </section>
+        
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
 
         <section>
           <h2>❤️ Flamengo é Religião</h2>
