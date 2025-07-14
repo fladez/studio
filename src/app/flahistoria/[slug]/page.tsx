@@ -47,7 +47,7 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
             <div className="flex flex-col items-center gap-4">
                 <Trophy className="h-12 w-12 text-primary" />
                 <div>
-                    <h2 className="text-4xl font-headline font-bold">Flamengo na História</h2>
+                    <h2 className="text-5xl font-headline font-bold">Flamengo na História</h2>
                     <p className="text-lg text-muted-foreground mt-1">Relembre os momentos que marcaram nossa trajetória.</p>
                 </div>
             </div>
@@ -86,7 +86,6 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
 
         {videoId && (
             <div className="mt-12">
-                <h2 className="text-3xl font-headline font-bold mb-4">Vídeo Relacionado</h2>
                  <div className="relative aspect-video bg-black rounded-lg">
                     <iframe
                         src={`https://www.youtube.com/embed/${videoId}`}
