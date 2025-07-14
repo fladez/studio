@@ -1,20 +1,13 @@
 
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { getHistoryArticleBySlug, getAllHistorySlugs } from '@/data/history'
+import { getHistoryArticleBySlug } from '@/data/history'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AdBanner } from '@/components/ad-banner'
 import { Clock, PlayCircle } from 'lucide-react'
 
 export const revalidate = 3600;
-
-export async function generateStaticParams() {
-  const slugs = await getAllHistorySlugs();
-  return slugs.map((item) => ({
-    slug: item.slug,
-  }));
-}
 
 function getYouTubeId(url: string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
