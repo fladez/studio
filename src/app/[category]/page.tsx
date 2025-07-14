@@ -19,6 +19,11 @@ const VALID_CATEGORIES: { [key: string]: string } = {
   'olimpicos': 'Olímpicos'
 };
 
+type PageProps = {
+  params: { category: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export async function generateStaticParams() {
   return Object.keys(VALID_CATEGORIES).map((slug) => ({
     category: slug,
@@ -49,7 +54,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: PageProps) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
