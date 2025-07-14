@@ -37,11 +37,11 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
         <AdBanner width={728} height={90} />
       </div>
 
-       <div className="mb-8 border-b border-primary/40 pb-4">
-            <div className="flex items-center gap-3">
-                <Trophy className="h-8 w-8 text-primary flex-shrink-0" />
+       <div className="mb-12 border-b border-primary/40 pb-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+                <Trophy className="h-12 w-12 text-primary" />
                 <div>
-                    <h2 className="text-3xl font-headline font-bold">Flamengo na História</h2>
+                    <h2 className="text-4xl font-headline font-bold">Flamengo na História</h2>
                     <p className="text-lg text-muted-foreground mt-1">Relembre os momentos que marcaram nossa trajetória.</p>
                 </div>
             </div>
