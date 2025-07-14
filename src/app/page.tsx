@@ -11,6 +11,7 @@ import { SofascoreWidget } from '@/components/sofascore-widget'
 import { getNews } from '@/data/news'
 import { getColumns } from '@/data/columns'
 import { getVideos } from '@/data/videos'
+import { getHistoryArticles } from '@/data/history'
 import { MainCarousel } from '@/components/home/main-carousel'
 import { ActiveReaders } from '@/components/home/active-readers'
 import { format, differenceInMinutes, differenceInHours, differenceInDays } from 'date-fns'
@@ -76,12 +77,14 @@ export default async function Home() {
   const allNews = await getNews(10);
   const allColumns = await getColumns(3);
   const allVideos = await getVideos(3);
+  const historicArticles = await getHistoryArticles(1);
 
   const mainHeadlines = allNews.slice(0, 3);
   const dailyNews = allNews.slice(3, 9); // Now shows 6 articles
   const homePageOpinionColumns = allColumns;
   const homePageVideos = allVideos;
   const latestNews = allNews.length > 0 ? allNews[0] : null;
+  const featuredHistoricArticle = historicArticles.length > 0 ? historicArticles[0] : null;
 
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -247,30 +250,32 @@ export default async function Home() {
           </div>
         </section>
 
-        <section>
-          <SectionHeader title="Flamengo na História" subtitle="Relembre os momentos que marcaram a trajetória do Mengão." href="/historia" icon={Trophy} />
-          <div className="flex justify-center">
-            <Card className="w-full max-w-2xl group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
-              <Link href="/flahistoria/mundial-de-1981-o-dia-em-que-o-mundo-se-curvou-ao-flamengo">
-                <CardHeader className="p-0 relative">
-                  <Image src="https://placehold.co/700x400.png" alt="Mundial de 1981" width={700} height={400} className="w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105" data-ai-hint="historic photo" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <Badge variant="default" className="absolute top-3 left-3">Memória</Badge>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle className="text-2xl font-bold font-body leading-tight mb-2 group-hover:text-[#FF073A] transition-colors duration-200">
-                    Mundial de 1981: O Dia em que o Mundo se Curvou ao Flamengo
-                  </CardTitle>
-                  <p className="text-base text-muted-foreground mb-4">Relembre a vitória épica por 3 a 0 sobre o Liverpool que consagrou a geração de Zico.</p>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <Clock className="h-3 w-3" />
-                    <span>{formatPublishedTime(new Date('1981-12-13T12:00:00Z'))}</span>
-                  </div>
-                </CardContent>
-              </Link>
-            </Card>
-          </div>
-        </section>
+        {featuredHistoricArticle && (
+            <section>
+                <SectionHeader title="Flamengo na História" subtitle="Relembre os momentos que marcaram a trajetória do Mengão." href="/historia" icon={Trophy} />
+                <div className="flex justify-center">
+                    <Card className="w-full max-w-2xl group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
+                        <Link href={`/flahistoria/${featuredHistoricArticle.slug}`}>
+                            <CardHeader className="p-0 relative">
+                                <Image src={featuredHistoricArticle.image} alt={featuredHistoricArticle.title} width={700} height={400} className="w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105" data-ai-hint={featuredHistoricArticle.dataAiHint} />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                <Badge variant="default" className="absolute top-3 left-3">Memória</Badge>
+                            </CardHeader>
+                            <CardContent className="p-6">
+                                <CardTitle className="text-2xl font-bold font-body leading-tight mb-2 group-hover:text-[#FF073A] transition-colors duration-200">
+                                    {featuredHistoricArticle.title}
+                                </CardTitle>
+                                <p className="text-base text-muted-foreground mb-4">{featuredHistoricArticle.subtitle}</p>
+                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                    <Clock className="h-3 w-3" />
+                                    <span>{format(new Date(featuredHistoricArticle.publishedAt), "dd 'de' MMMM 'de' yyyy")}</span>
+                                </div>
+                            </CardContent>
+                        </Link>
+                    </Card>
+                </div>
+            </section>
+        )}
         
         <AdBanner width={728} height={90} />
 
