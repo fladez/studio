@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getHistoryArticleBySlug, getHistoryArticles } from '@/data/history'
+import { getHistoryArticleBySlug, getHistoryArticles, getAllHistorySlugs } from '@/data/history'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AdBanner } from '@/components/ad-banner'
@@ -10,6 +10,14 @@ import { Clock, PlayCircle, Trophy } from 'lucide-react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
 export const revalidate = 3600; // Revalidate at most every hour
+
+export async function generateStaticParams() {
+  const slugs = await getAllHistorySlugs();
+  return slugs.map((item) => ({
+    slug: item.slug,
+  }));
+}
+
 
 function getYouTubeId(url: string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -74,20 +82,18 @@ export default async function HistoryArticlePage({ params }: { params: { slug: s
         </div>
         
         <div className="prose prose-lg max-w-none text-foreground/90 text-justify space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold">
-          {contentParts.length > 1 ? (
+          {contentParts.length > 1 && article.contentImage ? (
             <>
               <div dangerouslySetInnerHTML={{ __html: beforeContent }} />
-              {article.contentImage && (
-                <div className="relative my-6 aspect-video">
-                  <Image
-                    src={article.contentImage}
-                    alt="Zico, Adílio e Nunes comemoram gol contra o Liverpool"
-                    fill
-                    className="w-full h-auto object-cover rounded-lg"
-                    data-ai-hint="zico adilio nunes"
-                  />
-                </div>
-              )}
+              <div className="relative my-6 aspect-video">
+                <Image
+                  src={article.contentImage}
+                  alt="Zico, Adílio e Nunes comemoram gol contra o Liverpool"
+                  fill
+                  className="w-full h-auto object-cover rounded-lg"
+                  data-ai-hint="zico adilio nunes"
+                />
+              </div>
               <div dangerouslySetInnerHTML={{ __html: afterContent }} />
             </>
           ) : (

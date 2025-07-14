@@ -26,7 +26,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return format(publishedAt, 'dd/MM/yyyy');
   }
   if (diffDays >= 1) {
-    return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+    return `${diffDays > 1 ? 's' : ''} atrás`;
   }
 
   const diffHours = differenceInHours(now, publishedAt);
@@ -82,7 +82,7 @@ export function MainCarousel({ headlines }: { headlines: NewsArticle[] }) {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {headlines.map((item, index) => (
+        {headlines.map((item: NewsArticle, index: number) => (
           <CarouselItem key={index}>
             <Link href={`/noticias/${item.slug}`}>
               <div className="relative aspect-video">
