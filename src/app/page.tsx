@@ -251,7 +251,7 @@ export default async function Home() {
           <SectionHeader title="Flamengo na História" subtitle="Relembre os momentos que marcaram a trajetória do Mengão." href="/historia" icon={Trophy} />
           <div className="flex justify-center">
             <Card className="w-full max-w-2xl group overflow-hidden transition-all duration-300 hover:shadow-primary-lg hover:-translate-y-1">
-              <Link href="/historia/mundial-de-1981-o-dia-em-que-o-mundo-se-curvou-ao-flamengo">
+              <Link href="/flahistoria/mundial-de-1981-o-dia-em-que-o-mundo-se-curvou-ao-flamengo">
                 <CardHeader className="p-0 relative">
                   <Image src="https://placehold.co/700x400.png" alt="Mundial de 1981" width={700} height={400} className="w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105" data-ai-hint="historic photo" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
