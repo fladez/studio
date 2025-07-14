@@ -4,33 +4,29 @@ Este é um projeto Next.js criado e editado no Firebase Studio.
 
 ## Onde está o meu projeto?
 
-**O seu projeto já está no seu computador!** O Firebase Studio edita os arquivos diretamente na sua máquina. Para encontrar a pasta do projeto, o jeito mais fácil é olhar no terminal que você usou para iniciar o servidor.
+**O seu projeto já está no seu computador!** O Firebase Studio edita os arquivos diretamente na sua máquina. A maneira mais fácil de encontrar a pasta do projeto é olhar no terminal que você usou para iniciar o servidor.
 
-## Como fazer o download (via GitHub)
+## Como fazer o download (usando a extensão do GitHub no VS Code)
 
-A melhor maneira de "baixar" seu projeto é salvá-lo no GitHub. De lá, você pode baixar um arquivo ZIP a qualquer momento. Siga estes passos:
+A melhor maneira de "baixar" seu projeto é publicá-lo no GitHub. De lá, você pode baixar um arquivo ZIP a qualquer momento. Como você já tem a extensão, siga estes passos visuais:
 
-### 1. Crie um Repositório no GitHub
+### 1. Inicialize o Repositório no VS Code
 
-*   Vá para [github.com](https://github.com) e faça login.
-*   Clique em "**New**" (Novo) para criar um novo repositório.
-*   Dê um nome ao seu repositório (ex: `nacao-rubro-negra-news`).
-*   **Importante:** NÃO adicione um `README`, `.gitignore` ou licença ainda. Deixe-o vazio.
-*   Clique em "**Create repository**".
+*   Clique no ícone de **Source Control** (Controle do Código-Fonte) na barra lateral esquerda (parece com três pontos conectados por linhas).
+*   Clique no botão "**Initialize Repository**" (Inicializar Repositório). Isso prepara seu projeto para o Git.
 
-### 2. Envie seu projeto local para o GitHub
+### 2. Faça o Primeiro "Commit" (Salve as Alterações)
 
-Agora, no seu terminal (na pasta do projeto), copie e cole os seguintes comandos, um de cada vez, pressionando Enter após cada um. Substitua `SEU-USUARIO` e `SEU-REPOSITORIO` pelos seus dados do GitHub.
+*   Depois de inicializar, todos os seus arquivos aparecerão na lista de alterações.
+*   No campo de mensagem no topo, digite uma descrição para suas alterações, como: `Primeiro commit do projeto`.
+*   Clique no botão **"Commit"** (a marca de verificação ✓) para salvar um "snapshot" do seu projeto.
 
-```bash
-git init
-git add .
-git commit -m "Primeiro commit do projeto"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-git push -u origin main
-```
+### 3. Publique no GitHub
 
-### 3. Baixe seu projeto do GitHub
+*   Após o commit, você verá um botão chamado **"Publish Branch"** (Publicar Branch) ou algo similar. Clique nele.
+*   O VS Code vai te perguntar onde publicar. Escolha a opção **"Publish to GitHub"**.
+*   Ele vai sugerir um nome para o repositório (pode manter o padrão) e te dará a opção de torná-lo **privado** ou **público**. Escolha o que preferir e confirme.
 
-Pronto! Seu projeto está seguro no GitHub. Agora, a qualquer momento, você pode ir até a página do seu repositório no GitHub, clicar no botão verde "**<> Code**" e selecionar "**Download ZIP**" para baixar uma cópia completa.
+### 4. Baixe seu projeto do GitHub a qualquer momento
+
+Pronto! Seu projeto está seguro no GitHub. Agora, você pode ir até a página do seu repositório no site do GitHub, clicar no botão verde **"<> Code"** e selecionar **"Download ZIP"** para baixar uma cópia completa sempre que quiser.
