@@ -267,7 +267,15 @@ export default function HistoriaPage() {
           </p>
         </section>
 
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
+
          <ArticleList />
+
+        <div className="my-12">
+            <AdBanner width={728} height={90} />
+        </div>
         
          <footer className="text-center pt-8 border-t">
               <p className="font-headline text-2xl font-bold text-foreground">📣 Viva a História. Viva o Flamengo.</p>
