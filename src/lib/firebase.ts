@@ -14,6 +14,7 @@ const firebaseConfig = {
 };
 
 let app: FirebaseApp;
+// Evita que o Firebase seja inicializado várias vezes
 if (!getApps().length) {
   app = initializeApp(firebaseConfig);
 } else {
