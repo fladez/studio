@@ -11,10 +11,6 @@ import { Clock } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import { AdBanner } from '@/components/ad-banner';
 
-type CategoryPageProps = {
-    params: { category: string };
-};
-
 const VALID_CATEGORIES: { [key: string]: string } = {
   'futebol': 'Futebol',
   'basquete': 'Basquete',
@@ -53,7 +49,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: { params: { category: string } }) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
