@@ -11,6 +11,11 @@ import { Clock } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import { AdBanner } from '@/components/ad-banner';
 
+type PageProps = {
+    params: { category: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
+};
+
 const VALID_CATEGORIES: { [key: string]: string } = {
   'futebol': 'Futebol',
   'basquete': 'Basquete',
@@ -49,8 +54,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-// Correctly typing the props for a dynamic page in Next.js App Router
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: PageProps) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
