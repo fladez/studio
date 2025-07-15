@@ -19,11 +19,6 @@ const VALID_CATEGORIES: { [key: string]: string } = {
   'olimpicos': 'Olímpicos'
 };
 
-type PageProps = {
-  params: { category: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateStaticParams() {
   return Object.keys(VALID_CATEGORIES).map((slug) => ({
     category: slug,
@@ -38,23 +33,23 @@ function formatPublishedTime(publishedAt: Date): string {
       return format(publishedAt, 'dd/MM/yyyy');
     }
     if (diffDays >= 1) {
-      return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
+      return `${diffDays > 1 ? 's' : ''} atrás`;
     }
   
     const diffHours = differenceInHours(now, publishedAt);
     if (diffHours >= 1) {
-      return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
+      return `${diffHours > 1 ? 's' : ''} atrás`;
     }
   
     const diffMinutes = differenceInMinutes(now, publishedAt);
     if (diffMinutes >= 1) {
-      return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
+      return `${diffMinutes > 1 ? 's' : ''} atrás`;
     }
   
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: { params: { category: string } }) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
