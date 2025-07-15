@@ -45,7 +45,7 @@ const getPastStatements = ai.defineTool(
     // In a real application, this would call an external API or database.
     return [
       `Previous statement 1 from ${input.personName}.`,
-      `Another statement from ${input.personName} in the past.`, //In a real application, this would call an external API or database
+      `Another statement from ${input.personName} in the past.`,
     ];
   }
 );
