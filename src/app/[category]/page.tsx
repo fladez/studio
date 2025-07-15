@@ -11,7 +11,7 @@ import { Clock } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import { AdBanner } from '@/components/ad-banner';
 
-type PageProps = {
+type CategoryPageProps = {
   params: {
     category: string;
   };
@@ -56,7 +56,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
