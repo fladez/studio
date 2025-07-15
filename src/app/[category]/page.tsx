@@ -33,22 +33,23 @@ function formatPublishedTime(publishedAt: Date): string {
       return format(publishedAt, 'dd/MM/yyyy');
     }
     if (diffDays >= 1) {
-      return `${diffDays > 1 ? 's' : ''} atrás`;
+      return `${diffDays} dia${diffDays > 1 ? 's' : ''} atrás`;
     }
   
     const diffHours = differenceInHours(now, publishedAt);
     if (diffHours >= 1) {
-      return `${diffHours > 1 ? 's' : ''} atrás`;
+      return `${diffHours} hora${diffHours > 1 ? 's' : ''} atrás`;
     }
   
     const diffMinutes = differenceInMinutes(now, publishedAt);
     if (diffMinutes >= 1) {
-      return `${diffMinutes > 1 ? 's' : ''} atrás`;
+      return `${diffMinutes} minuto${diffMinutes > 1 ? 's' : ''} atrás`;
     }
   
     return "Agora mesmo";
 }
 
+// Correctly typing the props for a dynamic page in Next.js App Router
 export default async function CategoryPage({ params }: { params: { category: string } }) {
     const categoryName = VALID_CATEGORIES[params.category];
 
