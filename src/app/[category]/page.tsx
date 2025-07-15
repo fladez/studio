@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +9,13 @@ import { format, differenceInMinutes, differenceInHours, differenceInDays } from
 import { Clock } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import { AdBanner } from '@/components/ad-banner';
+
+type PageProps = {
+  params: {
+    category: string;
+  };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
 
 const VALID_CATEGORIES: { [key: string]: string } = {
   'futebol': 'Futebol',
@@ -49,7 +55,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: PageProps) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
