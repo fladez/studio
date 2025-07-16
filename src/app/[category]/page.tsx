@@ -11,7 +11,7 @@ import { Clock } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import { AdBanner } from '@/components/ad-banner';
 
-type CategoryPageProps = {
+interface CategoryPageProps {
   params: {
     category: string;
   };
