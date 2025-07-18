@@ -105,31 +105,39 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
         <div 
           className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
-          dangerouslySetInnerHTML={{ __html: firstHalf }}
-        />
+        >
+          <div dangerouslySetInnerHTML={{ __html: firstHalf }} />
 
-        {article.image2 && (
-            <div className="my-8 space-y-2">
-                <div className="relative aspect-video">
-                    <Image
-                        src={article.image2}
-                        alt={`Imagem secundária para ${article.title}`}
-                        fill
-                        className="w-full h-auto object-cover rounded-lg"
-                    />
-                    {article.imageCredit2 && (
-                        <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                            Imagem: {article.imageCredit2}
-                        </span>
-                    )}
-                </div>
+          {article.image2 && (
+              <div className="my-8 space-y-4">
+                  <div className="relative aspect-video">
+                      <Image
+                          src={article.image2}
+                          alt={`Imagem secundária para ${article.title}`}
+                          fill
+                          className="w-full h-auto object-cover rounded-lg"
+                      />
+                      {article.imageCredit2 && (
+                          <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                              Imagem: {article.imageCredit2}
+                          </span>
+                      )}
+                  </div>
+                  <div className="flex justify-center">
+                    <AdBanner width={300} height={250} />
+                  </div>
+              </div>
+          )}
+
+          {!article.image2 && midPoint > 0 && (
+            <div className="my-8 flex justify-center">
+              <AdBanner width={300} height={250} />
             </div>
-        )}
+          )}
 
-        <div 
-          className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
-          dangerouslySetInnerHTML={{ __html: secondHalf }}
-        />
+          <div dangerouslySetInnerHTML={{ __html: secondHalf }} />
+        </div>
+
 
         {article.fullArticleLink && (
             <div className="mt-8">
