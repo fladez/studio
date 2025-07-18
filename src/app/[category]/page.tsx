@@ -27,7 +27,7 @@ const VALID_CATEGORIES: { [key: string]: string } = {
 
 export async function generateStaticParams() {
   return Object.keys(VALID_CATEGORIES).map((slug) => ({
-    category: slug,
+    params: { category: slug },
   }));
 }
 
