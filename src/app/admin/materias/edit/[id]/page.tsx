@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 const initialState = {
   success: false,
@@ -164,7 +165,7 @@ export default function EditMateriasPage() {
             </div>
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="grid gap-2">
-                    <Label htmlFor="image">Link da Foto da Matéria</Label>
+                    <Label htmlFor="image">Link da Foto Principal</Label>
                     <Input id="image" name="image" type="url" defaultValue={article.image} required />
                     <p className="text-xs text-muted-foreground">Recomendação: Imagem na proporção 16:9 (ex: 1200x675 pixels).</p>
                 </div>
@@ -173,6 +174,18 @@ export default function EditMateriasPage() {
                     <Input id="imageCredit" name="imageCredit" defaultValue={article.imageCredit || ''} placeholder="Ex: Foto: Reuters" />
                 </div>
             </div>
+            <Separator />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div className="grid gap-2">
+                    <Label htmlFor="image2">Link da Foto Secundária (Opcional)</Label>
+                    <Input id="image2" name="image2" type="url" defaultValue={article.image2 || ''} />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="imageCredit2">Crédito da Imagem Secundária (Opcional)</Label>
+                    <Input id="imageCredit2" name="imageCredit2" defaultValue={article.imageCredit2 || ''} />
+                </div>
+            </div>
+            <Separator />
             <div className="grid gap-2">
               <Label htmlFor="fullArticleLink">Link para a Matéria Completa (Opcional)</Label>
               <Input id="fullArticleLink" name="fullArticleLink" type="url" defaultValue={article.fullArticleLink || ''} placeholder="https://ge.globo.com/..." />

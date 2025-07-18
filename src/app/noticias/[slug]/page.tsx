@@ -56,28 +56,16 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   }
 
   const articleDate = format(article.publishedAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
-  
-  let contentWithAd = article.content || "";
 
-  if (article.content) {
-    // A robust way to split by paragraph tags, ignoring case.
-    const paragraphs = article.content.split(/<\/p>/i).filter(p => p.trim() !== '');
-    if (paragraphs.length > 10) {
-      const midPoint = Math.floor(paragraphs.length / 2);
-      // Reconstruct the HTML with the ad banner injected.
-      // This is safer than trying to inject a React component into dangerouslySetInnerHTML.
-      const adHtml = `
-        <div class="my-8 mx-auto flex items-center justify-center rounded-lg border border-dashed bg-muted/30 text-center text-muted-foreground" style="width: 300px; height: 250px;">
-          <div>
-            <p class="text-sm font-medium">Publicidade</p>
-            <p class="text-xs">300x250</p>
-          </div>
-        </div>
-      `;
-      paragraphs.splice(midPoint, 0, adHtml);
-      contentWithAd = paragraphs.map(p => p.includes('<div') ? p : p + '</p>').join('');
-    }
-  }
+  const parseContent = (content: string): string[] => {
+      // Splits content by </p> tags and filters out empty strings.
+      return content.split(/<\/p>/i).map(p => p.trim()).filter(p => p.length > 0);
+  };
+  
+  const paragraphs = article.content ? parseContent(article.content) : [];
+  const midPoint = Math.floor(paragraphs.length / 2);
+  const firstHalf = paragraphs.slice(0, midPoint).map(p => p.includes('<p') ? p : `<p>${p}`).join('</p>') + (paragraphs.length > 0 ? '</p>' : '');
+  const secondHalf = paragraphs.slice(midPoint).map(p => p.includes('<p') ? p : `<p>${p}`).join('</p>') + (paragraphs.length > midPoint ? '</p>' : '');
 
 
   return (
@@ -115,12 +103,33 @@ export default async function ArticlePage({ params }: { params: { slug: string }
         )}
         </div>
 
-        {contentWithAd && (
-          <div 
-            className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
-            dangerouslySetInnerHTML={{ __html: contentWithAd }}
-          />
+        <div 
+          className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
+          dangerouslySetInnerHTML={{ __html: firstHalf }}
+        />
+
+        {article.image2 && (
+            <div className="my-8 space-y-2">
+                <div className="relative aspect-video">
+                    <Image
+                        src={article.image2}
+                        alt={`Imagem secundária para ${article.title}`}
+                        fill
+                        className="w-full h-auto object-cover rounded-lg"
+                    />
+                    {article.imageCredit2 && (
+                        <span className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                            Imagem: {article.imageCredit2}
+                        </span>
+                    )}
+                </div>
+            </div>
         )}
+
+        <div 
+          className="text-lg space-y-6 [&_h3]:text-2xl [&_h3]:font-headline [&_h3]:font-bold [&_h3]:my-4 [&_strong]:font-bold"
+          dangerouslySetInnerHTML={{ __html: secondHalf }}
+        />
 
         {article.fullArticleLink && (
             <div className="mt-8">

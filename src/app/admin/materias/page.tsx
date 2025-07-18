@@ -18,6 +18,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 
 // Icons
 import { Loader2, FilePen, Trash2 } from "lucide-react";
@@ -174,6 +175,18 @@ export default function MateriasPage() {
                     <Input id="imageCredit" name="imageCredit" placeholder="Ex: Foto: Reuters" />
                 </div>
             </div>
+            <Separator />
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-2">
+                    <Label htmlFor="image2">Link da Foto Secundária (Opcional)</Label>
+                    <Input id="image2" name="image2" type="url" placeholder="https://exemplo.com/imagem2.png" />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="imageCredit2">Crédito da Imagem Secundária (Opcional)</Label>
+                    <Input id="imageCredit2" name="imageCredit2" placeholder="Ex: Foto: Agência" />
+                </div>
+            </div>
+            <Separator />
             <div className="grid gap-2">
               <Label htmlFor="fullArticleLink">Link para a Matéria Completa (Opcional)</Label>
               <Input id="fullArticleLink" name="fullArticleLink" type="url" placeholder="https://ge.globo.com/..." />
