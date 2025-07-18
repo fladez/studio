@@ -15,7 +15,7 @@ interface CategoryPageProps {
   params: {
     category: string;
   };
-};
+}
 
 const VALID_CATEGORIES: { [key: string]: string } = {
   'futebol': 'Futebol',
@@ -55,7 +55,7 @@ function formatPublishedTime(publishedAt: Date): string {
     return "Agora mesmo";
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
     const categoryName = VALID_CATEGORIES[params.category];
 
     if (!categoryName) {
