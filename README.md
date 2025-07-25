@@ -6,6 +6,34 @@ Este é um projeto Next.js criado e editado no Firebase Studio.
 
 **O seu projeto já está no seu computador!** O Firebase Studio edita os arquivos diretamente na sua máquina. A maneira mais fácil de encontrar a pasta do projeto é olhar no terminal que você usou para iniciar o servidor.
 
+## Como publicar o site na web (Deploy)
+
+Você pode publicar seu site para que o mundo inteiro o veja usando o Firebase App Hosting. Siga estes passos no terminal do Firebase Studio:
+
+### 1. Instale o Firebase CLI
+
+Se você ainda não tem as ferramentas de linha de comando do Firebase, instale-as globalmente. Você só precisa fazer isso uma vez.
+```bash
+npm install -g firebase-tools
+```
+
+### 2. Faça Login no Firebase
+
+Faça login com a sua conta do Google. Uma janela do navegador será aberta para você autenticar.
+```bash
+firebase login
+```
+
+### 3. Publique o Site
+
+Depois de logado, você pode usar o comando que adicionei para fazer o deploy do seu site.
+```bash
+npm run deploy
+```
+Ao final do processo, o terminal mostrará a URL pública do seu site (algo como `https://seu-projeto-id.web.app`). Pronto, seu site está no ar!
+
+---
+
 ## Como fazer o download (usando a extensão do GitHub no VS Code)
 
 A melhor maneira de "baixar" seu projeto é publicá-lo no GitHub. De lá, você pode baixar um arquivo ZIP a qualquer momento. Como você já tem a extensão, siga estes passos visuais:
